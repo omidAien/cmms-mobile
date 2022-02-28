@@ -1,8 +1,10 @@
+@import "../../scss/main.scss";
+
 .login-container {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: var(--gary006);
+  background-color: $gary006;
 }
 
 .content-container {
@@ -20,7 +22,7 @@
 .form-container-base {
   grid-area: form-container;
   height: inherit;
-  background-color: var(--white);
+  background-color: $white;
 }
 
 [dir="rtl"] .form-container {
@@ -40,9 +42,9 @@
   position: relative;
   width: 64px;
   height: 64px;
-  box-shadow: 0 2px 10px 0 var(--black001);
-  border: solid 1px var(--gary002);
-  background-color: var(--white004);
+  box-shadow: 0 2px 10px 0 $black001;
+  border: solid 1px $gary002;
+  background-color: $white004;
   padding: 13px 5px;
   margin: 20px;
   border-radius: 8px;
@@ -65,7 +67,7 @@
 .form-container .form-header .form-header-title span {
   font-size: 12px;
   font-weight: bold;
-  color: var(--black002);
+  color: $black002;
 }
 
 .form-content {
@@ -100,9 +102,9 @@
 .form-content .form-content-actions .logIn {
   font-size: 12px;
   font-weight: bold;
-  color: var(--white001);
+  color: $white001;
   border-radius: 8px;
-  background-image: var(--green002);
+  background-image: $green002;
   height: 60px;
 }
 
@@ -118,7 +120,7 @@
   font-size: 12px;
   font-weight: bold;
   text-decoration: none;
-  color: var(--blue004);
+  color: $blue004;
 }
 
 .form-content .create-new-account-container span {
@@ -129,7 +131,7 @@
   font-size: 12px;
   font-weight: bold;
   text-decoration: none;
-  color: var(--blue004);
+  color: $blue004;
   margin: 0 5px;
 }
 
@@ -140,8 +142,8 @@
 .img-container-base {
   grid-area: img-container;
   height: inherit;
-  box-shadow: 0 2px 10px 0 var(--black001);
-  background-color: var(--gray004);
+  box-shadow: 0 2px 10px 0 $black001;
+  background-color: $gray004;
 }
 
 [dir="rtl"] .img-container {
@@ -189,12 +191,12 @@
 }
 
 .footer-container .footer-seprator {
-  color: var(--white004);
+  color: $white004;
 }
 
 .footer-container .app-version,
 .footer-container .release-date {
-  color: var(--white004);
+  color: $white004;
   font-size: 10px;
   margin: 0 5px;
 }

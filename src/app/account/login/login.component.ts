@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit {
   createNewAccount:string = "ایجاد حساب کاربری جدید";
 
   hidePassword:boolean = true;
-  remmeberMeIsChecked:boolean = false;
+  remmeberMeIsChecked:boolean = true;
 
-  rememberMeCheckBoxExistInLocalStorage:boolean = false;
+  rememberMeCheckBoxExistInLocalStorage:boolean = true;
 
   constructor(private apiEndPointService: ApiEndPointService,
               private extractSystemInfo: ExtractSystemInfo) {}
