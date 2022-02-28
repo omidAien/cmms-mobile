@@ -9,6 +9,7 @@ import { SelectWorkGroupComponent } from './select-work-group/select-work-group.
 import { SelectWorkstationComponent } from './select-workstation/select-workstation.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
