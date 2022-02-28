@@ -1,1 +1,90 @@
-<p>login works!</p>
+<div class="login-container" [dir]=" pageDirection ">
+
+    <div class="content-container">
+
+        <div class="form-container-base form-container">
+
+            <div class="form-header">
+                <div class="form-header-logo">
+                    <img [src]=" logoImage " alt="logo">
+                </div>
+                <div class="form-header-title">
+                    <span> {{ Caption }} </span>
+                </div>
+            </div>
+
+            <div class="form-content">
+                <form [formGroup]="loginForm" >
+
+                    <mat-form-field appearance="outline">
+                        <mat-label> {{ usernameLabel }} </mat-label>
+                        <!-- <mat-icon matPrefix svgIcon="map-username" ></mat-icon> -->
+                        <input matInput 
+                               type="text"
+                               required
+                               formControlName="username" 
+                               [autocomplete]="field_autocomplete">
+                        <mat-error *ngIf="loginForm.get('username').errors?.required" >نام کاربری الزامی است</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+
+                        <mat-label> {{ passwordLabel }} </mat-label>
+                        <!-- <mat-icon matPrefix svgIcon="map-password"></mat-icon> -->
+
+                        <input matInput 
+                               required
+                               [type]="hidePassword ? 'password' : 'text'"
+                               formControlName="password" 
+                               [autocomplete]="field_autocomplete">
+
+                        <button mat-icon-button 
+                                matSuffix 
+                                (click)=" hidePassword = !hidePassword " 
+                                [attr.aria-label]="'Hide password'">
+
+                            <!-- <mat-icon [svgIcon]=" hidePassword ? 'map-visibility-off' : 'map-visibility' "></mat-icon>     -->
+
+                        </button>
+                        <mat-error *ngIf="loginForm.get('username').errors?.required" >رمز عبور الزامی است</mat-error>
+                    </mat-form-field>
+
+                    <div class="form-content-actions" 
+                         [class.form-content-actions-without-rememberMeCheckbox] =" rememberMeCheckBoxExistInLocalStorage ">
+                        <button class="logIn" mat-button type="submit" (click)="onSubmitForm()" >{{ logInBtnText }}</button>
+                        <mat-checkbox *ngIf=" !remmeberMeIsChecked " color="primary" class="remmeberMe" #remmeberMe >
+                            {{ remmeberMeCheckBoxText }}
+                        </mat-checkbox>
+                    </div>
+    
+                    <div class="retrieve-password-container">
+                        <a href="javascript:void(0)" class="retrieve-password" (click)="onRetrievePassword()" >{{ retrievePasswordLinkText }}</a>
+                    </div>
+
+                </form>
+
+                <div class="create-new-account-container">
+                    <span>{{ hasAccountSpanText }}</span>
+                    <a href="javascript:void(0)" class="create-new-account" (click)="onCreateNewAccount()" >{{ createNewAccount }}</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="img-container-base img-container">
+            <img [src]=" wallpaper " alt="wallpaper" loading="lazy">
+        </div>
+
+        <div class="footer-container">
+            <a href="https://www.mabanipardaz.com/" target="_blank" class="company-name-base company-name" >{{ PoweredBy }}</a>
+            <span class="footer-seprator">|</span>
+            <span class="app-version" >نسخه {{ appVersion }}</span>
+            <span class="footer-seprator">|</span>
+            <span class="release-date">{{ ReleaseDate }} </span>
+        </div>
+
+    </div>
+    
+</div>
+
