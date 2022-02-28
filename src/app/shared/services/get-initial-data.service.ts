@@ -63,7 +63,7 @@ export class GetInitialDataService {
             if ( !result.Error.hasError ) {
 
               // 3. save systemInformation in sessionStorage.
-              sessionStorage.setItem("systemInformation", JSON.stringify(result.dtSystemInformation));
+              sessionStorage.setItem("systemInformation", JSON.stringify(result.dtSystemInformation[0]));
 
             }
 
