@@ -7,6 +7,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { SelectWorkGroupComponent } from './select-work-group/select-work-group.component';
 import { SelectWorkstationComponent } from './select-workstation/select-workstation.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { SelectWorkstationComponent } from './select-workstation/select-workstat
   ],
   imports: [
     CommonModule,
+    SharedModule,
     AccountRoutingModule
   ]
 })
