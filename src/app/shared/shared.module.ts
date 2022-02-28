@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { GetInitialDataService } from './services/get-initial-data.service';
+import { ExtractSystemInfo } from './SharedClasses/extractSystemInfo';
 
 
 
@@ -12,7 +13,8 @@ import { GetInitialDataService } from './services/get-initial-data.service';
     MaterialModule
   ],
   providers: [
-    GetInitialDataService
+    GetInitialDataService,
+    ExtractSystemInfo
   ]
 })
 export class SharedModule { }
