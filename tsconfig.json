@@ -8,6 +8,7 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true, //When the module does not explicitly specify a default export.
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "importHelpers": true,
