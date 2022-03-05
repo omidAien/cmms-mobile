@@ -114,7 +114,7 @@ export class HandleUnauthorizeError {
 @Injectable()
 export class GeneralErrorMessage extends ShowMessage {
 
-    constructor(snackBar: MatSnackBar) {
+    constructor(snackBar: MatSnackBar, private serverErrorMessageService: ServerErrorMessageService) {
         
         super(snackBar);
 
@@ -131,6 +131,12 @@ export class GeneralErrorMessage extends ShowMessage {
     handleServerSideError(message:string, pageDirection:string) {
 
         this.showMessage(message, pageDirection);
+
+    }
+
+    handleDatabaseSideError(message: string) {
+
+        this.serverErrorMessageService.setMessage(message);
 
     }
 
