@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
-import { AppSettings, SystemInformationCore } from '../appModels';
+import { SystemInformation, SystemInformationCore } from '../appModels';
+import { ExtractSystemInfo } from '../SharedClasses/extractSystemInfo';
 
 @Injectable()
 export class GetInitialDataService {
@@ -12,7 +13,8 @@ export class GetInitialDataService {
   private baseURL:string;
   private systemInfoApiEndPoint:string = "mapSystemInformation";
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, 
+              private extractSystemInfo: ExtractSystemInfo) {
 
     this.getInitialDataFromServer();
 
@@ -63,7 +65,9 @@ export class GetInitialDataService {
             if ( !result.Error.hasError ) {
 
               // 3. save systemInformation in sessionStorage.
-              sessionStorage.setItem("systemInformation", JSON.stringify(result.dtSystemInformation[0]));
+              const systemInformation: SystemInformation = result.dtSystemInformation[0];
+              sessionStorage.setItem("systemInformation", JSON.stringify(systemInformation));
+              this.extractSystemInfo.setSystemInfo(systemInformation);
 
             }
 

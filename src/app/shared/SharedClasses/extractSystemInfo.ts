@@ -1,23 +1,21 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
 import { SystemInformation } from "../appModels";
 
-@Injectable()
+@Injectable({
+    providedIn: "root"
+})
 export class ExtractSystemInfo {
 
-    private systemInformation: SystemInformation = null;
+    private systemInfoSubject = new BehaviorSubject<SystemInformation>(null);
+    public systemInfo$: Observable<SystemInformation> = this.systemInfoSubject.asObservable();
 
-    constructor() {
-
-        const systemInfoFromSessionstorage:SystemInformation = JSON.parse(sessionStorage.getItem("systemInformation"));
-
-        if ( systemInfoFromSessionstorage ) {
-            this.systemInformation = systemInfoFromSessionstorage;
-        }
-
+    setSystemInfo(value: SystemInformation) {
+        this.systemInfoSubject.next(value);
     }
 
     getInfo() {
-        return this.systemInformation;
+        return this.systemInfoSubject.value;
     }
 
 }
