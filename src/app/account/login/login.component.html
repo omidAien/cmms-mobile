@@ -1,4 +1,4 @@
-<ng-container *ngIf=" (extractSystemInfo.systemInfo$ | async) as systemInfo">
+<ng-container *ngIf=" systemInfo ">
 
     <div class="login-container" [dir]=" systemInfo.Direction ">
 
@@ -98,6 +98,6 @@
         </div>
         
     </div>
-    
+
 </ng-container>
 
