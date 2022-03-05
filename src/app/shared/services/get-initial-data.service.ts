@@ -66,7 +66,6 @@ export class GetInitialDataService {
 
               // 3. save systemInformation in sessionStorage.
               const systemInformation: SystemInformation = result.dtSystemInformation[0];
-              sessionStorage.setItem("systemInformation", JSON.stringify(systemInformation));
               this.extractSystemInfo.setSystemInfo(systemInformation);
 
             }
