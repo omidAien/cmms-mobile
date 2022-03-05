@@ -30,7 +30,7 @@ export interface SystemInformationCore {
     dtSystemInformation: SystemInformation[];
 }
 
-export interface clientInformation {
+export interface ClientInformation {
     browser: string;
     browserVersion: string;
     device: string;
@@ -66,7 +66,7 @@ export interface AuthenticateParameters {
     userPSW:string;
     workstationID:number;
     workgroupID:number;
-    clientInformation:clientInformation;
+    clientInformation:ClientInformation;
 }
 
 export interface AuthenticateResponse {
