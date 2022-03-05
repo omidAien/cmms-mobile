@@ -123,6 +123,11 @@
   color: $blue004;
 }
 
+.form-content .create-new-account-container {
+  display: none;
+  margin: 0 5px 15px 5px;
+}
+
 .form-content .create-new-account-container span {
   font-size: 12px;
 }
@@ -133,10 +138,6 @@
   text-decoration: none;
   color: $blue004;
   margin: 0 5px;
-}
-
-.form-content .create-new-account-container {
-  margin: 0 5px 15px 5px;
 }
 
 .img-container-base {
@@ -236,6 +237,10 @@
 
   .mat-form-field {
     width: 505px;
+  }
+
+  .form-content .form-content-actions-without-rememberMeCheckbox {
+    margin-bottom: 10px;
   }
 }
 
