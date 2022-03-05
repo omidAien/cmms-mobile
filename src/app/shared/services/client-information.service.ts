@@ -7,7 +7,11 @@ import { ClientInformation } from '../appModels';
 export class ClientInformationService {
 
   constructor(private deviceService: DeviceDetectorService, 
-              private cookieService: CookieService) { }
+              private cookieService: CookieService) { 
+
+    this.getDeviceInfo();           
+
+  }
 
 
   getDeviceInfo() {
