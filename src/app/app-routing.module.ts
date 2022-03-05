@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import("./account/account.module").then((m) => m.AccountModule)
   },
   {
+    path: "dashboard",
+    loadChildren: () => import("./dashboard/dashboard.module").then((m) => m.DashboardModule)
+  },
+  {
     path: "", redirectTo: "/account/login", pathMatch: "full"
   }
 ];
