@@ -1,3 +1,8 @@
+import { Injectable } from "@angular/core";
+
+@Injectable({
+    providedIn: "root"
+})
 class HandleSessionstorage {
 
     set(key:string, value:any) {
