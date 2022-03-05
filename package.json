@@ -23,6 +23,7 @@
     "@angular/router": "~13.2.4",
     "@angular/service-worker": "~13.2.4",
     "jalali-moment": "^3.3.11",
+    "ngx-device-detector": "^3.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
