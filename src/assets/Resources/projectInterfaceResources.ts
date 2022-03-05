@@ -7,3 +7,7 @@ export interface LoginPageUIText {
     hasAccountText:string;
     createNewAccountText:string;
 }
+
+export interface SingleErrorMessage {
+    message:string;
+};

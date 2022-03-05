@@ -1,8 +1,6 @@
-import { LoginPageUIText } from "./projectInterfaceResources";
-
+import { LoginPageUIText, SingleErrorMessage } from "./projectInterfaceResources";
 
 // LogIn Page 
-
 export const getLogInPageUIText = (culture:string) => {
 
     const loginPageUIText: LoginPageUIText = {
@@ -18,4 +16,10 @@ export const getLogInPageUIText = (culture:string) => {
     return loginPageUIText;
 
 }
+
+// ServerErrorMessage
+export const ServerErrorMessageResources: SingleErrorMessage = {
+    message: "NETWORK OR INTERNET DISCONNECTED"
+};
+
 
