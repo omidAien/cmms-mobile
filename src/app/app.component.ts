@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ClientInformationService } from './shared/services/client-information.service';
 import { GetInitialDataService } from './shared/services/get-initial-data.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { GetInitialDataService } from './shared/services/get-initial-data.servic
 })
 export class AppComponent {
   
-  constructor(private getInitialDataService: GetInitialDataService) {}
+  constructor(private getInitialDataService: GetInitialDataService,
+              private clientInformationService: ClientInformationService) {}
 
 }
