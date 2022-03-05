@@ -131,7 +131,7 @@ export class SelectWorkstationComponent implements OnInit {
     bulkData.map((item) => this.handleSessionstorage.set(item.key, item.value));
     this.cookieService.set("token", JSON.stringify(authRes.Token));
 
-    // this.router.navigateByUrl('/', { skipLocationChange: true }).finally(() => { window.location.reload(); });
+    this.router.navigateByUrl('/dashboard');
 
   }
 
