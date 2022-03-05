@@ -1,1 +1,52 @@
-<p>select-workstation works!</p>
+<ng-container *ngIf=" systemInfo ">
+    
+    <div class="select-workstation-main-container" [dir]=" systemInfo.Direction ">
+
+        <div class="select-workstation-content-container">
+    
+            <div class="form-container-base form-container">
+    
+                <div class="form-header">
+                    <div class="form-header-logo">
+                        <img [src]=" systemInfo.Logo " alt="logo">
+                    </div>
+                    <div class="form-header-title">
+                        <span> {{ systemInfo.Caption }} </span>
+                    </div>
+                </div>
+    
+                <div class="card-content">
+    
+                    <mat-card *ngFor="let workstation of workstations" (click)="selectWorkstation(workstation)">
+    
+                        <img mat-card-image src="../../../assets/images/mabaniPardazLogo.jpg" alt="Photo of a Shiba Inu">
+    
+                        <mat-card-content>
+                          <p>
+                            {{ workstation.Caption }}
+                          </p>
+                        </mat-card-content>
+    
+                    </mat-card>
+    
+                </div>
+    
+            </div>
+    
+            <div class="img-container-base img-container">
+                <img [src]=" systemInfo.Wallpaper " alt="wallpaper" loading="lazy">
+            </div>
+    
+            <div class="footer-container">
+                <a href="https://www.mabanipardaz.com/" target="_blank" class="company-name-base company-name" >{{ systemInfo.PoweredBy }}</a>
+                <span class="footer-seprator">|</span>
+                <span class="app-version" >نسخه {{ systemInfo.Version }}</span>
+                <span class="footer-seprator">|</span>
+                <span class="release-date">{{ systemInfo.ReleaseDate }} </span>
+            </div>
+    
+        </div>
+        
+    </div>
+    
+</ng-container>
