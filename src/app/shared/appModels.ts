@@ -4,6 +4,11 @@ export interface AppSettings {
     Origin_EXTERNAL:string
 };
 
+export interface UserInfo {
+    userID: string;
+    userPSW : string;
+}
+
 export interface ErrorModel {
     hasError: boolean,
     Code: number;
