@@ -1,0 +1,71 @@
+@import "../../scss/main";
+
+.dashboard-container {
+  display: grid;
+  grid-template-rows: 50px calc(100vh - 100px) 50px;
+  grid-template-columns: 100%;
+  grid-template-areas: "header-section" "main-section" "footer-section";
+  width: 100%;
+  height: 100%;
+
+  header {
+    grid-area: header-section;
+    background-color: $blue004;
+    color: $white;
+    padding: 5px;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    padding: 10px;
+
+    .user-info {
+      width: 100%;
+      height: 20%;
+      background-color: $green003;
+      border-radius: 8px;
+      color: $white001;
+    }
+
+    .operations-conatiner {
+      grid-area: main-section;
+      display: grid;
+      row-gap: 10px;
+      column-gap: 10px;
+      width: 100%;
+      height: 80%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 10px;
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 5px;
+        padding: 5px;
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 0 0 1px 1px lightgray;
+
+        img {
+          object-fit: contain;
+          height: 75%;
+        }
+
+        span.operation-text {
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+
+  footer {
+    grid-area: footer-section;
+    background-color: $blue004;
+    color: $white;
+    padding: 5px;
+  }
+}
