@@ -1,7 +1,7 @@
-import { LoginPageUIText, SingleErrorMessage } from "./projectInterfaceResources";
+import { LoginPageUIText, SelectWorkGroupUIText, SingleErrorMessage } from "./projectInterfaceResources";
 
 // LogIn Page 
-export const getLogInPageUIText = (culture:string) => {
+export const getLogInPageUIText = (culture:string): LoginPageUIText => {
 
     const loginPageUIText: LoginPageUIText = {
         usernameLabelText: culture === "fa" ? "نام کاربری" : "Username",
@@ -15,6 +15,19 @@ export const getLogInPageUIText = (culture:string) => {
 
     return loginPageUIText;
 
+}
+
+// Select-Work_Group Page
+export const getSelectWorkGroupUIText = (culture:string): SelectWorkGroupUIText => {
+
+    const selectWorkGroupUIText: SelectWorkGroupUIText = {
+        selectWorkGroupLabel: culture === "fa" ? "انتخاب گروه کاری" : "Select WorkGroup",
+        selectWorkGroupTitle: culture === "fa" ? "لطفا گروه کاری پیش فرض خود را انتخاب نمایید" : "Please Select Your Default Wrokgroup",
+        redirectToDashboard: culture === "fa" ? "ورود به صفحه کاری" : "Login"
+    };
+
+    return selectWorkGroupUIText;
+    
 }
 
 // ServerErrorMessage

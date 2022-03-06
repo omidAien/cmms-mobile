@@ -8,6 +8,12 @@ export interface LoginPageUIText {
     createNewAccountText:string;
 }
 
+export interface SelectWorkGroupUIText {
+    selectWorkGroupLabel: string;
+    selectWorkGroupTitle:string;
+    redirectToDashboard:string;
+}
+
 export interface SingleErrorMessage {
     message:string;
 };
