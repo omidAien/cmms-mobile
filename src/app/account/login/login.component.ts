@@ -42,6 +42,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
+    this.handleSessionstorage.reset();
+
     this.extractSystemInfo
         .systemInfo$
         .subscribe((_systemInfo: SystemInformation | null) => {
