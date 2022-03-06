@@ -13,4 +13,17 @@ export class HandleSessionstorage {
         return JSON.parse(sessionStorage.getItem(key));
     }
 
+    reset() {
+
+        sessionStorage.removeItem("userIsLogin");
+        sessionStorage.removeItem("userFullName");
+        sessionStorage.removeItem("userWorkstations");
+        sessionStorage.removeItem("userWorkGroups");
+        sessionStorage.removeItem("userDefaultWorkGroup");
+        sessionStorage.removeItem("userProjects");
+        sessionStorage.removeItem("userDefaultProject");
+        sessionStorage.removeItem("selectedWorkStation");
+        
+    }
+
 }
