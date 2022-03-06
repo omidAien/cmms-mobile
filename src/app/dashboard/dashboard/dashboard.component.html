@@ -2,45 +2,46 @@
 
     <div class="dashboard-container" [dir]=" systemInfo.Direction ">
 
-        <header></header>
+        <!-- header-container -->
+        <div class="header-container">
 
-        <main>
-    
-            <div class="user-info">
-    
-                <article>{{ userFullname }}</article>
-    
-                <span>{{ userPosition }}</span>
-    
-            </div>
-    
-            <div class="operations-conatiner" [mapDesignView]="18">
-    
-                <section class="card" *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]">
-                    <img src="../../../assets/images/mabaniPardazLogo.jpg" alt="logo-operation">
-                    <span class="operation-text">انبارگردانی</span>
-                </section>
-    
-            </div>
-    
-        </main>
+            <header></header>
 
-        <footer>
+        </div>
 
-            <section (click)="iconClick($event, 'logOut')">
-                <fa-icon [icon]="faArrowRightFromBracketIcon" size="xl" data-icon-operation="logOut"></fa-icon>
-            </section>
-           
-            <section (click)="iconClick($event, 'dashboard')">
-                <fa-icon [icon]="faHouseIcon" size="xl" data-icon-operation="dashboard"></fa-icon>
-            </section>
-            
-            <section (click)="iconClick($event, 'settings')">
-                <fa-icon [icon]="faGearIcon" size="xl" data-icon-operation="settings"></fa-icon>
-            </section>
-            
-        </footer>
+        <!-- main-container -->
+        <div class="main-container">
+
+            <main>
     
+                <div class="user-info">
+        
+                    <article>{{ userFullname }}</article>
+        
+                    <span>{{ userPosition }}</span>
+        
+                </div>
+        
+                <div class="operations-conatiner" [mapDesignView]="18">
+        
+                    <section class="card" *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]">
+                        <img src="../../../assets/images/mabaniPardazLogo.jpg" alt="logo-operation">
+                        <span class="operation-text">انبارگردانی</span>
+                    </section>
+        
+                </div>
+        
+            </main>
+
+        </div>
+
+        <!-- footer-container -->
+        <div class="footer-container">
+
+            <map-footer></map-footer>
+
+        </div>
+
     </div>
 
 </ng-container>

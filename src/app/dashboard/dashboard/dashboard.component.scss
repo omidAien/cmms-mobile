@@ -2,95 +2,106 @@
 
 .dashboard-container {
   display: grid;
-  grid-template-rows: 50px calc(100vh - 100px) 50px;
+  grid-template-rows: 50px calc(100vh - 90px) 40px;
   grid-template-columns: 100%;
-  grid-template-areas: "header-section" "main-section" "footer-section";
+  grid-template-areas: "header-container" "main-container" "footer-container";
   width: 100%;
   height: 100%;
 
-  header {
-    grid-area: header-section;
-    background-color: $blue004;
-    color: $white;
-    padding: 5px;
+  .header-container {
+    grid-area: header-container;
+
+    header {
+      background-color: $blue004;
+      color: $white;
+      padding: 5px;
+      height: 100%;
+    }
   }
 
-  main {
-    grid-area: main-section;
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-    padding: 10px;
-
-    .user-info {
+  .main-container {
+    grid-area: main-container;
+    main {
       display: flex;
       flex-direction: column;
-      row-gap: 10px;
-      width: 100%;
-      height: auto;
-      background-color: $green003;
-      border-radius: 8px;
-      color: $white001;
+      row-gap: 20px;
       padding: 10px;
+      height: 100%;
 
-      article {
-        font-size: 1rem;
-        font-weight: bold;
-      }
-
-      span {
-        font-size: 0.75rem;
-      }
-    }
-
-    .operations-conatiner {
-      display: grid;
-      row-gap: 10px;
-      column-gap: 10px;
-      width: 100%;
-      height: auto;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 10px;
-
-      .card {
+      .user-info {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        row-gap: 5px;
-        padding: 5px;
-        cursor: pointer;
+        row-gap: 10px;
+        width: 100%;
+        height: auto;
+        background-color: $green003;
         border-radius: 8px;
-        box-shadow: 0 0 1px 1px lightgray;
+        color: $white001;
+        padding: 10px;
 
-        img {
-          object-fit: contain;
-          height: 75%;
+        article {
+          font-size: 1rem;
+          font-weight: bold;
         }
 
-        span.operation-text {
+        span {
           font-size: 0.75rem;
         }
       }
+
+      .operations-conatiner {
+        display: grid;
+        row-gap: 10px;
+        column-gap: 10px;
+        width: 100%;
+        height: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 10px;
+
+        .card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          row-gap: 5px;
+          padding: 5px;
+          cursor: pointer;
+          border-radius: 8px;
+          box-shadow: 0 0 1px 1px lightgray;
+
+          img {
+            object-fit: contain;
+            height: 75%;
+          }
+
+          span.operation-text {
+            font-size: 0.75rem;
+          }
+        }
+      }
     }
   }
 
-  footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: $white;
-    border-top: 1px solid $gray009;
-    padding: 10px 20px;
+  .footer-container {
+    grid-area: footer-container;
+    // footer {
+    //   display: flex;
+    //   justify-content: space-between;
+    //   align-items: center;
+    //   color: $white;
+    //   border-top: 1px solid $gray009;
+    //   padding: 10px 20px;
+    //   height: 100%;
 
-    fa-icon {
-      stroke: $black008;
-      color: $black008;
-    }
+    //   fa-icon {
+    //     stroke: $black008;
+    //     color: $black008;
+    //   }
 
-    .fa-icon-active {
-      stroke: $blue003;
-      color: $blue003;
-    }
+    //   .fa-icon-active {
+    //     stroke: $blue003;
+    //     color: $blue003;
+    //   }
+    // }
   }
 }
