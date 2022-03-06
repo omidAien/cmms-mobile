@@ -1,0 +1,21 @@
+@import "../../../scss/main";
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $white;
+  border-top: 1px solid $gray009;
+  padding: 10px 20px;
+  height: 100%;
+
+  fa-icon {
+    stroke: $black008;
+    color: $black008;
+  }
+
+  .fa-icon-active {
+    stroke: $blue003;
+    color: $blue003;
+  }
+}

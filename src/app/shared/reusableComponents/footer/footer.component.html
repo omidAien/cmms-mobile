@@ -1,0 +1,15 @@
+<footer>
+
+    <section (click)="iconClick($event, 'logOut')">
+        <fa-icon [icon]="faArrowRightFromBracketIcon" size="xl" data-icon-operation="logOut"></fa-icon>
+    </section>
+   
+    <section (click)="iconClick($event, 'dashboard')">
+        <fa-icon [icon]="faHouseIcon" size="xl" data-icon-operation="dashboard"></fa-icon>
+    </section>
+    
+    <section (click)="iconClick($event, 'settings')">
+        <fa-icon [icon]="faGearIcon" size="xl" data-icon-operation="settings"></fa-icon>
+    </section>
+    
+</footer>
