@@ -13,8 +13,40 @@ export class ClientInformationService {
 
   }
 
+  getUserLocation() {
+
+    const siteProtocol:string = window.location.protocol;
+    let _longitude:number = 0;
+    let _latitude:number = 0;
+
+    if ( navigator && navigator.geolocation && siteProtocol === "https" ) {
+
+      navigator.geolocation.getCurrentPosition((position) => {
+
+        _longitude = position.coords.longitude;
+        _latitude = position.coords.latitude;
+
+      }),
+      (error: any) => {
+
+        _longitude = 0;
+        _latitude = 0;
+
+      }
+
+    }
+
+    return { 
+      longitude: _longitude,
+      latitude: _latitude 
+    };
+
+  }
+
 
   getDeviceInfo() {
+
+    const res: { longitude:number; latitude:number } = this.getUserLocation();
 
     const clientDeviceInformation:ClientInformation = {
       browser: this.deviceService.browser,
@@ -27,8 +59,8 @@ export class ClientInformationService {
       ip : "",
       mac: "",
       agent : this.deviceService.userAgent,
-      longitude: 0,
-      latitude: 0
+      longitude: res.longitude,
+      latitude: res.latitude
     };
 
     this.cookieService.set("clientInformation", JSON.stringify(clientDeviceInformation));
