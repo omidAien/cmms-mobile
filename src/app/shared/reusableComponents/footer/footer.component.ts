@@ -45,14 +45,7 @@ export class FooterComponent implements OnInit {
 
   logOut() {
 
-    sessionStorage.removeItem("userIsLogin");
-    sessionStorage.removeItem("userFullName");
-    sessionStorage.removeItem("userWorkstations");
-    sessionStorage.removeItem("userWorkGroups");
-    sessionStorage.removeItem("userDefaultWorkGroup");
-    sessionStorage.removeItem("userProjects");
-    sessionStorage.removeItem("userDefaultProject");
-
+    this.handleSessionstorage.reset();
     this.router.navigateByUrl("/account/login");
 
   }
