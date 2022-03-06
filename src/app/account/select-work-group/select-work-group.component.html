@@ -1,1 +1,69 @@
-<p>select-work-group works!</p>
+<ng-container *ngIf=" systemInfo ">
+
+    <div class="select-workgroup-container"  [dir]=" systemInfo.Direction ">
+
+        <div class="content-container">
+    
+            <div class="form-container-base form-container">
+    
+                <div class="form-header">
+                    <div class="form-header-logo">
+                        <img [src]=" systemInfo.Logo " alt="logo">
+                    </div>
+                    <div class="form-header-title">
+                        <span> {{ systemInfo.Caption }} </span>
+                    </div>
+                </div>
+    
+                <div class="form-title">
+                    <span> {{ selectWorkGroupTitle }} </span>
+                </div>
+    
+                <div class="form-content">
+                    <form [formGroup]="selectWorkGroupForm" (ngSubmit)="submitSelectWorkGroupForm()">
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label> {{ selectWorkGroupLabel }} </mat-label>
+    
+                            <mat-select formControlName="selectWorkGroupData" disableOptionCentering>
+                                <mat-option *ngFor="let item of workGroupList" 
+                                            [value]="item.PK_WorkgroupID" 
+                                            (click)="clickWorkGroupList($event, item)">
+                                    {{item.Workgroup}}
+                                  </mat-option>
+                            </mat-select>
+    
+                            <mat-error *ngIf="selectWorkGroupForm.get('selectWorkGroupData').errors?.required" >
+                                    انتخاب گروه کاری الزامی است
+                            </mat-error>
+                        </mat-form-field>
+    
+                        <div class="form-content-actions">
+                            <button [disabled]=" !selectWorkGroupForm.valid " class="redirect-to-dashboard" mat-button type="submit" >{{ redirectToDashboard }}</button>
+                        </div>
+        
+                    </form>
+    
+                </div>
+    
+            </div>
+    
+            <div class="img-container-base img-container">
+                <img [src]=" systemInfo.Wallpaper " alt="wallpaper" loading="lazy">
+            </div>
+    
+            <div class="footer-container">
+                <a href="https://www.mabanipardaz.com/" target="_blank" class="company-name-base company-name" >{{ systemInfo.PoweredBy }}</a>
+                <span class="footer-seprator">|</span>
+                <span class="app-version" >نسخه {{ systemInfo.Version }}</span>
+                <span class="footer-seprator">|</span>
+                <span class="release-date">{{ systemInfo.ReleaseDate }} </span>
+            </div>
+    
+        </div>
+        
+    </div>
+    
+    
+
+</ng-container>

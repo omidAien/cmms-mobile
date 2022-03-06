@@ -1,0 +1,347 @@
+@import "../../scss/main";
+
+.select-workgroup-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: $gary006;
+}
+
+.select-workgroup-container .content-container {
+  display: grid;
+  grid-template-rows: 483px auto;
+  grid-template-columns: 600px;
+  width: 1200px;
+  grid-template-areas: "form-container img-container" "footer-container footer-container";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.select-workgroup-container .content-container .form-container-base {
+  grid-area: form-container;
+  height: inherit;
+  background-color: $white;
+}
+
+[dir="rtl"] .form-container {
+  border-radius: 0 8px 8px 0;
+}
+
+[dir="ltr"] .form-container {
+  border-radius: 8px 0 0 8px;
+}
+
+.select-workgroup-container .content-container .form-container .form-header {
+  display: flex;
+  align-items: center;
+}
+
+.select-workgroup-container
+  .content-container
+  .form-container
+  .form-header
+  .form-header-logo {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  box-shadow: 0 2px 10px 0 $black001;
+  border: solid 1px $gary002;
+  background-color: $white004;
+  padding: 13px 5px;
+  margin: 20px;
+  border-radius: 8px;
+}
+
+.select-workgroup-container
+  .content-container
+  .form-container
+  .form-header
+  .form-header-logo
+  img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 53px;
+  height: 38px;
+}
+
+.select-workgroup-container
+  .content-container
+  .form-container
+  .form-header
+  .form-header-title {
+  height: 42px;
+  width: 174px;
+}
+
+.select-workgroup-container
+  .content-container
+  .form-container
+  .form-header
+  .form-header-title
+  span {
+  font-size: 12px;
+  font-weight: bold;
+  color: $black002;
+}
+
+.select-workgroup-container .content-container .form-container .form-title {
+  margin: 20px 20px 20px 20px;
+}
+
+.select-workgroup-container
+  .content-container
+  .form-container
+  .form-title
+  span {
+  font-size: 14px;
+  color: $gray003;
+}
+
+.select-workgroup-container .content-container .form-container .form-content {
+  margin: 10px 20px 0 20px;
+}
+
+.mat-form-field {
+  width: 555px;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.mat-label {
+  padding: 0 5px;
+}
+
+.select-workgroup-container
+  .content-container
+  .form-container
+  .form-content
+  .form-content-actions {
+  display: flex;
+  align-items: flex-start;
+}
+
+.select-workgroup-container
+  .content-container
+  .form-container
+  .form-content
+  .form-content-actions
+  .redirect-to-dashboard {
+  font-size: 12px;
+  font-weight: bold;
+  color: $white001;
+  border-radius: 8px;
+  background-image: $green002;
+  height: 60px;
+  margin: 45px 0 120px 0;
+}
+
+.select-workgroup-container .content-container .img-container-base {
+  grid-area: img-container;
+  height: inherit;
+  box-shadow: 0 2px 10px 0 $black001;
+  background-color: $gray004;
+}
+
+[dir="rtl"] .img-container {
+  border-radius: 8px 0 0 8px;
+}
+
+[dir="rtl"] .img-container img {
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px 0 0 8px;
+}
+
+[dir="ltr"] .img-container {
+  border-radius: 0 8px 8px 0;
+}
+
+[dir="ltr"] .img-container img {
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 8px 8px 0;
+}
+
+.select-workgroup-container .content-container .footer-container {
+  grid-area: footer-container;
+  display: flex;
+  height: 20px;
+  margin-top: 5px;
+}
+
+.select-workgroup-container
+  .content-container
+  .footer-container
+  .company-name-base {
+  font-size: 10px;
+  font-weight: bold;
+  color: $white004;
+  text-decoration: none;
+}
+
+[dir="rtl"] .company-name {
+  margin: 0 1px 0 5px;
+}
+
+[dir="ltr"] .company-name {
+  margin: 0 5px 0 1px;
+}
+
+.select-workgroup-container
+  .content-container
+  .footer-container
+  .footer-seprator {
+  color: $white004;
+}
+
+.select-workgroup-container .content-container .footer-container .app-version,
+.select-workgroup-container .content-container .footer-container .release-date {
+  color: $white004;
+  font-size: 10px;
+  margin: 0 5px;
+}
+
+/* media query for desktop */
+@media screen and (max-width: 1366px) {
+  .select-workgroup-container .content-container {
+    grid-template-rows: 460px auto;
+    grid-template-columns: 450px;
+    width: 900px;
+  }
+
+  .mat-form-field {
+    width: 410px;
+    font-size: 14px;
+  }
+
+  .select-workgroup-container
+    .content-container
+    .form-container
+    .form-content
+    .form-content-actions
+    .redirect-to-dashboard {
+    margin: 30px 0 123px 0;
+  }
+}
+/* end of media query for desktop */
+
+/* media query for tablet and mobile */
+@media screen and (max-width: 950px) {
+  .select-workgroup-container .content-container {
+    grid-template-rows: auto;
+    grid-template-areas: "form-container" "footer-container";
+    grid-template-columns: 550px;
+    width: 550px;
+  }
+
+  [dir="rtl"] .form-container,
+  [dir="ltr"] .form-container {
+    border-radius: 8px;
+  }
+
+  .select-workgroup-container .content-container .img-container {
+    display: none;
+  }
+
+  .mat-form-field {
+    width: 505px;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .select-workgroup-container .content-container {
+    grid-template-columns: 400px;
+    width: 400px;
+  }
+
+  .mat-form-field {
+    width: 355px;
+  }
+
+  .select-workgroup-container
+    .content-container
+    .form-container
+    .form-content
+    .form-content-actions
+    .redirect-to-dashboard {
+    margin: 30px 0 125px 0;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .select-workgroup-container .content-container {
+    grid-template-columns: 350px;
+    width: 350px;
+  }
+
+  .select-workgroup-container
+    .content-container
+    .form-container
+    .form-header
+    .form-header-title
+    span {
+    font-size: 10px;
+  }
+
+  .mat-form-field {
+    width: 310px;
+    font-size: 10px;
+  }
+
+  .select-workgroup-container
+    .content-container
+    .footer-container
+    .company-name,
+  .select-workgroup-container .content-container .footer-container .app-version,
+  .select-workgroup-container
+    .content-container
+    .footer-container
+    .release-date {
+    font-size: 7px;
+  }
+
+  .select-workgroup-container
+    .content-container
+    .form-container
+    .form-content
+    .form-content-actions
+    .redirect-to-dashboard {
+    margin: 10px 0 123px 0;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .select-workgroup-container .content-container {
+    grid-template-columns: 300px;
+    width: 300px;
+  }
+
+  .mat-form-field {
+    width: 260px;
+  }
+
+  .select-workgroup-container
+    .content-container
+    .form-container
+    .form-title
+    span {
+    font-size: 12px;
+  }
+
+  .select-workgroup-container
+    .content-container
+    .form-container
+    .form-content
+    .form-content-actions
+    .redirect-to-dashboard {
+    margin: 10px 0 122px 0;
+  }
+}
+
+/* end of media query for tablet and mobile */
