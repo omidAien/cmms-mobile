@@ -1,22 +1,36 @@
-<div class="dashboard-container">
+<ng-container *ngIf=" systemInfo ">
 
-    <header></header>
+    <div class="dashboard-container" [dir]=" systemInfo.Direction ">
 
-    <main>
+        <header></header>
+    
+        <main>
+    
+            <div class="user-info">
+    
+                <article>{{ userFullname }}</article>
+    
+                <span>{{ userPosition }}</span>
+    
+            </div>
+    
+            <div class="operations-conatiner" [mapDesignView]="18">
+    
+                <section class="card" *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]">
+                    <img src="../../../assets/images/mabaniPardazLogo.jpg" alt="logo-operation">
+                    <span class="operation-text">انبارگردانی</span>
+                </section>
+    
+            </div>
+    
+        </main>
+    
+        <footer>
 
-        <div class="user-info"></div>
 
-        <div class="operations-conatiner" [mapDesignView]="18">
+            
+        </footer>
+    
+    </div>
 
-            <section class="card" *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]">
-                <img src="../../../assets/images/mabaniPardazLogo.jpg" alt="logo-operation">
-                <span class="operation-text">انبارگردانی</span>
-            </section>
-
-        </div>
-
-    </main>
-
-    <footer></footer>
-
-</div>
+</ng-container>
