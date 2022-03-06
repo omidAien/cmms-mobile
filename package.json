@@ -23,6 +23,7 @@
     "@angular/router": "~13.2.4",
     "@angular/service-worker": "~13.2.4",
     "angular-disable-browser-back-button": "^1.0.2",
+    "angular-font-awesome": "^3.1.2",
     "jalali-moment": "^3.3.11",
     "ngx-cookie-service": "^13.1.2",
     "ngx-device-detector": "^3.0.0",
