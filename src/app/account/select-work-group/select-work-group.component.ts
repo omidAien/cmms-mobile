@@ -10,6 +10,8 @@ import { UserInfoService } from 'src/app/shared/services/user-info.service';
 import { GeneralErrorMessage, HandleUnauthorizeError } from 'src/app/shared/SharedClasses/errorHandlingClass';
 import { ExtractSystemInfo } from 'src/app/shared/SharedClasses/extractSystemInfo';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
+import { SelectWorkGroupUIText } from 'src/assets/Resources/projectInterfaceResources';
+import { getSelectWorkGroupUIText } from 'src/assets/Resources/projectResources';
 
 @Component({
   selector: 'map-select-work-group',
@@ -27,11 +29,9 @@ export class SelectWorkGroupComponent implements OnInit {
 
   workstationSelected: Workstation;
 
-  selectWorkGroupLabel:string = "انتخاب گروه کاری";
-  field_autocomplete:string = "off";
+  selectWorkGroupUIText: SelectWorkGroupUIText;
 
-  selectWorkGroupTitle:string = "لطفا گروه کاری پیش فرض خود را انتخاب نمایید";
-  redirectToDashboard:string = "ورود به صفحه کاری";
+  field_autocomplete:string = "off";
   
   constructor(public extractSystemInfo: ExtractSystemInfo,
               private handleSessionstorage: HandleSessionstorage,
@@ -60,6 +60,8 @@ export class SelectWorkGroupComponent implements OnInit {
           if ( _systemInfo ) {
 
             this.systemInfo = _systemInfo;
+
+            this.selectWorkGroupUIText = getSelectWorkGroupUIText(_systemInfo.Culture);
 
             this.generateSelectWorkGroupForm();
 
