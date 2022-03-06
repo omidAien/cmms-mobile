@@ -5,14 +5,22 @@ import { GetInitialDataService } from './services/get-initial-data.service';
 import { ClientInformationService } from './services/client-information.service';
 import { GeneralErrorMessage, GeneralSuccssMessage, HandleUnauthorizeError } from './SharedClasses/errorHandlingClass';
 import { HandleSessionstorage } from './SharedClasses/HandleSessionStorage';
+import { FooterComponent } from './reusableComponents/footer/footer.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    FooterComponent
+  ],
   imports: [
     CommonModule,
+    FontAwesomeModule,
     MaterialModule
+  ],
+  exports: [
+    FooterComponent
   ],
   providers: [
     GetInitialDataService,
