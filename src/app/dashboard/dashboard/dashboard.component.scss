@@ -16,6 +16,7 @@
   }
 
   main {
+    grid-area: main-section;
     display: flex;
     flex-direction: column;
     row-gap: 20px;
@@ -43,7 +44,6 @@
     }
 
     .operations-conatiner {
-      grid-area: main-section;
       display: grid;
       row-gap: 10px;
       column-gap: 10px;
@@ -76,9 +76,21 @@
   }
 
   footer {
-    grid-area: footer-section;
-    background-color: $blue004;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: $white;
-    padding: 5px;
+    border-top: 1px solid $gray009;
+    padding: 10px 20px;
+
+    fa-icon {
+      stroke: $black008;
+      color: $black008;
+    }
+
+    .fa-icon-active {
+      stroke: $blue003;
+      color: $blue003;
+    }
   }
 }
