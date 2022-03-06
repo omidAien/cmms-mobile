@@ -10,6 +10,7 @@ import { SharedModule } from './shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
+    FontAwesomeModule,
     BackButtonDisableModule.forRoot(),
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
