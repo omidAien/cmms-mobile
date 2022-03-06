@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faArrowRightFromBracket, IconDefinition, faGear, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { HandleSessionstorage } from '../../SharedClasses/HandleSessionStorage';
 
 @Component({
   selector: 'map-footer',
@@ -12,7 +14,7 @@ export class FooterComponent implements OnInit {
   faGearIcon: IconDefinition = faGear;
   faHouseIcon: IconDefinition = faHouse;
 
-  constructor() { }
+  constructor(private router: Router, private handleSessionstorage: HandleSessionstorage) { }
 
   ngOnInit(): void {
   }
@@ -34,7 +36,24 @@ export class FooterComponent implements OnInit {
 
       faIconElement.classList.add("fa-icon-active");
 
+      // App will be logged out if icon-logOut has been Clicked.
+      iconOperationExtracted === "logOut" ? this.logOut() : null;
+
     }
+
+  }
+
+  logOut() {
+
+    sessionStorage.removeItem("userIsLogin");
+    sessionStorage.removeItem("userFullName");
+    sessionStorage.removeItem("userWorkstations");
+    sessionStorage.removeItem("userWorkGroups");
+    sessionStorage.removeItem("userDefaultWorkGroup");
+    sessionStorage.removeItem("userProjects");
+    sessionStorage.removeItem("userDefaultProject");
+
+    this.router.navigateByUrl("/account/login");
 
   }
 
