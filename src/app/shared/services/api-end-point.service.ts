@@ -1,7 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, shareReplay } from 'rxjs/operators';
 import { AuthenticateParameters, AuthenticateResponse, EntryInputs, PWAItemsResponse } from '../appModels';
+import { HandleUnauthorizeError } from '../SharedClasses/errorHandlingClass';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ export class ApiEndPointService {
 
   private baseURL:Required<string>;
 
-  constructor(private httpClient: HttpClient) { 
+  constructor(private httpClient: HttpClient, private handleUnauthorizeError: HandleUnauthorizeError) { 
 
     const baseURLSessionStorage:string = sessionStorage.getItem("baseURL");       
     this.baseURL = baseURLSessionStorage;
@@ -43,7 +45,15 @@ export class ApiEndPointService {
     const requestURL:Required<string> = this.baseURL.concat("mapGetPWAItems");
     const body:Required<string> = JSON.stringify(entryInputs);
 
-    return this.httpClient.post<PWAItemsResponse>(requestURL, body, {headers:this.setHeaders(token)});
+    return this.httpClient
+               .post<PWAItemsResponse>(requestURL, body, {headers:this.setHeaders(token)})
+               .pipe(
+                 shareReplay(),
+                 catchError((error: HttpErrorResponse) => {
+                   this.handleUnauthorizeError.excuteTask(error);
+                   return throwError(error);
+                 })
+               );
 
   }
 
