@@ -2,11 +2,13 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { combineLatest, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { EntryInputs, PWAItemsResponse, SystemInformation, UserWorkgroup } from 'src/app/shared/appModels';
+import { EntryInputs, PWAItems, PWAItemsResponse, SystemInformation, UserWorkgroup } from 'src/app/shared/appModels';
 import { ApiEndPointService } from 'src/app/shared/services/api-end-point.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { GeneralErrorMessage } from 'src/app/shared/SharedClasses/errorHandlingClass';
 import { ExtractSystemInfo } from 'src/app/shared/SharedClasses/extractSystemInfo';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
+import { ServerErrorMessageResources } from 'src/assets/Resources/projectResources';
 
 @Component({
   selector: 'map-dashboard',
@@ -18,11 +20,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   systemInfo: SystemInformation | null = null;
   userFullname:string = "UnKnown";
   userPosition:string = "UnKnown";
+  PWAItems: PWAItems[] = [];
 
   constructor(private handleSessionstorage: HandleSessionstorage,
               private apiEndPointService: ApiEndPointService,
               private cookieService: CookieService,
               private loadingService: LoadingService,
+              private generalErrorMessage: GeneralErrorMessage,
               private extractSytemInfo: ExtractSystemInfo) { }
 
   ngOnInit(): void {
@@ -44,13 +48,31 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
           if ( _systemInfo && _getPWAItems ) {
 
-            this.systemInfo = _systemInfo;
-            this.userFullname = this.handleSessionstorage.get("userFullName");
+            if ( !_getPWAItems.Error.hasError ) {
 
-            const userDefaultWorkGroup: UserWorkgroup = this.handleSessionstorage.get("userDefaultWorkGroup");
-            this.userPosition = userDefaultWorkGroup.Workgroup;
+              this.systemInfo = _systemInfo;
+              this.PWAItems = _getPWAItems.PWA;
+  
+              this.userFullname = this.handleSessionstorage.get("userFullName");
+  
+              const userDefaultWorkGroup: UserWorkgroup = this.handleSessionstorage.get("userDefaultWorkGroup");
+              this.userPosition = userDefaultWorkGroup.Workgroup;
+  
+              this.loadingService.loadingOff();
 
-            this.loadingService.loadingOff();
+            }
+
+            else {
+
+              this.generalErrorMessage.handleServerSideError(_getPWAItems.Error.Message, _systemInfo.Direction);
+  
+            }
+
+          }
+          else {
+
+            const errorMessage:string = ServerErrorMessageResources.message;
+            this.generalErrorMessage.handleDatabaseSideError(errorMessage);
 
           }
 
