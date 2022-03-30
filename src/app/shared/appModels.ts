@@ -101,6 +101,6 @@ export interface PWAItems {
 }
 
 export interface PWAItemsResponse {
-    error: ErrorModel;
+    Error: ErrorModel;
     PWA: PWAItems[];
 }
