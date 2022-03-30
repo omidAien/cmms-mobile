@@ -22,7 +22,8 @@ import { OverlayPreloaderComponent } from './reusableComponents/overlay-preloade
     MaterialModule
   ],
   exports: [
-    FooterComponent
+    FooterComponent,
+    OverlayPreloaderComponent
   ],
   providers: [
     GetInitialDataService,
