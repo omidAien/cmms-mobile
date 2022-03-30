@@ -24,9 +24,9 @@
         
                 <div class="operations-conatiner" [mapDesignView]="18">
         
-                    <section class="card" *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]">
+                    <section class="card" *ngFor="let item of PWAItems">
                         <img src="../../../assets/images/mabaniPardazLogo.jpg" alt="logo-operation">
-                        <span class="operation-text">انبارگردانی</span>
+                        <span class="operation-text">{{ item.Caption }}</span>
                     </section>
         
                 </div>
