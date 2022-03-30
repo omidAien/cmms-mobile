@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthenticateParameters, AuthenticateResponse } from '../appModels';
+import { AuthenticateParameters, AuthenticateResponse, EntryInputs, PWAItemsResponse } from '../appModels';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,15 @@ export class ApiEndPointService {
     const body:Required<string> = JSON.stringify(authenticateParameters);
 
     return this.httpClient.post<AuthenticateResponse>(requestURL, body, { headers: headers });
+  }
+
+  getPWAItems(token:string, entryInputs: EntryInputs): Observable<PWAItemsResponse> {
+    
+    const requestURL:Required<string> = this.baseURL.concat("mapGetPWAItems");
+    const body:Required<string> = JSON.stringify(entryInputs);
+
+    return this.httpClient.post<PWAItemsResponse>(requestURL, body, {headers:this.setHeaders(token)});
+
   }
 
 }
