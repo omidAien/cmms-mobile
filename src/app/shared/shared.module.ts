@@ -7,12 +7,14 @@ import { GeneralErrorMessage, GeneralSuccssMessage, HandleUnauthorizeError } fro
 import { HandleSessionstorage } from './SharedClasses/HandleSessionStorage';
 import { FooterComponent } from './reusableComponents/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { OverlayPreloaderComponent } from './reusableComponents/overlay-preloader/overlay-preloader.component';
 
 
 
 @NgModule({
   declarations: [
-    FooterComponent
+    FooterComponent,
+    OverlayPreloaderComponent
   ],
   imports: [
     CommonModule,
