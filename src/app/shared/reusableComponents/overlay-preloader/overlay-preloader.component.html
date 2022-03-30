@@ -1,1 +1,3 @@
-<p>overlay-preloader works!</p>
+<div class="overlay-preloader-container" *ngIf=" loadingService.loading$ | async ">
+    <img src="../../../../assets/images/Spinner.gif" alt="preloader">
+</div>

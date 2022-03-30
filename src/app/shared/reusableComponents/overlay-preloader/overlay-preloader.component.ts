@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'map-overlay-preloader',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OverlayPreloaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public loadingService: LoadingService) { }
 
   ngOnInit(): void {
   }
