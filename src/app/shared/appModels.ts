@@ -83,3 +83,24 @@ export interface AuthenticateResponse {
     DefaultWorkgroupID: number | UserWorkgroup;
     Projects: UserProject[];
 }
+
+export interface EntryInputs {
+    objectID: number;
+    workgroupID: number;
+    fields: {fieldID: number;fieldValue: string;}[];
+    rowID: number;
+}
+
+export interface PWAItems {
+    Caption: string;
+    Icon: string | null;
+    ObjectID: number;
+    Remark: string;
+    TaskTypeCode: number;
+    ViewOrder: number;
+}
+
+export interface PWAItemsResponse {
+    error: ErrorModel;
+    PWA: PWAItems[];
+}
