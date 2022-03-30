@@ -19,7 +19,10 @@ export class DesignViewDirective {
 
     columnNumber = ( width <= 648 ) ? 3 : 4;
 
-    if ( width <= 648 ) {
+    if ( width <=400 ) {
+      columnNumber = 2;
+    }
+    else if ( width <= 648 ) {
       columnNumber = 3;
     }
     else if ( width <= 1000 ) {
