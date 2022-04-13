@@ -186,8 +186,6 @@ export class LoginComponent implements OnInit {
 
     if ( errorMsgType === 13 ) {
 
-      this.generalErrorMessage.horizontalPosition = "center";
-      this.generalErrorMessage.verticalPosition = "top";
       this.generalErrorMessage.duration = 5000;
       this.generalErrorMessage.handleServerSideError(errorMsg, this.systemInfo.Direction);
 
