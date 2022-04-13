@@ -8,6 +8,7 @@ import { HandleSessionstorage } from './SharedClasses/HandleSessionStorage';
 import { FooterComponent } from './reusableComponents/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OverlayPreloaderComponent } from './reusableComponents/overlay-preloader/overlay-preloader.component';
+import { ResourceMainStore } from './ResourceManager/resourseMainStore';
 
 
 
@@ -31,7 +32,8 @@ import { OverlayPreloaderComponent } from './reusableComponents/overlay-preloade
     HandleUnauthorizeError,
     GeneralErrorMessage,
     GeneralSuccssMessage,
-    HandleSessionstorage
+    HandleSessionstorage,
+    ResourceMainStore
   ]
 })
 export class SharedModule { }
