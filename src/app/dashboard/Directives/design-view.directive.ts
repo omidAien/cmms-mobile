@@ -17,8 +17,6 @@ export class DesignViewDirective {
     let claculatedRowsValue:string = null;
     let rowCount:number;
 
-    columnNumber = ( width <= 648 ) ? 3 : 4;
-
     if ( width <=400 ) {
       columnNumber = 2;
     }
