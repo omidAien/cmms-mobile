@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { throwError } from 'rxjs';
-import { catchError, shareReplay, tap } from 'rxjs/operators';
+import { catchError, shareReplay } from 'rxjs/operators';
 import { AuthenticateParameters, AuthenticateResponse, SystemInformation, UserProject, UserWorkgroup, Workstation } from 'src/app/shared/appModels';
 import { ILoginPageTextResources } from 'src/app/shared/ResourceManager/resourceModels';
 import { ResourceMainStore } from 'src/app/shared/ResourceManager/resourseMainStore';
@@ -13,7 +13,6 @@ import { UserInfoService } from 'src/app/shared/services/user-info.service';
 import { GeneralErrorMessage, HandleUnauthorizeError } from 'src/app/shared/SharedClasses/errorHandlingClass';
 import { ExtractSystemInfo } from 'src/app/shared/SharedClasses/extractSystemInfo';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
-import { getLogInPageUIText } from 'src/assets/Resources/projectResources';
 
 @Component({
   selector: 'map-login',
