@@ -6,6 +6,9 @@ export interface ResourceCultureStore {
     loginPageRetrievePasswordText: string;
     loginPageHasAccountText: string;
     loginPageCreateNewAccount: string;
+    selectWorkGroupText: string;
+    selectWorkGroupTitleText: string;
+    redirectToDashboardBtnText:string;
     accountSettingsText: string;
     ChangePasswordText: string;
     logOut: string;
@@ -23,6 +26,12 @@ export interface ILoginPageTextResources {
     loginPageRetrievePasswordText:  string;
     loginPageHasAccountText: string;
     loginPageCreateNewAccount: string;
+}
+
+export interface ISelectWorkgroupPageTextResources {
+    selectWorkGroupText: string;
+    selectWorkGroupTitleText: string;
+    redirectToDashboardBtnText:string;
 }
 
 export interface IAccountSettingsPageTextResource {

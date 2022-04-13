@@ -5,8 +5,9 @@ import { BaseCRUDImagePathTextResource,
          LoginPageTextResources,
          NetworkDisconnectedTextResource, 
          ResourceHandler, 
+         SelectWorkgroupPageTextResources, 
          ServerBadRequestTextResource} from "./generateResourceClass";
-import { ILoginPageTextResources, ResourceCultureStore } from "./resourceModels";
+import { ILoginPageTextResources, ISelectWorkgroupPageTextResources, ResourceCultureStore } from "./resourceModels";
 
 class BaseResourceMainStore {
 
@@ -66,6 +67,14 @@ export class ResourceMainStore extends BaseResourceMainStore {
     getLoginPageTextResources(): ILoginPageTextResources {
 
         const instance = new LoginPageTextResources(this.resourceCulture);
+        
+        return this.executerHandler(instance);
+
+    }
+
+    getSelectWorkgroupPageTextResources(): ISelectWorkgroupPageTextResources {
+
+        const instance = new SelectWorkgroupPageTextResources(this.resourceCulture);
         
         return this.executerHandler(instance);
 

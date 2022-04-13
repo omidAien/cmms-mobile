@@ -3,15 +3,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { throwError } from 'rxjs';
-import { catchError, shareReplay, tap } from 'rxjs/operators';
+import { catchError, shareReplay } from 'rxjs/operators';
 import { AuthenticateParameters, AuthenticateResponse, SystemInformation, UserInfo, UserProject, UserWorkgroup, Workstation } from 'src/app/shared/appModels';
+import { ISelectWorkgroupPageTextResources } from 'src/app/shared/ResourceManager/resourceModels';
+import { ResourceMainStore } from 'src/app/shared/ResourceManager/resourseMainStore';
 import { ApiEndPointService } from 'src/app/shared/services/api-end-point.service';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 import { GeneralErrorMessage, HandleUnauthorizeError } from 'src/app/shared/SharedClasses/errorHandlingClass';
 import { ExtractSystemInfo } from 'src/app/shared/SharedClasses/extractSystemInfo';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
-import { SelectWorkGroupUIText } from 'src/assets/Resources/projectInterfaceResources';
-import { getSelectWorkGroupUIText } from 'src/assets/Resources/projectResources';
 
 @Component({
   selector: 'map-select-work-group',
@@ -29,7 +29,7 @@ export class SelectWorkGroupComponent implements OnInit {
 
   workstationSelected: Workstation;
 
-  selectWorkGroupUIText: SelectWorkGroupUIText;
+  selectWorkGroupUIText: ISelectWorkgroupPageTextResources;
 
   field_autocomplete:string = "off";
   
@@ -40,7 +40,8 @@ export class SelectWorkGroupComponent implements OnInit {
               private generalErrorMessage: GeneralErrorMessage,
               private handleUnauthorizeError: HandleUnauthorizeError,
               private apiEndPointService: ApiEndPointService,
-              private cookieService: CookieService) { }
+              private cookieService: CookieService,
+              private resourceMainStore: ResourceMainStore) { }
 
   ngOnInit(): void {
 
@@ -61,7 +62,9 @@ export class SelectWorkGroupComponent implements OnInit {
 
             this.systemInfo = _systemInfo;
 
-            this.selectWorkGroupUIText = getSelectWorkGroupUIText(_systemInfo.Culture);
+            this.resourceMainStore.culture = this.systemInfo.Culture;
+
+            this.selectWorkGroupUIText = this.resourceMainStore.getSelectWorkgroupPageTextResources();
 
             this.generateSelectWorkGroupForm();
 

@@ -1,4 +1,4 @@
-import { ILoginPageTextResources, ResourceCultureStore } from "./resourceModels";
+import { ILoginPageTextResources, ISelectWorkgroupPageTextResources, ResourceCultureStore } from "./resourceModels";
 
 export abstract class ResourceHandler {
 
@@ -22,6 +22,26 @@ export class LoginPageTextResources extends ResourceHandler {
             loginPageRetrievePasswordText:  this.resourceCulture.loginPageRetrievePasswordText,
             loginPageHasAccountText: this.resourceCulture.loginPageHasAccountText,
             loginPageCreateNewAccount: this.resourceCulture.loginPageCreateNewAccount
+        }
+
+        return resources;
+
+    }
+
+}
+
+export class SelectWorkgroupPageTextResources extends ResourceHandler {
+    
+    constructor(public resourceCulture: ResourceCultureStore) {
+        super();
+    }
+
+    getResource(): ISelectWorkgroupPageTextResources {
+
+        const resources: ISelectWorkgroupPageTextResources = {
+            selectWorkGroupText: this.resourceCulture.selectWorkGroupText,
+            selectWorkGroupTitleText: this.resourceCulture.selectWorkGroupTitleText,
+            redirectToDashboardBtnText: this.resourceCulture.redirectToDashboardBtnText,
         }
 
         return resources;

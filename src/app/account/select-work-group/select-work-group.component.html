@@ -16,20 +16,20 @@
                 </div>
     
                 <div class="form-title">
-                    <span> {{ selectWorkGroupUIText.selectWorkGroupTitle }} </span>
+                    <span> {{ selectWorkGroupUIText.selectWorkGroupTitleText }} </span>
                 </div>
     
                 <div class="form-content">
                     <form [formGroup]="selectWorkGroupForm" (ngSubmit)="submitSelectWorkGroupForm()">
     
                         <mat-form-field appearance="outline">
-                            <mat-label> {{ selectWorkGroupUIText.selectWorkGroupLabel }} </mat-label>
+                            <mat-label> {{ selectWorkGroupUIText.selectWorkGroupText }} </mat-label>
     
                             <mat-select formControlName="selectWorkGroupData" disableOptionCentering>
                                 <mat-option *ngFor="let item of workGroupList" 
                                             [value]="item.PK_WorkgroupID" 
                                             (click)="clickWorkGroupList($event, item)">
-                                    {{item.Workgroup}}
+                                    {{ item.Workgroup }}
                                   </mat-option>
                             </mat-select>
     
@@ -43,7 +43,7 @@
                                     class="redirect-to-dashboard"
                                     mat-button 
                                     type="submit" >
-                                    {{ selectWorkGroupUIText.redirectToDashboard }}
+                                    {{ selectWorkGroupUIText.redirectToDashboardBtnText }}
                             </button>
                         </div>
         
