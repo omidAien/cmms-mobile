@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { SystemInformation, SystemInformationCore } from '../appModels';
 import { ExtractSystemInfo } from '../SharedClasses/extractSystemInfo';
+import { HandleSessionstorage } from '../SharedClasses/HandleSessionStorage';
 
 @Injectable()
 export class GetInitialDataService {
@@ -14,6 +15,7 @@ export class GetInitialDataService {
   private systemInfoApiEndPoint:string = "mapSystemInformation";
 
   constructor(private httpClient: HttpClient, 
+              private handleSessionstorage: HandleSessionstorage,
               private extractSystemInfo: ExtractSystemInfo) {
 
     this.getInitialDataFromServer();
@@ -67,6 +69,7 @@ export class GetInitialDataService {
               // 3. save systemInformation in sessionStorage.
               const systemInformation: SystemInformation = result.dtSystemInformation[0];
               this.extractSystemInfo.setSystemInfo(systemInformation);
+              this.handleSessionstorage.set("culture", JSON.stringify(systemInformation.Culture));
 
             }
 
