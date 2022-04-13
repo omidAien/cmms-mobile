@@ -19,7 +19,7 @@
                     <form [formGroup]="loginForm" >
     
                         <mat-form-field appearance="outline">
-                            <mat-label> {{ logInPageUIText.usernameLabelText }} </mat-label>
+                            <mat-label> {{ logInPageUIText.loginPageUsernameText }} </mat-label>
                             <!-- <mat-icon matPrefix svgIcon="map-username" ></mat-icon> -->
                             <input matInput 
                                    type="text"
@@ -31,7 +31,7 @@
     
                         <mat-form-field appearance="outline">
     
-                            <mat-label> {{  logInPageUIText.passwordLabelText }} </mat-label>
+                            <mat-label> {{  logInPageUIText.loginPagePasswordText }} </mat-label>
                             <!-- <mat-icon matPrefix svgIcon="map-password"></mat-icon> -->
     
                             <input matInput 
@@ -57,25 +57,25 @@
                             <button class="logIn"
                                     mat-button type="submit" 
                                     (click)="onSubmitForm()" >
-                                    {{ logInPageUIText.logInBtnText }}
+                                    {{ logInPageUIText.loginPageEnterBtnText }}
                             </button>
     
                             <mat-checkbox *ngIf=" !remmeberMeIsChecked " color="primary" class="remmeberMe" #remmeberMe >
-                                {{ logInPageUIText.remmeberMeCheckBoxText }}
+                                {{ logInPageUIText.loginPageRememeberMeText }}
                             </mat-checkbox>
                         </div>
         
                         <div class="retrieve-password-container">
                             <a href="javascript:void(0)" class="retrieve-password" (click)="onRetrievePassword()" >
-                                {{ logInPageUIText.retrievePasswordText }}</a>
+                                {{ logInPageUIText.loginPageRetrievePasswordText }}</a>
                         </div>
     
                     </form>
     
                     <div class="create-new-account-container">
-                        <span>{{ logInPageUIText.hasAccountText }}</span>
+                        <span>{{ logInPageUIText.loginPageHasAccountText }}</span>
                         <a href="javascript:void(0)" class="create-new-account" (click)="onCreateNewAccount()" >
-                            {{ logInPageUIText.createNewAccountText }}
+                            {{ logInPageUIText.loginPageCreateNewAccount }}
                         </a>
                     </div>
     

@@ -6,12 +6,13 @@ import { CookieService } from 'ngx-cookie-service';
 import { throwError } from 'rxjs';
 import { catchError, shareReplay, tap } from 'rxjs/operators';
 import { AuthenticateParameters, AuthenticateResponse, SystemInformation, UserProject, UserWorkgroup, Workstation } from 'src/app/shared/appModels';
+import { ILoginPageTextResources } from 'src/app/shared/ResourceManager/resourceModels';
+import { ResourceMainStore } from 'src/app/shared/ResourceManager/resourseMainStore';
 import { ApiEndPointService } from 'src/app/shared/services/api-end-point.service';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 import { GeneralErrorMessage, HandleUnauthorizeError } from 'src/app/shared/SharedClasses/errorHandlingClass';
 import { ExtractSystemInfo } from 'src/app/shared/SharedClasses/extractSystemInfo';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
-import { LoginPageUIText } from 'src/assets/Resources/projectInterfaceResources';
 import { getLogInPageUIText } from 'src/assets/Resources/projectResources';
 
 @Component({
@@ -22,7 +23,7 @@ import { getLogInPageUIText } from 'src/assets/Resources/projectResources';
 export class LoginComponent implements OnInit {
 
   systemInfo: SystemInformation | null = null;
-  logInPageUIText: LoginPageUIText;
+  logInPageUIText: ILoginPageTextResources;
   loginForm:FormGroup;
   field_autocomplete:string = "off";
   field_autofocus:boolean = false;
@@ -38,7 +39,8 @@ export class LoginComponent implements OnInit {
               private handleSessionstorage: HandleSessionstorage,
               private generalErrorMessage: GeneralErrorMessage,
               private userInfoService: UserInfoService,
-              private handleUnauthorizeError: HandleUnauthorizeError) {}
+              private handleUnauthorizeError: HandleUnauthorizeError,
+              private resourceMainStore: ResourceMainStore) {}
 
   ngOnInit() {
 
@@ -52,7 +54,9 @@ export class LoginComponent implements OnInit {
 
             this.systemInfo = _systemInfo;
 
-            this.logInPageUIText = getLogInPageUIText(_systemInfo.Culture);
+            this.resourceMainStore.culture = this.systemInfo.Culture;
+
+            this.logInPageUIText = this.resourceMainStore.getLoginPageTextResources();
           
             this.generateLoginForm();
 
