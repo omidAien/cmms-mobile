@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { SystemInformation, SystemInformationCore } from '../appModels';
+import { HandleUnauthorizeError } from '../SharedClasses/errorHandlingClass';
 import { ExtractSystemInfo } from '../SharedClasses/extractSystemInfo';
 import { HandleSessionstorage } from '../SharedClasses/HandleSessionStorage';
 
@@ -14,7 +15,8 @@ export class GetInitialDataService {
   private baseURL:string;
   private systemInfoApiEndPoint:string = "mapSystemInformation";
 
-  constructor(private httpClient: HttpClient, 
+  constructor(private httpClient: HttpClient,
+              private handleUnauthorizeError: HandleUnauthorizeError, 
               private handleSessionstorage: HandleSessionstorage,
               private extractSystemInfo: ExtractSystemInfo) {
 
@@ -50,7 +52,16 @@ export class GetInitialDataService {
   
               // 2. send request to get systemInformation from server.
               const systemInfoApiUrl:string = this.baseURL.concat(this.systemInfoApiEndPoint);
-              const systemInfoReq$: Observable<SystemInformationCore> = this.httpClient.get<SystemInformationCore>(systemInfoApiUrl);
+              const systemInfoReq$: Observable<SystemInformationCore> = 
+                this.httpClient.get<SystemInformationCore>(systemInfoApiUrl)
+                    .pipe(
+                      shareReplay(),
+                      catchError((error: HttpErrorResponse) => {
+                        this.handleUnauthorizeError.excuteTask(error);
+                        return throwError(error);
+                      })
+                    );
+                    
               return systemInfoReq$;
               
             } catch (error) {
