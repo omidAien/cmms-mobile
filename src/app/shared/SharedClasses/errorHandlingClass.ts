@@ -14,8 +14,8 @@ class ShowMessage {
     /** Possible values for verticalPosition on MatSnackBarConfig. */
     // MatSnackBarVerticalPosition = 'top' | 'bottom';
 
-    private _horizontalPosition: MatSnackBarHorizontalPosition = "center";
-    private _verticalPosition: MatSnackBarVerticalPosition = "top";
+    private _horizontalPosition: MatSnackBarHorizontalPosition = "end";
+    private _verticalPosition: MatSnackBarVerticalPosition = "bottom";
     private _duration: number = 2500;
     private _massagePanelClass:string = "mat-snack-bar-container-successful";
 
