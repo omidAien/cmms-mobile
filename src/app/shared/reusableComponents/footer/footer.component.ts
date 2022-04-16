@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faArrowRightFromBracket, IconDefinition, faGear, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { BackButtonService } from '../../services/back-button.service';
 import { HandleSessionstorage } from '../../SharedClasses/HandleSessionStorage';
 
 @Component({
@@ -14,7 +15,9 @@ export class FooterComponent implements OnInit {
   faGearIcon: IconDefinition = faGear;
   faHouseIcon: IconDefinition = faHouse;
 
-  constructor(private router: Router, private handleSessionstorage: HandleSessionstorage) { }
+  constructor(private router: Router, 
+              private backButtonService: BackButtonService,
+              private handleSessionstorage: HandleSessionstorage) { }
 
   ngOnInit(): void {
   }
@@ -46,6 +49,9 @@ export class FooterComponent implements OnInit {
   logOut() {
 
     this.handleSessionstorage.reset();
+    
+    this.backButtonService.reset();
+
     this.router.navigateByUrl("/account/login");
 
   }
