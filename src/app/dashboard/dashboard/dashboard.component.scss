@@ -11,12 +11,12 @@
   .header-container {
     grid-area: header-container;
 
-    header {
-      background-color: $blue004;
-      color: $white;
-      padding: 5px;
-      height: 100%;
-    }
+    // header {
+    //   background-color: $blue004;
+    //   color: $white;
+    //   padding: 5px;
+    //   height: 100%;
+    // }
   }
 
   .main-container {
@@ -84,24 +84,5 @@
 
   .footer-container {
     grid-area: footer-container;
-    // footer {
-    //   display: flex;
-    //   justify-content: space-between;
-    //   align-items: center;
-    //   color: $white;
-    //   border-top: 1px solid $gray009;
-    //   padding: 10px 20px;
-    //   height: 100%;
-
-    //   fa-icon {
-    //     stroke: $black008;
-    //     color: $black008;
-    //   }
-
-    //   .fa-icon-active {
-    //     stroke: $blue003;
-    //     color: $blue003;
-    //   }
-    // }
   }
 }

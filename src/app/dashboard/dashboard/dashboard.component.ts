@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { EntryInputs, PWAItems, PWAItemsResponse, SystemInformation, UserWorkgroup } from 'src/app/shared/appModels';
 import { ApiEndPointService } from 'src/app/shared/services/api-end-point.service';
+import { BackButtonService } from 'src/app/shared/services/back-button.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { GeneralErrorMessage } from 'src/app/shared/SharedClasses/errorHandlingClass';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
@@ -25,10 +26,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
               private apiEndPointService: ApiEndPointService,
               private cookieService: CookieService,
               private loadingService: LoadingService,
+              private backButtonService: BackButtonService,
               private generalErrorMessage: GeneralErrorMessage) { }
 
   ngOnInit(): void {
-
+    
     this.initialInfoHandler();
 
     this.PWAItemsHandler();
@@ -90,10 +92,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   executeOperationHandler(event: any) {
 
+    // 1. constants
     const taskTypeAttributeName: string = "taskTypeCode";
+    const captionAttributeName: string = "caption";
     const _target: HTMLElement = event.target;
-    let correctTarget: HTMLElement;
 
+    // 2. initial variables
+    let correctTarget: HTMLElement;
+    let extractedObjectID: number = 0;
+    let extractedCaption: string;
+    let extractedTaskTypeCode: number = 0;
+    let extractedRouterPath: string;
+
+    // 3. detecting correctTarget
     if ( _target.classList.contains("card") ) {
 
       correctTarget = _target;
@@ -104,7 +115,20 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     }
 
-    console.log(correctTarget.id, correctTarget.getAttribute(taskTypeAttributeName));
+    // 4. extracting value for initial variables
+    extractedObjectID = +correctTarget.id;
+    extractedTaskTypeCode = +correctTarget.getAttribute(taskTypeAttributeName);
+    extractedCaption = correctTarget.getAttribute(captionAttributeName);
+    extractedRouterPath = location.hash.replace("#", "");
+
+    // 5. manage back-button-stack
+    this.backButtonService.push({
+      ObjectID: extractedObjectID,
+      TaskTypeCode: extractedTaskTypeCode,
+      Caption: extractedCaption,
+      RouterPath: extractedRouterPath,
+      Active: true  
+    });
 
   }
 

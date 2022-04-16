@@ -5,7 +5,7 @@
         <!-- header-container -->
         <div class="header-container">
 
-            <header></header>
+            <map-header [pageDirection]=" pageInfo.Direction " ></map-header>
 
         </div>
 
@@ -28,7 +28,11 @@
 
                     <div class="operations-conatiner" [mapDesignView]=" PWAItems.length " (click)="executeOperationHandler($event)">
         
-                        <section class="card" *ngFor="let item of PWAItems" [id]=" item.ObjectID " [attr.taskTypeCode]=" item.TaskTypeCode ">
+                        <section *ngFor="let item of PWAItems" 
+                                 class="card" 
+                                 [id]=" item.ObjectID " 
+                                 [attr.taskTypeCode]=" item.TaskTypeCode "
+                                 [attr.caption]=" item.Caption ">
                             <img src="../../../assets/images/mabaniPardazLogo.jpg" alt="logo-operation">
                             <span class="operation-text">{{ item.Caption }}</span>
                         </section>
