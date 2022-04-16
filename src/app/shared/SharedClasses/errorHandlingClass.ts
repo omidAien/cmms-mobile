@@ -97,7 +97,7 @@ export class HandleUnauthorizeError extends ShowMessage {
 
         super(snackBar);
 
-        const pageInfo = JSON.parse(this.handleSessionstorage.get("pageInfo"));
+        const pageInfo = this.handleSessionstorage.get("pageInfo");
                     
         if ( pageInfo ) {
 

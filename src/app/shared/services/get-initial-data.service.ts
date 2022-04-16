@@ -86,7 +86,7 @@ export class GetInitialDataService {
                 "culture": systemInformation.Culture
               };
 
-              this.handleSessionstorage.set("pageInfo", JSON.stringify(pageInfo));
+              this.handleSessionstorage.set("pageInfo", pageInfo);
 
             }
 
