@@ -9,13 +9,15 @@ import { FooterComponent } from './reusableComponents/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OverlayPreloaderComponent } from './reusableComponents/overlay-preloader/overlay-preloader.component';
 import { ResourceMainStore } from './ResourceManager/resourseMainStore';
+import { HeaderComponent } from './reusableComponents/header/header.component';
 
 
 
 @NgModule({
   declarations: [
     FooterComponent,
-    OverlayPreloaderComponent
+    OverlayPreloaderComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
