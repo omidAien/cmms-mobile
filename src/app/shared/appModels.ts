@@ -104,3 +104,12 @@ export interface PWAItemsResponse {
     Error: ErrorModel;
     PWA: PWAItems[];
 }
+
+export interface BackButton {
+    ObjectID: number;
+    Caption: string;
+    TaskTypeCode: number;
+    RouterPath: string;
+    Active: boolean;
+    [key: string]: any;
+}
