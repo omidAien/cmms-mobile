@@ -4,6 +4,8 @@
         <span>{{ headerInfo.Caption }}</span>
     </section>
 
-    <section class="header-icon"></section>
+    <section class="header-icon" (click)="backButtonHandler($event)">
+        <fa-icon [icon]="faArrowLeft" size="xl" *ngIf=" headerInfo.Active "></fa-icon>
+    </section>
 
 </header>

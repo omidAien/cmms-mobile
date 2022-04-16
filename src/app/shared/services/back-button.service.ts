@@ -38,7 +38,7 @@ export class BackButtonService {
 
       this.headerInfoService.setHeaderInfo({
         Caption: lastBackButtonItem.Caption,
-        Active: lastBackButtonItem.active
+        Active: lastBackButtonItem.Active
       });
 
     } else {
@@ -57,7 +57,7 @@ export class BackButtonService {
 
     this.headerInfoService.setHeaderInfo({
       Caption: item.Caption,
-      Active: item.active
+      Active: item.Active
     });
 
     this.handleSessionstorage.set("backButtonStack", backButtonStack);
