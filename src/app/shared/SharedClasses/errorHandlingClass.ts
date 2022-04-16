@@ -2,6 +2,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+import { SystemInformation } from "../appModels";
 import { ResourceMainStore } from "../ResourceManager/resourseMainStore";
 import { ServerErrorMessageService } from "../services/server-error-message.service";
 import { HandleSessionstorage } from "./HandleSessionStorage";
@@ -97,13 +98,13 @@ export class HandleUnauthorizeError extends ShowMessage {
 
         super(snackBar);
 
-        const pageInfo = this.handleSessionstorage.get("pageInfo");
+        const pageInfo: Pick<SystemInformation, "Direction" | "Culture"> = this.handleSessionstorage.get("pageInfo");
                     
         if ( pageInfo ) {
 
-            this.resourceMainStore.culture = pageInfo.culture;
+            this.resourceMainStore.culture = pageInfo.Culture;
 
-            this.pageDirection = pageInfo.pageDirection;
+            this.pageDirection = pageInfo.Direction;
 
         } else {
 

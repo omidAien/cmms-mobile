@@ -1,14 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { combineLatest, Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { EntryInputs, PWAItems, PWAItemsResponse, SystemInformation, UserWorkgroup } from 'src/app/shared/appModels';
 import { ApiEndPointService } from 'src/app/shared/services/api-end-point.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { GeneralErrorMessage } from 'src/app/shared/SharedClasses/errorHandlingClass';
-import { ExtractSystemInfo } from 'src/app/shared/SharedClasses/extractSystemInfo';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
-import { ServerErrorMessageResources } from 'src/assets/Resources/projectResources';
 
 @Component({
   selector: 'map-dashboard',
@@ -17,62 +14,60 @@ import { ServerErrorMessageResources } from 'src/assets/Resources/projectResourc
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
 
-  systemInfo: SystemInformation | null = null;
+  pageInfo: Pick<SystemInformation, "Direction" | "Culture">;
   userFullname:string = "UnKnown";
   userPosition:string = "UnKnown";
-  PWAItems: PWAItems[] = [];
+
+  private PWAItemsSubject = new BehaviorSubject<PWAItems[]>(null);
+  PWAItems$: Observable<PWAItems[]> = this.PWAItemsSubject.asObservable();
 
   constructor(private handleSessionstorage: HandleSessionstorage,
               private apiEndPointService: ApiEndPointService,
               private cookieService: CookieService,
               private loadingService: LoadingService,
-              private generalErrorMessage: GeneralErrorMessage,
-              private extractSytemInfo: ExtractSystemInfo) { }
+              private generalErrorMessage: GeneralErrorMessage) { }
 
   ngOnInit(): void {
 
-    const token:string = "bearer ".concat(JSON.parse(this.cookieService.get("token")));
-    const systemInfo$:Observable<SystemInformation> = this.extractSytemInfo.systemInfo$.pipe(delay(300));
-    const getPWAItems$: Observable<PWAItemsResponse> = this.apiEndPointService.getPWAItems(token, this.entryInputsForPWAItems());
+    this.initialInfoHandler();
 
-    const observableList$ = combineLatest([systemInfo$, getPWAItems$]);
-    this.manageDataBound(observableList$);
+    this.PWAItemsHandler();
 
   }
 
-  manageDataBound(observableList$: Observable<[SystemInformation, PWAItemsResponse]>) {
+  initialInfoHandler() {
+
+    // 1. getting pageInfo, <Direction" | "Culture>
+    this.pageInfo = this.handleSessionstorage.get("pageInfo");
+
+    // 2. getting user Information, <userFullname | userPosition>
+    this.userFullname = this.handleSessionstorage.get("userFullName");
+    const userDefaultWorkGroup: UserWorkgroup = this.handleSessionstorage.get("userDefaultWorkGroup");
+    this.userPosition = userDefaultWorkGroup.Workgroup;
+
+  }
+
+  PWAItemsHandler() {
+
+    const token:string = "bearer ".concat(JSON.parse(this.cookieService.get("token")));
+    const userDefaultWorkGroup:UserWorkgroup = this.handleSessionstorage.get("userDefaultWorkGroup");
+    const workgroupID:number = userDefaultWorkGroup.PK_WorkgroupID;
+
+    const getPWAItems$: Observable<PWAItemsResponse> = this.apiEndPointService.getPWAItems(token, this.entryInputsForPWAItems(workgroupID));
 
     this.loadingService
-        .showPreLoaderUntilCompleted(observableList$)
-        .subscribe(([_systemInfo, _getPWAItems]) => {
+        .showPreLoaderUntilCompleted(getPWAItems$, true, 500)
+        .subscribe((response: PWAItemsResponse) => {
 
-          if ( _systemInfo && _getPWAItems ) {
-
-            if ( !_getPWAItems.Error.hasError ) {
-
-              this.systemInfo = _systemInfo;
-              this.PWAItems = _getPWAItems.PWA;
+          if ( !response.Error.hasError ) {
   
-              this.userFullname = this.handleSessionstorage.get("userFullName");
-  
-              const userDefaultWorkGroup: UserWorkgroup = this.handleSessionstorage.get("userDefaultWorkGroup");
-              this.userPosition = userDefaultWorkGroup.Workgroup;
-  
-              this.loadingService.loadingOff();
-
-            }
-
-            else {
-
-              this.generalErrorMessage.handleServerSideError(_getPWAItems.Error.Message, _systemInfo.Direction);
-  
-            }
+            this.PWAItemsSubject.next(response.PWA);
 
           }
+
           else {
 
-            const errorMessage:string = ServerErrorMessageResources.message;
-            this.generalErrorMessage.handleDatabaseSideError(errorMessage);
+            this.generalErrorMessage.handleServerSideError(response.Error.Message, this.pageInfo.Direction);
 
           }
 
@@ -80,10 +75,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   }
 
-  entryInputsForPWAItems(): EntryInputs {
-
-    const userDefaultWorkGroup:UserWorkgroup = this.handleSessionstorage.get("userDefaultWorkGroup");
-    const workgroupID:number = userDefaultWorkGroup.PK_WorkgroupID;
+  entryInputsForPWAItems(workgroupID:number): EntryInputs {
 
     const entryInputs: EntryInputs = {
       objectID: 0,
@@ -93,6 +85,26 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     };
 
     return entryInputs;
+
+  }
+
+  executeOperationHandler(event: any) {
+
+    const taskTypeAttributeName: string = "taskTypeCode";
+    const _target: HTMLElement = event.target;
+    let correctTarget: HTMLElement;
+
+    if ( _target.classList.contains("card") ) {
+
+      correctTarget = _target;
+
+    } else if ( _target.closest("section") ) {
+
+      correctTarget = _target.closest("section");
+
+    }
+
+    console.log(correctTarget.id, correctTarget.getAttribute(taskTypeAttributeName));
 
   }
 

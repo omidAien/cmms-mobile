@@ -81,9 +81,9 @@ export class GetInitialDataService {
               const systemInformation: SystemInformation = result.dtSystemInformation[0];
               this.extractSystemInfo.setSystemInfo(systemInformation);
 
-              const pageInfo: { [key: string]: string } = {
-                "pageDirection": systemInformation.Direction,
-                "culture": systemInformation.Culture
+              const pageInfo: Pick<SystemInformation, "Direction" | "Culture"> = {
+                "Direction": systemInformation.Direction,
+                "Culture": systemInformation.Culture
               };
 
               this.handleSessionstorage.set("pageInfo", pageInfo);
