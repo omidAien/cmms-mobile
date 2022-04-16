@@ -1,0 +1,6 @@
+{
+    "icons" : [
+        { "name": "map-back-button", "svgSource": "/assets/svg-datasets/map-back-button.svg" },
+        { "name": "map-close-button", "svgSource": "/assets/svg-datasets/map-close-button.svg" }
+    ]
+}
