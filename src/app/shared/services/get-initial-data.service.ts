@@ -80,7 +80,13 @@ export class GetInitialDataService {
               // 3. save systemInformation in sessionStorage.
               const systemInformation: SystemInformation = result.dtSystemInformation[0];
               this.extractSystemInfo.setSystemInfo(systemInformation);
-              this.handleSessionstorage.set("culture", JSON.stringify(systemInformation.Culture));
+
+              const pageInfo: { [key: string]: string } = {
+                "pageDirection": systemInformation.Direction,
+                "culture": systemInformation.Culture
+              };
+
+              this.handleSessionstorage.set("pageInfo", JSON.stringify(pageInfo));
 
             }
 

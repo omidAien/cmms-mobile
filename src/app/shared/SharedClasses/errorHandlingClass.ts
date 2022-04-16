@@ -2,8 +2,9 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { ServerErrorMessageResources } from "src/assets/Resources/projectResources";
+import { ResourceMainStore } from "../ResourceManager/resourseMainStore";
 import { ServerErrorMessageService } from "../services/server-error-message.service";
+import { HandleSessionstorage } from "./HandleSessionStorage";
 
 
 class ShowMessage {
@@ -85,9 +86,34 @@ class ShowMessage {
 
 
 @Injectable()
-export class HandleUnauthorizeError {
+export class HandleUnauthorizeError extends ShowMessage {
 
-    constructor(private serverErrorMessageService: ServerErrorMessageService, private router: Router) {}
+    pageDirection: string = "ltr";
+
+    constructor(snackBar: MatSnackBar,
+                private resourceMainStore: ResourceMainStore,
+                private handleSessionstorage: HandleSessionstorage,
+                private router: Router) {
+
+        super(snackBar);
+
+        const pageInfo = JSON.parse(this.handleSessionstorage.get("pageInfo"));
+                    
+        if ( pageInfo ) {
+
+            this.resourceMainStore.culture = pageInfo.culture;
+
+            this.pageDirection = pageInfo.pageDirection;
+
+        } else {
+
+            this.resourceMainStore.culture = 'en';
+
+            this.pageDirection = this.pageDirection;
+
+        }
+      
+    }
 
     excuteTask(error: HttpErrorResponse) {
 
@@ -95,14 +121,13 @@ export class HandleUnauthorizeError {
 
         case 401: 
             sessionStorage.removeItem("userIsLogin");
-            sessionStorage.removeItem("locatingTableRowAfterBackToBasicTablePageFromOrderPage");
             this.router.navigateByUrl("/");
             window.location.reload();
             break;
 
         case 0:
-            const message:string = ServerErrorMessageResources.message;
-            this.serverErrorMessageService.setMessage(message);
+            const message:string = this.resourceMainStore.getNetworkDisconnectedTextResource();
+            this.showMessage(message, this.pageDirection);
             break;
 
         }
