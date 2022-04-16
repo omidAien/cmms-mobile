@@ -23,7 +23,8 @@ export class HandleSessionstorage {
         sessionStorage.removeItem("userProjects");
         sessionStorage.removeItem("userDefaultProject");
         sessionStorage.removeItem("selectedWorkStation");
-        
+        sessionStorage.removeItem("backButtonStack");
+                
     }
 
 }
