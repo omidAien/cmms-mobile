@@ -26,6 +26,7 @@ import { HeaderComponent } from './reusableComponents/header/header.component';
   ],
   exports: [
     FooterComponent,
+    HeaderComponent,
     OverlayPreloaderComponent
   ],
   providers: [
