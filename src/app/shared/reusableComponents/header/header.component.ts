@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { HeaderInfoService } from '../../services/header-info.service';
 
 @Component({
   selector: 'map-header',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  @Input() pageDirection: string;
 
-  ngOnInit(): void {
-  }
+  constructor(public headerInfoService: HeaderInfoService) { }
+
+  ngOnInit(): void {}
 
 }

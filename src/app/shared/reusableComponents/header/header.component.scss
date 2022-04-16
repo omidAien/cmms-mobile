@@ -1,0 +1,11 @@
+@import "../../../scss/main";
+
+header {
+    background-color: $blue004;
+    color: $white;
+    padding: 5px 10px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

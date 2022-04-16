@@ -1,1 +1,9 @@
-<p>header works!</p>
+<header [dir]=" pageDirection " *ngIf=" ( headerInfoService.headerInfo$ | async ) as headerInfo">
+
+    <section class="header-title">
+        <span>{{ headerInfo.Caption }}</span>
+    </section>
+
+    <section class="header-icon"></section>
+
+</header>
