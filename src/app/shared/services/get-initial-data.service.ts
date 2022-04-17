@@ -1,11 +1,11 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, concatMap, shareReplay } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 import { SystemInformation, SystemInformationCore } from '../appModels';
-import { HandleUnauthorizeError } from '../SharedClasses/errorHandlingClass';
 import { ExtractSystemInfo } from '../SharedClasses/extractSystemInfo';
 import { HandleSessionstorage } from '../SharedClasses/HandleSessionStorage';
+import { SystemInformationRequestProvider } from '../SharedClasses/prepareSystemInformationRequest';
 
 @Injectable()
 export class GetInitialDataService {
@@ -16,9 +16,9 @@ export class GetInitialDataService {
   private systemInfoApiEndPoint:string = "mapSystemInformation";
 
   constructor(private httpClient: HttpClient,
-              private handleUnauthorizeError: HandleUnauthorizeError, 
               private handleSessionstorage: HandleSessionstorage,
-              private extractSystemInfo: ExtractSystemInfo) {
+              private extractSystemInfo: ExtractSystemInfo,
+              private systemInformationRequestProvider: SystemInformationRequestProvider) {
 
     this.getInitialDataFromServer();
 
@@ -30,6 +30,32 @@ export class GetInitialDataService {
 
   }
 
+  pageInfohandler(systemInformation: SystemInformation) {
+
+    const pageInfo: Pick<SystemInformation, "Direction" | "Culture"> = {
+      "Direction": systemInformation.Direction,
+      "Culture": systemInformation.Culture
+    };
+
+    this.handleSessionstorage.set("pageInfo", pageInfo);
+
+  }
+
+  baseURLHandler(appSettingsValue: any) {
+
+    const appSettings = JSON.parse(appSettingsValue);
+
+    if ( this.origin === appSettings.Origin_EXTERNAL ) {
+      this.baseURL = appSettings.API_URL_EXTERNAL;
+    }
+    else {
+      this.baseURL = appSettings.API_URL_INTERNAL;
+    }
+
+    this.handleSessionstorage.set("baseURL", this.baseURL);
+
+  }
+
   getInitialDataFromServer() {
 
     this.readExternalJsonFileFromAssets(this.appSettingsFilename)
@@ -38,29 +64,12 @@ export class GetInitialDataService {
 
             try {
 
-              const appSettings = JSON.parse(appSettingsValue);
-
-              if ( this.origin === appSettings.Origin_EXTERNAL ) {
-                this.baseURL = appSettings.API_URL_EXTERNAL;
-              }
-              else {
-                this.baseURL = appSettings.API_URL_INTERNAL;
-              }
-  
               // 1. save baseUrl in sessionStorage.
-              this.handleSessionstorage.set("baseURL", this.baseURL);
+              this.baseURLHandler(appSettingsValue);
   
               // 2. send request to get systemInformation from server.
               const systemInfoApiUrl:string = this.baseURL.concat(this.systemInfoApiEndPoint);
-              const systemInfoReq$: Observable<SystemInformationCore> = 
-                this.httpClient.get<SystemInformationCore>(systemInfoApiUrl)
-                    .pipe(
-                      shareReplay(),
-                      catchError((error: HttpErrorResponse) => {
-                        this.handleUnauthorizeError.excuteTask(error);
-                        return throwError(error);
-                      })
-                    );
+              const systemInfoReq$: Observable<SystemInformationCore> = this.systemInformationRequestProvider.get(systemInfoApiUrl);
                     
               return systemInfoReq$;
               
@@ -77,16 +86,12 @@ export class GetInitialDataService {
 
             if ( !result.Error.hasError ) {
 
-              // 3. save systemInformation in sessionStorage.
+              // 3. saving systemInformation in sessionStorage.
               const systemInformation: SystemInformation = result.dtSystemInformation[0];
               this.extractSystemInfo.setSystemInfo(systemInformation);
 
-              const pageInfo: Pick<SystemInformation, "Direction" | "Culture"> = {
-                "Direction": systemInformation.Direction,
-                "Culture": systemInformation.Culture
-              };
-
-              this.handleSessionstorage.set("pageInfo", pageInfo);
+              // 4. managing pageInfo
+              this.pageInfohandler(systemInformation);
 
             }
 
