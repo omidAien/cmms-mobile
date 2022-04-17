@@ -64,31 +64,39 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     let extractedTaskTypeCode: number = 0;
     let extractedRouterPath: string;
 
-    // 3. detecting correctTarget
-    if ( _target.closest("section") ) {
+    try {
+      
+      // 3. detecting correctTarget
+      if ( _target.closest("section") ) {
 
-      correctTarget = _target.closest("section");
+        correctTarget = _target.closest("section");
+
+      }
+
+      // 4. extracting value for initial variables
+      extractedObjectID = +correctTarget.id;
+      extractedTaskTypeCode = +correctTarget.getAttribute(taskTypeAttributeName);
+      extractedCaption = correctTarget.getAttribute(captionAttributeName);
+      extractedRouterPath = location.hash.replace("#", "");
+
+      // 5. manage back-button-stack
+      this.backButtonService.push({
+        ObjectID: extractedObjectID,
+        TaskTypeCode: extractedTaskTypeCode,
+        Caption: extractedCaption,
+        RouterPath: extractedRouterPath,
+        Active: true  
+      });
+
+      // 6. updating PWAItems
+      this.pwaItemsService.reset();
+      this.pwaItemsService.getItems(extractedObjectID, this.pageInfo.Direction);
+
+    } catch (error) {
+      
+      
 
     }
-
-    // 4. extracting value for initial variables
-    extractedObjectID = +correctTarget.id;
-    extractedTaskTypeCode = +correctTarget.getAttribute(taskTypeAttributeName);
-    extractedCaption = correctTarget.getAttribute(captionAttributeName);
-    extractedRouterPath = location.hash.replace("#", "");
-
-    // 5. manage back-button-stack
-    this.backButtonService.push({
-      ObjectID: extractedObjectID,
-      TaskTypeCode: extractedTaskTypeCode,
-      Caption: extractedCaption,
-      RouterPath: extractedRouterPath,
-      Active: true  
-    });
-
-    // 6. updating PWAItems
-    this.pwaItemsService.reset();
-    this.pwaItemsService.getItems(extractedObjectID, this.pageInfo.Direction);
 
   }
 
