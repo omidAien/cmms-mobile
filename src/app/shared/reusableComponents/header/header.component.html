@@ -1,4 +1,4 @@
-<header [dir]=" pageDirection " *ngIf=" ( headerInfoService.headerInfo$ | async ) as headerInfo">
+<header *ngIf=" ( headerInfoService.headerInfo$ | async ) as headerInfo">
 
     <section class="header-title">
         <span>{{ headerInfo.Caption }}</span>

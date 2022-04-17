@@ -11,8 +11,6 @@ import { BackButton } from '../../appModels';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() pageDirection: string;
-
   faArrowLeft: IconDefinition = faArrowLeft;
 
   constructor(public headerInfoService: HeaderInfoService, 
