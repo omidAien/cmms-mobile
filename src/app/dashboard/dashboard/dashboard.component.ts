@@ -105,11 +105,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     let extractedRouterPath: string;
 
     // 3. detecting correctTarget
-    if ( _target.classList.contains("card") ) {
-
-      correctTarget = _target;
-
-    } else if ( _target.closest("section") ) {
+    if ( _target.closest("section") ) {
 
       correctTarget = _target.closest("section");
 
