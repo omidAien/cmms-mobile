@@ -24,7 +24,7 @@
         
                 <map-overlay-preloader></map-overlay-preloader>
 
-                <ng-container *ngIf=" (PWAItems$ | async) as PWAItems">
+                <ng-container *ngIf=" (pwaItemsService.PWAItems$ | async) as PWAItems">
 
                     <div class="operations-conatiner" [mapDesignView]=" PWAItems.length " (click)="executeOperationHandler($event)">
         
