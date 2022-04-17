@@ -1,10 +1,12 @@
+@import "../../../scss/main";
+
 .barcode-info-list-viewer {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: auto 1fr;
     width: 100%;
     height: 100%;
-    border-top: 1px solid var(--004);
+    border-top: 1px solid $blue008;
 
     header {
         font-size: 0.75rem;
@@ -25,7 +27,7 @@
       .mat-expansion-panel {
         margin-bottom: 10px !important;
         box-shadow: none !important;
-        border: 1px solid var(--004);
+        border: 1px solid $blue008;
 
         .mat-expansion-panel-header {
             font-size: 14px !important;
@@ -41,7 +43,7 @@
         margin-bottom: 10px;
 
         .mat-expansion-panel-body {
-            background-color: var(--0012);
+            background-color: $white001;
         }
 
         .barcode-info-caption span {
@@ -53,7 +55,7 @@
             white-space: pre-wrap;
             text-justify: inter-word;
             font-weight: bold;
-            color: var(--0032);
+            color: $red007;
         }
           
       }
