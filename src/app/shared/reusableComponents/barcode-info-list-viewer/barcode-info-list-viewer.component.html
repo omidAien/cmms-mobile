@@ -1,1 +1,38 @@
-<p>barcode-info-list-viewer works!</p>
+<div class="barcode-info-list-viewer" *ngIf=" (barcodeInfoListService.barcodeInfoList$ | async) as barcodeInfoList">
+
+    <header>
+        <span>مشخصات بارکدهای خوانده شده</span>
+    </header>  
+
+    <main>
+
+        <mat-accordion>
+
+            <mat-expansion-panel *ngFor="let barcode of barcodeInfoList" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ barcode.Barcode }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="barcode-info-container" *ngFor="let detail of barcode.Detail">
+
+                <div class="barcode-info-caption">
+                    <span>{{ detail.Caption }}</span>
+                </div>
+                <div class="barcode-info-description">
+                    <span>{{ detail.Value }}</span>
+                </div>
+
+              </div>
+
+            </mat-expansion-panel>
+        
+        </mat-accordion>
+
+    </main>
+
+</div>
+
+

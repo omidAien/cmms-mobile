@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BarcodeInfoListService } from '../../services/barcode-info-list.service';
 
 @Component({
   selector: 'map-barcode-info-list-viewer',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarcodeInfoListViewerComponent implements OnInit {
 
-  constructor() { }
+  constructor(public barcodeInfoListService: BarcodeInfoListService) { }
 
   ngOnInit(): void {
   }
