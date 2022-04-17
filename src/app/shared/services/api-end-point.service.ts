@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import { AuthenticateParameters, AuthenticateResponse, EntryInputs, PWAItemsResponse } from '../appModels';
 import { HandleUnauthorizeError } from '../SharedClasses/errorHandlingClass';
+import { HandleSessionstorage } from '../SharedClasses/HandleSessionStorage';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,11 @@ export class ApiEndPointService {
 
   private baseURL:Required<string>;
 
-  constructor(private httpClient: HttpClient, private handleUnauthorizeError: HandleUnauthorizeError) { 
+  constructor(private httpClient: HttpClient, 
+              private handleSessionstorage: HandleSessionstorage,
+              private handleUnauthorizeError: HandleUnauthorizeError) { 
 
-    const baseURLSessionStorage:string = sessionStorage.getItem("baseURL");       
+    const baseURLSessionStorage:string = this.handleSessionstorage.get("baseURL");       
     this.baseURL = baseURLSessionStorage;
 
   }

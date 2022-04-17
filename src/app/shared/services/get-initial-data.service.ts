@@ -48,7 +48,7 @@ export class GetInitialDataService {
               }
   
               // 1. save baseUrl in sessionStorage.
-              sessionStorage.setItem("baseURL", this.baseURL);
+              this.handleSessionstorage.set("baseURL", this.baseURL);
   
               // 2. send request to get systemInformation from server.
               const systemInfoApiUrl:string = this.baseURL.concat(this.systemInfoApiEndPoint);

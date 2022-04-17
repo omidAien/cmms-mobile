@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { SystemInformation } from "../appModels";
 
 @Injectable({
     providedIn: "root"
@@ -15,16 +16,14 @@ export class HandleSessionstorage {
 
     reset() {
 
-        sessionStorage.removeItem("userIsLogin");
-        sessionStorage.removeItem("userFullName");
-        sessionStorage.removeItem("userWorkstations");
-        sessionStorage.removeItem("userWorkGroups");
-        sessionStorage.removeItem("userDefaultWorkGroup");
-        sessionStorage.removeItem("userProjects");
-        sessionStorage.removeItem("userDefaultProject");
-        sessionStorage.removeItem("selectedWorkStation");
-        sessionStorage.removeItem("backButtonStack");
-                
+        const baseURL: string = this.get("baseURL");
+        const pageInfo: Pick<SystemInformation, "Direction" | "Culture"> = this.get("pageInfo");
+
+        sessionStorage.clear();
+
+        this.set("baseURL", baseURL);
+        this.set("pageInfo", pageInfo);
+        
     }
 
 }
