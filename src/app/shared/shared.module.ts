@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OverlayPreloaderComponent } from './reusableComponents/overlay-preloader/overlay-preloader.component';
 import { ResourceMainStore } from './ResourceManager/resourseMainStore';
 import { HeaderComponent } from './reusableComponents/header/header.component';
+import { BarcodeInfoListViewerComponent } from './reusableComponents/barcode-info-list-viewer/barcode-info-list-viewer.component';
 
 
 
@@ -17,7 +18,8 @@ import { HeaderComponent } from './reusableComponents/header/header.component';
   declarations: [
     FooterComponent,
     OverlayPreloaderComponent,
-    HeaderComponent
+    HeaderComponent,
+    BarcodeInfoListViewerComponent
   ],
   imports: [
     CommonModule,
