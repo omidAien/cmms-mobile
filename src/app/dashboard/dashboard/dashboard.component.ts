@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { BackButton, PWAItems, SystemInformation, UserWorkgroup } from 'src/app/shared/appModels';
+import { BackButton, SystemInformation, UserWorkgroup } from 'src/app/shared/appModels';
 import { BackButtonService } from 'src/app/shared/services/back-button.service';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
 import { PWAItemsService } from '../Services/pwaitems.service';
