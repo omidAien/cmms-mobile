@@ -13,6 +13,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: "swcomp",
+    loadChildren: () => import("./switcher/switcher.module").then((m) => m.SwitcherModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: "", redirectTo: "/account/login", pathMatch: "full"
   },
   {
