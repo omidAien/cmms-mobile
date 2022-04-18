@@ -14,6 +14,7 @@ export class WarehouseReceiptTypeComponent implements OnInit {
   pageInfo: Pick<SystemInformation, "Direction" | "Culture">;
   entryHttpRequest: EntryHttpRequest = {};
   formBuilderEventHandler: FormBuilderEventEmitterHandler;
+  changeApplyButtonText: string;
 
   constructor(private handleSessionstorage: HandleSessionstorage,
               private resourceMainStore: ResourceMainStore,
@@ -24,6 +25,8 @@ export class WarehouseReceiptTypeComponent implements OnInit {
     this.detectPageInfo();
 
     this.setCultureForResourceMainStore();
+
+    this.setChangeApplyButtonTextResource();
 
   }
 
@@ -61,6 +64,12 @@ export class WarehouseReceiptTypeComponent implements OnInit {
       console.log(this.formBuilderEventHandler.formGroup.value);
     
     }
+
+  }
+
+  setChangeApplyButtonTextResource() {
+
+    this.changeApplyButtonText = this.resourceMainStore.getChangeApplyButtonTextResource();
 
   }
 
