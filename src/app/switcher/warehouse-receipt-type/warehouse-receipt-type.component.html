@@ -1,0 +1,15 @@
+<div class="main-container" [dir]=" pageInfo.Direction ">
+
+    <header>
+        <map-header></map-header>
+    </header>
+
+    <main>
+        <map-form-builder (formOutputHandler)="formOutputHandler($event)"></map-form-builder>
+    </main>
+
+    <footer>
+        <button matRipple (click)="submit($event)">Basic</button>
+    </footer>
+
+</div>
