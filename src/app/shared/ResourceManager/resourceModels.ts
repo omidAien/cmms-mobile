@@ -16,6 +16,8 @@ export interface ResourceCultureStore {
     serverBadRequestErrorMessageText: string;
     baseCRUDImagePathText: string;
     generalServerErrorMessageText: string;
+    formFieldErrorMessageText:string;
+    invalidBarcodeLengthErrorMessageText: string;
 }
 
 export interface ILoginPageTextResources {

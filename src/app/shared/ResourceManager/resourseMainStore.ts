@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { resourceCultureStore } from "src/assets/Resources/resourceCulture";
 import { BaseCRUDImagePathTextResource, 
+         FormFieldErrorMessageTextResource, 
          GeneralServerErrorMessageTextResource, 
+         InvalidBarcodeLengthErrorMessageTextResource, 
          LoginPageTextResources,
          NetworkDisconnectedTextResource, 
          ResourceHandler, 
@@ -112,4 +114,19 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     }
 
+    getFormFieldErrorMessageTextResource(): string {
+
+        const instance = new FormFieldErrorMessageTextResource(this.resourceCulture);
+
+        return this.executerHandler(instance);
+
+    }
+
+    getInvalidBarcodeLengthErrorMessageTextResource(): string {
+
+        const instance = new InvalidBarcodeLengthErrorMessageTextResource(this.resourceCulture);
+
+        return this.executerHandler(instance);
+
+    }
 }

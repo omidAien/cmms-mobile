@@ -119,3 +119,31 @@ export class GeneralServerErrorMessageTextResource extends ResourceHandler {
     }
 
 }
+
+export class FormFieldErrorMessageTextResource extends ResourceHandler {
+
+    constructor(public resourceCulture: ResourceCultureStore) {
+        super();
+    }
+
+    getResource(): string {
+
+        return this.resourceCulture.formFieldErrorMessageText;
+
+    }
+
+}
+
+export class InvalidBarcodeLengthErrorMessageTextResource extends ResourceHandler {
+
+    constructor(public resourceCulture: ResourceCultureStore) {
+        super();
+    }
+
+    getResource(): string {
+
+        return this.resourceCulture.invalidBarcodeLengthErrorMessageText;
+
+    }
+
+}

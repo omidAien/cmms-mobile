@@ -19,7 +19,9 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         networkDisconnectedErrorMessageText: "اتصال شبکه یا اینترنت را بررسی نمایید.",
         serverBadRequestErrorMessageText: "400 BAD REQUEST",
         baseCRUDImagePathText: "../../../assets/images/user-icon@96.png",
-        generalServerErrorMessageText: "خطایی سمت سرور رخ داده است"
+        generalServerErrorMessageText: "خطایی سمت سرور رخ داده است",
+        formFieldErrorMessageText: "این فیلد الزامی است",
+        invalidBarcodeLengthErrorMessageText: "بارکد 12 رقمی می باشد"
     },
     en: {
         loginPageUsernameText: "Username",
@@ -38,7 +40,9 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         networkDisconnectedErrorMessageText: "NETWORK OR INTERNET DISCONNECTED",
         serverBadRequestErrorMessageText: "400 BAD REQUEST",
         baseCRUDImagePathText: "../../../assets/images/user-icon@96.png",
-        generalServerErrorMessageText: "A Server Error Occurred"
+        generalServerErrorMessageText: "A Server Error Occurred",
+        formFieldErrorMessageText: "Field is required",
+        invalidBarcodeLengthErrorMessageText: "Barcode has 12 digits"
     }
 
 }
