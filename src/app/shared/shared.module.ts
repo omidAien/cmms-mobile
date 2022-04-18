@@ -11,6 +11,10 @@ import { OverlayPreloaderComponent } from './reusableComponents/overlay-preloade
 import { ResourceMainStore } from './ResourceManager/resourseMainStore';
 import { HeaderComponent } from './reusableComponents/header/header.component';
 import { BarcodeInfoListViewerComponent } from './reusableComponents/barcode-info-list-viewer/barcode-info-list-viewer.component';
+import { FormBuilderComponent } from './reusableComponents/form-builder/form-builder.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TaskTypeCodeHandler } from './taskTypeManager/taskTypes';
+import { FieldFocusDirective } from './reusableComponents/form-builder/field-focus.directive';
 
 
 
@@ -19,17 +23,23 @@ import { BarcodeInfoListViewerComponent } from './reusableComponents/barcode-inf
     FooterComponent,
     OverlayPreloaderComponent,
     HeaderComponent,
-    BarcodeInfoListViewerComponent
+    BarcodeInfoListViewerComponent,
+    FormBuilderComponent,
+    FieldFocusDirective
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
     MaterialModule
   ],
   exports: [
     FooterComponent,
     HeaderComponent,
-    OverlayPreloaderComponent
+    OverlayPreloaderComponent,
+    BarcodeInfoListViewerComponent,
+    FormBuilderComponent
   ],
   providers: [
     GetInitialDataService,
@@ -38,7 +48,8 @@ import { BarcodeInfoListViewerComponent } from './reusableComponents/barcode-inf
     GeneralErrorMessage,
     GeneralSuccssMessage,
     HandleSessionstorage,
-    ResourceMainStore
+    ResourceMainStore,
+    TaskTypeCodeHandler
   ]
 })
 export class SharedModule { }
