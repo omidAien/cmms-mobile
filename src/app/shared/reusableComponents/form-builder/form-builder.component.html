@@ -1,0 +1,49 @@
+<form [formGroup]="formBuilder">
+
+    <mat-form-field [appearance]=" matFormFieldAppearance ">
+
+        <mat-label>بارکد</mat-label>
+
+        <input matInput formControlName="barcode" [mapFieldFocus]="2">
+
+        <mat-error *ngIf=" formBuilder.get('barcode').hasError('required') ">{{ formFieldErrorMsg }}</mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field [appearance]=" matFormFieldAppearance ">
+
+        <mat-label>انبار</mat-label>
+
+        <input matInput formControlName="warehouse" [mapFieldFocus]="0">
+
+        <!-- <mat-select disableOptionCentering formControlName="warehouse" (selectionChange)="selectionChangeHandler($event)"> -->
+
+          <!-- <mat-option *ngFor="let item of dataInput.warehouseList" [value]="item.PK_WarehouseCode">
+                      {{ item.Warehouse }}
+          </mat-option> -->
+
+        <!-- </mat-select> -->
+
+        <mat-error *ngIf=" formBuilder.get('warehouse').hasError('required') ">{{ formFieldErrorMsg }}</mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field [appearance]=" matFormFieldAppearance ">
+
+        <mat-label>محل استقرار</mat-label>
+
+        <input matInput formControlName="location" [mapFieldFocus]="0">
+
+        <!-- <mat-select disableOptionCentering formControlName="location"> -->
+
+          <!-- <mat-option *ngFor="let item of locationList" [value]="item.pk_LocationCode">
+                      {{ item.pk_LocationCode }}
+          </mat-option> -->
+
+        <!-- </mat-select> -->
+
+        <mat-error *ngIf=" formBuilder.get('location').hasError('required') ">{{ formFieldErrorMsg }}</mat-error>
+
+  </mat-form-field>
+
+</form>
