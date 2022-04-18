@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { BackButton, SystemInformation, UserWorkgroup } from 'src/app/shared/appModels';
 import { BackButtonService } from 'src/app/shared/services/back-button.service';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
+import { TaskTypeCodeHandler } from 'src/app/shared/taskTypeManager/taskTypes';
 import { PWAItemsService } from '../Services/pwaitems.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   constructor(private handleSessionstorage: HandleSessionstorage,
               public pwaItemsService: PWAItemsService,
+              private taskTypeCodeHandler: TaskTypeCodeHandler,
               private backButtonService: BackButtonService) { }
 
   ngOnInit(): void {
@@ -50,44 +52,44 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   }
 
+  extractHtmlDataOperation(target: HTMLElement): Pick<BackButton, "ObjectID" | "Caption" | "TaskTypeCode" | "RouterPath"> {
+
+    const taskTypeAttributeName: string = "taskTypeCode";
+    const captionAttributeName: string = "caption";
+
+    const result: Pick<BackButton, "ObjectID" | "Caption" | "TaskTypeCode" | "RouterPath"> = {
+      ObjectID: +target.id,
+      Caption: target.getAttribute(captionAttributeName),
+      TaskTypeCode: +target.getAttribute(taskTypeAttributeName),
+      RouterPath: location.hash.replace("#", "")
+    };
+
+    return result;
+
+  }
+
   executeOperationHandler(event: any) {
 
     // 1. constants
-    const taskTypeAttributeName: string = "taskTypeCode";
-    const captionAttributeName: string = "caption";
-    const _target: HTMLElement = event.target;
+    const sectionElement: HTMLElement = event.target.closest("section");
+    let extractedData: Pick<BackButton, "ObjectID" | "Caption" | "TaskTypeCode" | "RouterPath"> = null;
 
-    // 2. initial variables
-    let correctTarget: HTMLElement;
-    let extractedObjectID: number = 0;
-    let extractedCaption: string;
-    let extractedTaskTypeCode: number = 0;
-    let extractedRouterPath: string;
-    
-    // 3. detecting correctTarget
-    if ( _target.closest("section") ) {
+    // 2. detecting correctTarget
+    if ( sectionElement ) {
       
-      correctTarget = _target.closest("section");
+      // 3. extracting data for initial variables
+      extractedData = this.extractHtmlDataOperation(sectionElement);
         
-      // 4. extracting value for initial variables
-        extractedObjectID = +correctTarget.id;
-      extractedTaskTypeCode = +correctTarget.getAttribute(taskTypeAttributeName);
-        extractedCaption = correctTarget.getAttribute(captionAttributeName);
-      extractedRouterPath = location.hash.replace("#", "");
-        
-        // 5. manage back-button-stack
-      this.backButtonService.push({
-        ObjectID: extractedObjectID,
-        TaskTypeCode: extractedTaskTypeCode,
-          Caption: extractedCaption,
-        RouterPath: extractedRouterPath,
-          Active: true  
-      });
+      // 5. manage back-button-stack
+      this.backButtonService.push({ ...extractedData, Active: true });
           
-      // 6. updating PWAItems
-        this.pwaItemsService.reset();
-      this.pwaItemsService.getItems(extractedObjectID, this.pageInfo.Direction);
-        
+      // 6. navigating to new url based on TaskTypeCode
+      this.taskTypeCodeHandler.navigator(extractedData.TaskTypeCode);
+
+      // 7. updating PWAItems
+      this.pwaItemsService.reset();
+      this.pwaItemsService.getItems(extractedData.ObjectID, this.pageInfo.Direction);
+  
     }
 
   }
