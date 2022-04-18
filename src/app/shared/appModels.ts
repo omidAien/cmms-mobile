@@ -1,3 +1,5 @@
+import { AbstractControl, FormGroup } from "@angular/forms";
+
 export interface AppSettings {
     API_URL_INTERNAL:string; 
     API_URL_EXTERNAL:string; 
@@ -111,5 +113,15 @@ export interface BackButton {
     TaskTypeCode: number;
     RouterPath: string;
     Active: boolean;
+    [key: string]: any;
+}
+
+export interface EntryHttpRequest {
+    [key: string]: any;
+}
+
+export interface FormBuilderEventEmitterHandler {
+    formGroup: FormGroup;
+    barcodeFormControl: AbstractControl;
     [key: string]: any;
 }
