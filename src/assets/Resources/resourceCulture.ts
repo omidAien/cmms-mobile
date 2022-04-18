@@ -21,7 +21,8 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         baseCRUDImagePathText: "../../../assets/images/user-icon@96.png",
         generalServerErrorMessageText: "خطایی سمت سرور رخ داده است",
         formFieldErrorMessageText: "این فیلد الزامی است",
-        invalidBarcodeLengthErrorMessageText: "بارکد 12 رقمی می باشد"
+        invalidBarcodeLengthErrorMessageText: "بارکد 12 رقمی می باشد",
+        changeApplyButtonText: "ثبت تغییرات"
     },
     en: {
         loginPageUsernameText: "Username",
@@ -42,7 +43,8 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         baseCRUDImagePathText: "../../../assets/images/user-icon@96.png",
         generalServerErrorMessageText: "A Server Error Occurred",
         formFieldErrorMessageText: "Field is required",
-        invalidBarcodeLengthErrorMessageText: "Barcode has 12 digits"
+        invalidBarcodeLengthErrorMessageText: "Barcode has 12 digits",
+        changeApplyButtonText: "Change Apply"
     }
 
 }

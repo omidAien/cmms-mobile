@@ -18,6 +18,7 @@ export interface ResourceCultureStore {
     generalServerErrorMessageText: string;
     formFieldErrorMessageText:string;
     invalidBarcodeLengthErrorMessageText: string;
+    changeApplyButtonText: string;
 }
 
 export interface ILoginPageTextResources {
