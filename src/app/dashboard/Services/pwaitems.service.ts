@@ -1,10 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, shareReplay } from 'rxjs/operators';
 import { EntryInputs, PWAItems, PWAItemsResponse, UserWorkgroup } from 'src/app/shared/appModels';
 import { ApiEndPointService } from 'src/app/shared/services/api-end-point.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
-import { GeneralErrorMessage } from 'src/app/shared/SharedClasses/errorHandlingClass';
+import { GeneralErrorMessage, HandleUnauthorizeError } from 'src/app/shared/SharedClasses/errorHandlingClass';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
 
 @Injectable({
@@ -19,6 +21,7 @@ export class PWAItemsService {
               private generalErrorMessage: GeneralErrorMessage,
               private apiEndPointService: ApiEndPointService,
               private cookieService: CookieService,
+              private handleUnauthorizeError: HandleUnauthorizeError,
               private loadingService: LoadingService) { }
 
   getItems(objectID: number, pagDirection:string) {
@@ -34,7 +37,14 @@ export class PWAItemsService {
       rowID: 0
     };
 
-    const getPWAItems$: Observable<PWAItemsResponse> = this.apiEndPointService.getPWAItems(token, entryInputs);
+    const getPWAItems$: Observable<PWAItemsResponse> = this.apiEndPointService.getPWAItems(token, entryInputs)
+                                                                              .pipe(
+                                                                                shareReplay(),
+                                                                                catchError((error: HttpErrorResponse) => {
+                                                                                  this.handleUnauthorizeError.excuteTask(error);
+                                                                                  return throwError(error);
+                                                                                })
+                                                                              );;
 
     this.loadingService
         .showPreLoaderUntilCompleted(getPWAItems$, true, 500)
