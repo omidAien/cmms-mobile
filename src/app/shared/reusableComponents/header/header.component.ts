@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
   constructor(public headerInfoService: HeaderInfoService, 
               private pwaItemsService: PWAItemsService,
               private taskTypeCodeHandler: TaskTypeCodeHandler,
-              private handleSessionstorage: HandleSessionstorage,
               private backButtonService: BackButtonService) { }
 
   ngOnInit(): void {}
@@ -54,10 +53,8 @@ export class HeaderComponent implements OnInit {
 
   updatePWAItems(): void {
 
-    const pageInfo: Pick<SystemInformation, "Direction" | "Culture"> = this.handleSessionstorage.get("pageInfo");
-
     this.pwaItemsService.reset();
-    this.pwaItemsService.getItems(this.lastBackButon.ObjectID, pageInfo.Direction);
+    this.pwaItemsService.getItems(this.lastBackButon.ObjectID);
 
   }
 

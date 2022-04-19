@@ -190,7 +190,7 @@ export class LoginComponent implements OnInit {
     if ( errorMsgType === 13 ) {
 
       this.generalErrorMessage.duration = 5000;
-      this.generalErrorMessage.handleServerSideError(errorMsg, this.systemInfo.Direction);
+      this.generalErrorMessage.handleServerSideError(errorMsg);
 
     }
     else if ( errorMsgType === 12 ) {

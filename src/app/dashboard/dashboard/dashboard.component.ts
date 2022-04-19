@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     const lastBackBtn: BackButton = this.backButtonService.peek();
 
-    this.pwaItemsService.getItems(lastBackBtn.ObjectID, this.pageInfo.Direction);
+    this.pwaItemsService.getItems(lastBackBtn.ObjectID);
 
   }
 
@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
       // 7. updating PWAItems
       this.pwaItemsService.reset();
-      this.pwaItemsService.getItems(extractedData.ObjectID, this.pageInfo.Direction);
+      this.pwaItemsService.getItems(extractedData.ObjectID);
   
     }
 

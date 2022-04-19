@@ -162,7 +162,7 @@ export class SelectWorkGroupComponent implements OnInit {
       this.generalErrorMessage.horizontalPosition = "center";
       this.generalErrorMessage.verticalPosition = "top";
       this.generalErrorMessage.duration = 5000;
-      this.generalErrorMessage.handleServerSideError(errorMsg, 'rtl');
+      this.generalErrorMessage.handleServerSideError(errorMsg);
 
     }
     else if ( errorMsgType === 12 ) {

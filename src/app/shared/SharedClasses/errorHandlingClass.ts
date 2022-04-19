@@ -20,13 +20,40 @@ class ShowMessage {
     private _verticalPosition: MatSnackBarVerticalPosition = "top";
     private _duration: number = 2500;
     private _massagePanelClass:string = "mat-snack-bar-container-successful";
+    private _direction: string;
+    private _culture: string;
 
-    constructor(private snackBar: MatSnackBar) {}
+    constructor(private snackBar: MatSnackBar, 
+                private handleSessionstorage: HandleSessionstorage) {
 
-    showMessage(message:string, pageDirection:string) {
+        this.getPageInfo();
+
+    }
+
+    private getPageInfo() {
+
+        const pageInfo: Pick<SystemInformation, "Direction" | "Culture"> = this.handleSessionstorage.get("pageInfo");
+
+        if ( pageInfo ) {
+
+            this.culture = pageInfo.Culture;
+
+            this.direction = pageInfo.Direction;
+
+        } else {
+
+            this.culture = 'en';
+
+            this.direction = "ltr";
+
+        }
+
+    }
+
+    showMessage(message:string) {
 
         this.snackBar.open(message, '', {
-            direction: pageDirection === 'rtl' ? 'rtl' : 'ltr',
+            direction: this.direction === 'rtl' ? 'rtl' : 'ltr',
             duration: this.duration,
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
@@ -83,37 +110,45 @@ class ShowMessage {
 
     }
 
+    set direction(value: string) {
+
+        this._direction = value;
+
+    }
+
+    get direction() {
+
+        return this._direction;
+
+    }
+
+    set culture(value: string) {
+
+        this._culture = value;
+
+    }
+
+    get culture() {
+
+        return this._culture;
+
+    }
+
 }
 
 
 @Injectable()
 export class HandleUnauthorizeError extends ShowMessage {
 
-    pageDirection: string = "ltr";
-
     constructor(snackBar: MatSnackBar,
                 private resourceMainStore: ResourceMainStore,
-                private handleSessionstorage: HandleSessionstorage,
+                handleSessionstorage: HandleSessionstorage,
                 private router: Router) {
 
-        super(snackBar);
+        super(snackBar, handleSessionstorage);
 
-        const pageInfo: Pick<SystemInformation, "Direction" | "Culture"> = this.handleSessionstorage.get("pageInfo");
-                    
-        if ( pageInfo ) {
-
-            this.resourceMainStore.culture = pageInfo.Culture;
-
-            this.pageDirection = pageInfo.Direction;
-
-        } else {
-
-            this.resourceMainStore.culture = 'en';
-
-            this.pageDirection = this.pageDirection;
-
-        }
-      
+        this.resourceMainStore.culture = this.culture;
+                          
     }
 
     excuteTask(error: HttpErrorResponse) {
@@ -128,7 +163,7 @@ export class HandleUnauthorizeError extends ShowMessage {
 
         case 0:
             const message:string = this.resourceMainStore.getNetworkDisconnectedTextResource();
-            this.showMessage(message, this.pageDirection);
+            this.showMessage(message);
             break;
 
         }
@@ -140,23 +175,28 @@ export class HandleUnauthorizeError extends ShowMessage {
 @Injectable()
 export class GeneralErrorMessage extends ShowMessage {
 
-    constructor(snackBar: MatSnackBar, private serverErrorMessageService: ServerErrorMessageService) {
+    constructor(snackBar: MatSnackBar,
+                private resourceMainStore: ResourceMainStore,
+                handleSessionstorage: HandleSessionstorage,   
+                private serverErrorMessageService: ServerErrorMessageService) {
         
-        super(snackBar);
+        super(snackBar, handleSessionstorage);   
+        
+        this.resourceMainStore.culture = this.culture;
 
     }
 
-    unhandleServerSideError(pageDirection:string) {
+    unhandleServerSideError() {
 
         const generalMessage:string = "خطایی سمت سرور رخ داده است";
 
-        this.showMessage(generalMessage, pageDirection);
+        this.showMessage(generalMessage);
 
     }
 
-    handleServerSideError(message:string, pageDirection:string) {
+    handleServerSideError(message:string, ) {
 
-        this.showMessage(message, pageDirection);
+        this.showMessage(message);
 
     }
 
@@ -166,9 +206,9 @@ export class GeneralErrorMessage extends ShowMessage {
 
     }
 
-    handleClientSideError(message:string, pageDirection:string) {
+    handleClientSideError(message:string, ) {
         
-        this.showMessage(message, pageDirection);
+        this.showMessage(message);
 
     }
 
@@ -177,15 +217,19 @@ export class GeneralErrorMessage extends ShowMessage {
 @Injectable()
 export class GeneralSuccssMessage extends ShowMessage {
 
-    constructor(snackBar: MatSnackBar) {
+    constructor(snackBar: MatSnackBar,
+                private resourceMainStore: ResourceMainStore,
+                handleSessionstorage: HandleSessionstorage) {
         
-        super(snackBar);
+        super(snackBar, handleSessionstorage);
+
+        this.resourceMainStore.culture = this.culture;
 
     }
     
     handleClientSideSuccess(message:string, pageDirection:string) {
 
-        this.showMessage(message, pageDirection);
+        this.showMessage(message);
         
     }
 
