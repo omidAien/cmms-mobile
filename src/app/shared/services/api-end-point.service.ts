@@ -1,9 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, shareReplay } from 'rxjs/operators';
-import { AuthenticateParameters, AuthenticateResponse, EntryInputs, PWAItemsResponse } from '../appModels';
-import { HandleUnauthorizeError } from '../SharedClasses/errorHandlingClass';
+import { Observable } from 'rxjs';
+import * as IModels from '../appModels';
 import { HandleSessionstorage } from '../SharedClasses/HandleSessionStorage';
 
 @Injectable({
@@ -14,8 +12,7 @@ export class ApiEndPointService {
   private baseURL:Required<string>;
 
   constructor(private httpClient: HttpClient, 
-              private handleSessionstorage: HandleSessionstorage,
-              private handleUnauthorizeError: HandleUnauthorizeError) { 
+              private handleSessionstorage: HandleSessionstorage) { 
 
     const baseURLSessionStorage:string = this.handleSessionstorage.get("baseURL");       
     this.baseURL = baseURLSessionStorage;
@@ -34,29 +31,30 @@ export class ApiEndPointService {
     return headres
   }
 
-  loginProcedure(authenticateParameters:AuthenticateParameters): Observable<AuthenticateResponse> {
+  loginProcedure(authenticateParameters:IModels.AuthenticateParameters): Observable<IModels.AuthenticateResponse> {
 
     const headers = { 'content-type': 'application/json'}; 
     const requestURL:Required<string> = this.baseURL.concat("Login/athenticate");
     const body:Required<string> = JSON.stringify(authenticateParameters);
 
-    return this.httpClient.post<AuthenticateResponse>(requestURL, body, { headers: headers });
+    return this.httpClient.post<IModels.AuthenticateResponse>(requestURL, body, { headers: headers });
   }
 
-  getPWAItems(token:string, entryInputs: EntryInputs): Observable<PWAItemsResponse> {
+  getPWAItems(token:string, entryInputs: IModels.EntryInputs): Observable<IModels.PWAItemsResponse> {
     
     const requestURL:Required<string> = this.baseURL.concat("mapGetPWAItems");
     const body:Required<string> = JSON.stringify(entryInputs);
 
-    return this.httpClient
-               .post<PWAItemsResponse>(requestURL, body, {headers:this.setHeaders(token)})
-               .pipe(
-                 shareReplay(),
-                 catchError((error: HttpErrorResponse) => {
-                   this.handleUnauthorizeError.excuteTask(error);
-                   return throwError(error);
-                 })
-               );
+    return this.httpClient.post<IModels.PWAItemsResponse>(requestURL, body, {headers:this.setHeaders(token)});
+
+  }
+
+  mapTracking(token:string, barcodeTracker: IModels.BarcodeTracker):Observable<IModels.BarcodeTrackerResponse> {
+
+    const requestURL:Required<string> = this.baseURL.concat("mapTracking");
+    const body:Required<string> = JSON.stringify(barcodeTracker);
+
+    return this.httpClient.post<IModels.BarcodeTrackerResponse>(requestURL, body, {headers:this.setHeaders(token)});
 
   }
 

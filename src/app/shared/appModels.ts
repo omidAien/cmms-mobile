@@ -125,3 +125,18 @@ export interface FormBuilderEventEmitterHandler {
     barcodeFormControl: AbstractControl;
     [key: string]: any;
 }
+
+export interface BarcodeTracker {
+    barcode:string;
+    [key: string]: any;
+}
+
+export interface BarcodeInformation {
+    Caption:string;
+    Value:string;
+}
+
+export interface BarcodeTrackerResponse {
+    Error: ErrorModel;
+    Barcode: BarcodeInformation[];
+}
