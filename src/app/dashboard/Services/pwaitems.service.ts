@@ -24,7 +24,7 @@ export class PWAItemsService {
               private handleUnauthorizeError: HandleUnauthorizeError,
               private loadingService: LoadingService) { }
 
-  getItems(objectID: number, pagDirection:string) {
+  getItems(objectID: number) {
 
     const token:string = "bearer ".concat(JSON.parse(this.cookieService.get("token")));
     const userDefaultWorkGroup:UserWorkgroup = this.handleSessionstorage.get("userDefaultWorkGroup");
@@ -58,7 +58,7 @@ export class PWAItemsService {
 
           else {
 
-            this.generalErrorMessage.handleServerSideError(response.Error.Message, pagDirection);
+            this.generalErrorMessage.handleServerSideError(response.Error.Message);
 
           }
 
