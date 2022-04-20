@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskTypeCodeHandler } from './taskTypeManager/taskTypes';
 import { FieldFocusDirective } from './reusableComponents/form-builder/field-focus.directive';
 import { FieldAutocompleteDirective } from './reusableComponents/form-builder/field-autocomplete.directive';
+import { DocumentInfoViewerComponent } from './reusableComponents/document-info-viewer/document-info-viewer.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { FieldAutocompleteDirective } from './reusableComponents/form-builder/fi
     FormBuilderComponent,
     FieldFocusDirective,
     FieldAutocompleteDirective,
+    DocumentInfoViewerComponent,
   ],
   imports: [
     CommonModule,
