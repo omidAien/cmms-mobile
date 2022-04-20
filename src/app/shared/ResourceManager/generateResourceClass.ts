@@ -161,3 +161,31 @@ export class ChangeApplyButtonTextResource extends ResourceHandler {
     }
 
 }
+
+export class DocumentNumberTextResource extends ResourceHandler {
+
+    constructor(public resourceCulture: ResourceCultureStore) {
+        super();
+    }
+
+    getResource(): string {
+
+        return this.resourceCulture.documentNumberText;
+
+    }
+
+}
+
+export class DocumentDateTextResource extends ResourceHandler {
+
+    constructor(public resourceCulture: ResourceCultureStore) {
+        super();
+    }
+
+    getResource(): string {
+
+        return this.resourceCulture.documentDateText;
+
+    }
+
+}

@@ -1,22 +1,13 @@
 import { Injectable } from "@angular/core";
 import { resourceCultureStore } from "src/assets/Resources/resourceCulture";
-import { BaseCRUDImagePathTextResource, 
-         ChangeApplyButtonTextResource, 
-         FormFieldErrorMessageTextResource, 
-         GeneralServerErrorMessageTextResource, 
-         InvalidBarcodeLengthErrorMessageTextResource, 
-         LoginPageTextResources,
-         NetworkDisconnectedTextResource, 
-         ResourceHandler, 
-         SelectWorkgroupPageTextResources, 
-         ServerBadRequestTextResource} from "./generateResourceClass";
-import { ILoginPageTextResources, ISelectWorkgroupPageTextResources, ResourceCultureStore } from "./resourceModels";
+import * as RClasses from "./generateResourceClass";
+import * as IRModels from "./resourceModels";
 
 class BaseResourceMainStore {
 
-    private _resourceCultureStore: { [key:string]: ResourceCultureStore };
+    private _resourceCultureStore: { [key:string]: IRModels.ResourceCultureStore };
     private _culture: string;
-    private _resourceCulture: ResourceCultureStore;
+    private _resourceCulture: IRModels.ResourceCultureStore;
 
     set resourceCultureStore(value: any) {
         this._resourceCultureStore = value;
@@ -35,7 +26,7 @@ class BaseResourceMainStore {
         return this._culture;
     }
 
-    set resourceCulture(value: ResourceCultureStore) {
+    set resourceCulture(value: IRModels.ResourceCultureStore) {
         this._resourceCulture = value;
     }
 
@@ -53,7 +44,7 @@ export class ResourceMainStore extends BaseResourceMainStore {
         this.resourceCultureStore = resourceCultureStore;
     }
 
-    private executerHandler(instance: ResourceHandler): any {
+    private executerHandler(instance: RClasses.ResourceHandler): any {
 
         if ( this.culture ) {
   
@@ -67,17 +58,17 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     }
 
-    getLoginPageTextResources(): ILoginPageTextResources {
+    getLoginPageTextResources(): IRModels.ILoginPageTextResources {
 
-        const instance = new LoginPageTextResources(this.resourceCulture);
+        const instance = new RClasses.LoginPageTextResources(this.resourceCulture);
         
         return this.executerHandler(instance);
 
     }
 
-    getSelectWorkgroupPageTextResources(): ISelectWorkgroupPageTextResources {
+    getSelectWorkgroupPageTextResources(): IRModels.ISelectWorkgroupPageTextResources {
 
-        const instance = new SelectWorkgroupPageTextResources(this.resourceCulture);
+        const instance = new RClasses.SelectWorkgroupPageTextResources(this.resourceCulture);
         
         return this.executerHandler(instance);
 
@@ -85,7 +76,7 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     getNetworkDisconnectedTextResource(): string {
 
-        const instance = new NetworkDisconnectedTextResource(this.resourceCulture);
+        const instance = new RClasses.NetworkDisconnectedTextResource(this.resourceCulture);
 
         return this.executerHandler(instance);
 
@@ -93,7 +84,7 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     getServerBadRequestTextResource(): string {
 
-        const instance = new ServerBadRequestTextResource(this.resourceCulture);
+        const instance = new RClasses.ServerBadRequestTextResource(this.resourceCulture);
 
         return this.executerHandler(instance);
 
@@ -101,7 +92,7 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     getBaseCRUDImagePathTextResource(): string {
 
-        const instance = new BaseCRUDImagePathTextResource(this.resourceCulture);
+        const instance = new RClasses.BaseCRUDImagePathTextResource(this.resourceCulture);
 
         return this.executerHandler(instance);
 
@@ -109,7 +100,7 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     getGeneralServerErrorMessageTextResource(): string {
 
-        const instance = new GeneralServerErrorMessageTextResource(this.resourceCulture);
+        const instance = new RClasses.GeneralServerErrorMessageTextResource(this.resourceCulture);
 
         return this.executerHandler(instance);
 
@@ -117,7 +108,7 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     getFormFieldErrorMessageTextResource(): string {
 
-        const instance = new FormFieldErrorMessageTextResource(this.resourceCulture);
+        const instance = new RClasses.FormFieldErrorMessageTextResource(this.resourceCulture);
 
         return this.executerHandler(instance);
 
@@ -125,7 +116,7 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     getInvalidBarcodeLengthErrorMessageTextResource(): string {
 
-        const instance = new InvalidBarcodeLengthErrorMessageTextResource(this.resourceCulture);
+        const instance = new RClasses.InvalidBarcodeLengthErrorMessageTextResource(this.resourceCulture);
 
         return this.executerHandler(instance);
 
@@ -133,7 +124,23 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     getChangeApplyButtonTextResource(): string {
 
-        const instance = new ChangeApplyButtonTextResource(this.resourceCulture);
+        const instance = new RClasses.ChangeApplyButtonTextResource(this.resourceCulture);
+
+        return this.executerHandler(instance);
+
+    }
+
+    getDocumentNumberTextResource(): string {
+
+        const instance = new RClasses.DocumentNumberTextResource(this.resourceCulture);
+
+        return this.executerHandler(instance);
+
+    }
+
+    getDocumentDateTextResource(): string {
+
+        const instance = new RClasses.DocumentDateTextResource(this.resourceCulture);
 
         return this.executerHandler(instance);
 
