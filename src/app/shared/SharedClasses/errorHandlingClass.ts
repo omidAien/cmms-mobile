@@ -161,9 +161,14 @@ export class HandleUnauthorizeError extends ShowMessage {
             window.location.reload();
             break;
 
+        case 404:
+            const NotFoundMessage: string = "NOT FOUND";
+            this.showMessage(NotFoundMessage);    
+            break;
+
         case 0:
-            const message:string = this.resourceMainStore.getNetworkDisconnectedTextResource();
-            this.showMessage(message);
+            const UnknownMessage:string = this.resourceMainStore.getNetworkDisconnectedTextResource();
+            this.showMessage(UnknownMessage);
             break;
 
         }
