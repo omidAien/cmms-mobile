@@ -23,8 +23,8 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         formFieldErrorMessageText: "این فیلد الزامی است",
         invalidBarcodeLengthErrorMessageText: "بارکد 12 رقمی می باشد",
         changeApplyButtonText: "ثبت تغییرات",
-        documentNumberText: "شماره سند",
-        documentDateText: "تاریخ سند"
+        documentNumberTitleText: "شماره سند",
+        documentDateTitleText: "تاریخ سند"
     },
     en: {
         loginPageUsernameText: "Username",
@@ -47,8 +47,8 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         formFieldErrorMessageText: "Field is required",
         invalidBarcodeLengthErrorMessageText: "Barcode has 12 digits",
         changeApplyButtonText: "Change Apply",
-        documentNumberText: "",
-        documentDateText: ""
+        documentNumberTitleText: "",
+        documentDateTitleText: ""
     }
 
 }

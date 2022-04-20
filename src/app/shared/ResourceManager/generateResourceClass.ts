@@ -170,7 +170,7 @@ export class DocumentNumberTextResource extends ResourceHandler {
 
     getResource(): string {
 
-        return this.resourceCulture.documentNumberText;
+        return this.resourceCulture.documentNumberTitleText;
 
     }
 
@@ -184,7 +184,7 @@ export class DocumentDateTextResource extends ResourceHandler {
 
     getResource(): string {
 
-        return this.resourceCulture.documentDateText;
+        return this.resourceCulture.documentDateTitleText;
 
     }
 
