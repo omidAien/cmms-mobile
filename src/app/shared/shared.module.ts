@@ -42,7 +42,8 @@ import { DocumentInfoViewerComponent } from './reusableComponents/document-info-
     HeaderComponent,
     OverlayPreloaderComponent,
     BarcodeInfoListViewerComponent,
-    FormBuilderComponent
+    FormBuilderComponent,
+    DocumentInfoViewerComponent
   ],
   providers: [
     GetInitialDataService,
