@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResourceMainStore } from '../../ResourceManager/resourseMainStore';
 
 @Component({
   selector: 'map-document-info-viewer',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentInfoViewerComponent implements OnInit {
 
-  constructor() { }
+  documentTitleInfo: { number: string; date: string };
+
+  constructor(private resourceMainStore: ResourceMainStore) { }
 
   ngOnInit(): void {
+
+    this.setDocumentInfo();
+
+  }
+
+  setDocumentInfo() {
+
+    this.documentTitleInfo = {
+      number: this.resourceMainStore.getDocumentNumberTextResource(),
+      date: this.resourceMainStore.getDocumentDateTextResource()
+    };
+
   }
 
 }
