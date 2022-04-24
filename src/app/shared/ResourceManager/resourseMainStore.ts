@@ -145,4 +145,13 @@ export class ResourceMainStore extends BaseResourceMainStore {
         return this.executerHandler(instance);
 
     }
+
+    getAPIResponseErrorMessageTextResource(): string {
+
+        const instance = new RClasses.APIResponseErrorMessageTextResource(this.resourceCulture);
+
+        return this.executerHandler(instance);
+
+    }
+
 }

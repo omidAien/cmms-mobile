@@ -21,6 +21,7 @@ export interface ResourceCultureStore {
     changeApplyButtonText: string;
     documentNumberTitleText: string;
     documentDateTitleText: string;
+    apiResponseErrorMessageText: string;
 }
 
 export interface ILoginPageTextResources {

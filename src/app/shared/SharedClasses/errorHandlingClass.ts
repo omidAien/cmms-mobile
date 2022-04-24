@@ -181,7 +181,7 @@ export class HandleUnauthorizeError extends ShowMessage {
             break;
 
         case 404:
-            const NotFoundMessage: string = "NOT FOUND";
+            const NotFoundMessage: string = this.resourceMainStore.getAPIResponseErrorMessageTextResource();
             this.showMessage(NotFoundMessage);    
             break;
 

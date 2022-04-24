@@ -24,7 +24,8 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         invalidBarcodeLengthErrorMessageText: "بارکد 12 رقمی می باشد",
         changeApplyButtonText: "ثبت تغییرات",
         documentNumberTitleText: "شماره سند",
-        documentDateTitleText: "تاریخ سند"
+        documentDateTitleText: "تاریخ سند",
+        apiResponseErrorMessageText: "تنطیمات سرور را بررسی نمایید"
     },
     en: {
         loginPageUsernameText: "Username",
@@ -48,7 +49,8 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         invalidBarcodeLengthErrorMessageText: "Barcode has 12 digits",
         changeApplyButtonText: "Change Apply",
         documentNumberTitleText: "",
-        documentDateTitleText: ""
-    }
+        documentDateTitleText: "",
+        apiResponseErrorMessageText: "Checking Server Settings"
+    },
 
 }

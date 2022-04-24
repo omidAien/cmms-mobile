@@ -189,3 +189,17 @@ export class DocumentDateTextResource extends ResourceHandler {
     }
 
 }
+
+export class APIResponseErrorMessageTextResource extends ResourceHandler {
+
+    constructor(public resourceCulture: ResourceCultureStore) {
+        super();
+    }
+
+    getResource(): string {
+
+        return this.resourceCulture.apiResponseErrorMessageText;
+
+    }
+
+}
