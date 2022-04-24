@@ -154,4 +154,12 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     }
 
+    getDocumentDescriptionFieldLabelTextResource(): string {
+
+        const instance = new RClasses.DocumentDescriptionFieldLabelTextResource(this.resourceCulture);
+
+        return this.executerHandler(instance);
+
+    }
+
 }

@@ -21,6 +21,7 @@ export interface ResourceCultureStore {
     changeApplyButtonText: string;
     documentNumberTitleText: string;
     documentDateTitleText: string;
+    documentDescriptionFieldLabelText: string;
     apiResponseErrorMessageText: string;
 }
 

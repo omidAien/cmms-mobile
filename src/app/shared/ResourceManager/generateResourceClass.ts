@@ -203,3 +203,17 @@ export class APIResponseErrorMessageTextResource extends ResourceHandler {
     }
 
 }
+
+export class DocumentDescriptionFieldLabelTextResource extends ResourceHandler {
+
+    constructor(public resourceCulture: ResourceCultureStore) {
+        super();
+    }
+
+    getResource(): string {
+
+        return this.resourceCulture.documentDescriptionFieldLabelText;
+
+    }
+
+}

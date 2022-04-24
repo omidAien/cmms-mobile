@@ -25,6 +25,7 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         changeApplyButtonText: "ثبت تغییرات",
         documentNumberTitleText: "شماره سند",
         documentDateTitleText: "تاریخ سند",
+        documentDescriptionFieldLabelText: "توضیحات",
         apiResponseErrorMessageText: "تنطیمات سرور را بررسی نمایید"
     },
     en: {
@@ -48,8 +49,9 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         formFieldErrorMessageText: "Field is required",
         invalidBarcodeLengthErrorMessageText: "Barcode has 12 digits",
         changeApplyButtonText: "Change Apply",
-        documentNumberTitleText: "",
-        documentDateTitleText: "",
+        documentNumberTitleText: "Document Number",
+        documentDateTitleText: "Document Date",
+        documentDescriptionFieldLabelText: "Description",
         apiResponseErrorMessageText: "Checking Server Settings"
     },
 
