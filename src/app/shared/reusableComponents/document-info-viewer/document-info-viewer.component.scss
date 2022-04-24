@@ -3,7 +3,18 @@
 .document-info-viewer {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: "document-number document-date" "document-description document-description";
     grid-column-gap: 10px;
+    grid-row-gap: 15px;
+
+    .document-number {
+        grid-area: document-number;
+    }
+
+    .document-date {
+        grid-area: document-date;
+    }
 
     section {
         display: flex;
@@ -22,6 +33,20 @@
 
         span:nth-child(2) {
             font-size: 0.7rem;
+        }
+    }
+
+    .document-description {
+        grid-area: document-description;
+
+        .mat-form-field {
+            width: 100%;
+            font-size: 12px;
+
+            textarea {
+                height: 60px;
+                resize: none;
+            }
         }
     }
 }
