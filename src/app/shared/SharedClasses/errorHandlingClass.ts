@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { SystemInformation } from "../appModels";
 import { ResourceMainStore } from "../ResourceManager/resourseMainStore";
 import { ServerErrorMessageService } from "../services/server-error-message.service";
+import { ExtractSystemInfo } from "./extractSystemInfo";
 import { HandleSessionstorage } from "./HandleSessionStorage";
 
 
@@ -24,7 +25,8 @@ class ShowMessage {
     private _culture: string;
 
     constructor(private snackBar: MatSnackBar, 
-                private handleSessionstorage: HandleSessionstorage) {
+                private handleSessionstorage: HandleSessionstorage,
+                private extractSystemInfo: ExtractSystemInfo) {
 
         this.getPageInfo();
 
@@ -32,21 +34,37 @@ class ShowMessage {
 
     private getPageInfo() {
 
-        const pageInfo: Pick<SystemInformation, "Direction" | "Culture"> = this.handleSessionstorage.get("pageInfo");
+        this.extractSystemInfo
+            .systemInfo$
+            .subscribe((response: SystemInformation) => {
 
-        if ( pageInfo ) {
+                if ( response ) {
 
-            this.culture = pageInfo.Culture;
+                    this.culture = response.Culture;
 
-            this.direction = pageInfo.Direction;
+                    this.direction = response.Direction;
 
-        } else {
+                } else {
 
-            this.culture = 'en';
+                    const pageInfo: Pick<SystemInformation, "Direction" | "Culture"> = this.handleSessionstorage.get("pageInfo");
 
-            this.direction = "ltr";
+                    if ( pageInfo ) {
+            
+                        this.culture = pageInfo.Culture;
+            
+                        this.direction = pageInfo.Direction;
+            
+                    } else {
+            
+                        this.culture = 'en';
+            
+                        this.direction = "ltr";
+            
+                    }
 
-        }
+                }
+
+            });
 
     }
 
@@ -143,9 +161,10 @@ export class HandleUnauthorizeError extends ShowMessage {
     constructor(snackBar: MatSnackBar,
                 private resourceMainStore: ResourceMainStore,
                 handleSessionstorage: HandleSessionstorage,
+                extractSystemInfo: ExtractSystemInfo,
                 private router: Router) {
 
-        super(snackBar, handleSessionstorage);
+        super(snackBar, handleSessionstorage, extractSystemInfo);
 
         this.resourceMainStore.culture = this.culture;
                           
@@ -183,9 +202,10 @@ export class GeneralErrorMessage extends ShowMessage {
     constructor(snackBar: MatSnackBar,
                 private resourceMainStore: ResourceMainStore,
                 handleSessionstorage: HandleSessionstorage,   
+                extractSystemInfo: ExtractSystemInfo,
                 private serverErrorMessageService: ServerErrorMessageService) {
         
-        super(snackBar, handleSessionstorage);   
+        super(snackBar, handleSessionstorage, extractSystemInfo);   
         
         this.resourceMainStore.culture = this.culture;
 
@@ -224,9 +244,10 @@ export class GeneralSuccssMessage extends ShowMessage {
 
     constructor(snackBar: MatSnackBar,
                 private resourceMainStore: ResourceMainStore,
+                extractSystemInfo: ExtractSystemInfo,
                 handleSessionstorage: HandleSessionstorage) {
         
-        super(snackBar, handleSessionstorage);
+        super(snackBar, handleSessionstorage, extractSystemInfo);
 
         this.resourceMainStore.culture = this.culture;
 
