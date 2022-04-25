@@ -1,1 +1,15 @@
-<p>detail-form works!</p>
+<div class="main-container" [dir]=" pageInfo.Direction ">
+
+    <header>
+        <map-header></map-header>
+    </header>
+    
+    <main>
+        <map-form-builder (formOutputHandler)="formBuilderOutputHandler($event)"></map-form-builder>
+    </main>
+    
+    <footer>
+        <button matRipple (click)="submitChages($event)">{{ submitChangesButtonText }}</button>
+    </footer>
+
+</div>
