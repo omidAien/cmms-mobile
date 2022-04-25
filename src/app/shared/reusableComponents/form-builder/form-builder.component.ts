@@ -16,7 +16,6 @@ export class FormBuilderComponent implements OnInit {
 
   formBuilder: FormGroup;
   pageInfo: Pick<SystemInformation, "Direction" | "Culture">;
-  matFormFieldAppearance: string = "outline";
   formFieldErrorMsg: string;
   barcodeFormControl: AbstractControl;
 

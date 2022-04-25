@@ -18,6 +18,7 @@ import { FieldFocusDirective } from './reusableComponents/form-builder/field-foc
 import { FieldAutocompleteDirective } from './reusableComponents/form-builder/field-autocomplete.directive';
 import { DocumentInfoViewerComponent } from './reusableComponents/document-info-viewer/document-info-viewer.component';
 import { BottomSheetOperationsHandlerComponent } from './reusableComponents/bottom-sheet-operations-handler/bottom-sheet-operations-handler.component';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { BottomSheetOperationsHandlerComponent } from './reusableComponents/bott
     BottomSheetOperationsHandlerComponent
   ],
   providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: "outline" } },
     GetInitialDataService,
     ClientInformationService,
     HandleUnauthorizeError,

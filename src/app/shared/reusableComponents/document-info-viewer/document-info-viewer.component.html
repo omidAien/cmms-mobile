@@ -12,17 +12,17 @@
 
     <form [formGroup]="documentForm" class="document-description">
 
-        <mat-form-field [appearance]=" formAppearance ">
+        <mat-form-field>
             <mat-label>{{ documentTitleInfo.number }}</mat-label>
             <input matInput formControlName="documentNumber">
         </mat-form-field>
 
-        <mat-form-field [appearance]=" formAppearance ">
+        <mat-form-field>
             <mat-label>{{ documentTitleInfo.date }}</mat-label>
             <input matInput formControlName="documentDate">
         </mat-form-field>
 
-        <mat-form-field [appearance]=" formAppearance ">
+        <mat-form-field>
             <mat-label>{{ documentTitleInfo.fieldLabel }}</mat-label>
             <textarea matInput formControlName="description"></textarea>
         </mat-form-field>

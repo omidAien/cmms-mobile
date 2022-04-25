@@ -12,7 +12,6 @@ export class DocumentInfoViewerComponent implements OnInit {
   @Output() formOutputHandler = new EventEmitter<FormGroup>();
 
   documentTitleInfo: { number: string; date: string, fieldLabel: string };
-  formAppearance: string = "outline";
   documentForm: FormGroup;
 
   constructor(private resourceMainStore: ResourceMainStore) { }
