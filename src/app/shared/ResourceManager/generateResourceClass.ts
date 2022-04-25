@@ -217,3 +217,31 @@ export class DocumentDescriptionFieldLabelTextResource extends ResourceHandler {
     }
 
 }
+
+export class SubmitDetailsButtonTextResource extends ResourceHandler {
+
+    constructor(public resourceCulture: ResourceCultureStore) {
+        super();
+    }
+
+    getResource(): string {
+
+        return this.resourceCulture.submitDetailsButtonText;
+
+    }
+
+}
+
+export class SubmitDetailsHeaderCaptionTextResource extends ResourceHandler {
+
+    constructor(public resourceCulture: ResourceCultureStore) {
+        super();
+    }
+
+    getResource(): string {
+
+        return this.resourceCulture.submitDetailsHeaderCaptionText;
+
+    }
+
+}

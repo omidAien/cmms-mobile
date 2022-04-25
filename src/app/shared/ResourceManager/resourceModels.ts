@@ -23,6 +23,8 @@ export interface ResourceCultureStore {
     documentDateTitleText: string;
     documentDescriptionFieldLabelText: string;
     apiResponseErrorMessageText: string;
+    submitDetailsButtonText: string;
+    submitDetailsHeaderCaptionText: string;
 }
 
 export interface ILoginPageTextResources {

@@ -26,7 +26,9 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         documentNumberTitleText: "شماره سند",
         documentDateTitleText: "تاریخ سند",
         documentDescriptionFieldLabelText: "توضیحات",
-        apiResponseErrorMessageText: "تنطیمات سرور را بررسی نمایید"
+        apiResponseErrorMessageText: "تنطیمات سرور را بررسی نمایید",
+        submitDetailsButtonText: "ثبت فرم جزئیات",
+        submitDetailsHeaderCaptionText: "ثبت فرم جزئیات"
     },
     en: {
         loginPageUsernameText: "Username",
@@ -52,7 +54,9 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         documentNumberTitleText: "Document Number",
         documentDateTitleText: "Document Date",
         documentDescriptionFieldLabelText: "Description",
-        apiResponseErrorMessageText: "Checking Server Settings"
+        apiResponseErrorMessageText: "Checking Server Settings",
+        submitDetailsButtonText: "Submit Details Form",
+        submitDetailsHeaderCaptionText: "Submit Details Form"
     },
 
 }

@@ -162,4 +162,20 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     }
 
+    getSubmitDetailsButtonTextResource(): string {
+
+        const instance = new RClasses.SubmitDetailsButtonTextResource(this.resourceCulture);
+
+        return this.executerHandler(instance);
+
+    }
+
+    getSubmitDetailsHeaderCaptionTextResource(): string {
+
+        const instance = new RClasses.SubmitDetailsHeaderCaptionTextResource(this.resourceCulture);
+
+        return this.executerHandler(instance);
+
+    }
+
 }
