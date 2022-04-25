@@ -17,6 +17,7 @@ import { TaskTypeCodeHandler } from './taskTypeManager/taskTypes';
 import { FieldFocusDirective } from './reusableComponents/form-builder/field-focus.directive';
 import { FieldAutocompleteDirective } from './reusableComponents/form-builder/field-autocomplete.directive';
 import { DocumentInfoViewerComponent } from './reusableComponents/document-info-viewer/document-info-viewer.component';
+import { BottomSheetOperationsHandlerComponent } from './reusableComponents/bottom-sheet-operations-handler/bottom-sheet-operations-handler.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { DocumentInfoViewerComponent } from './reusableComponents/document-info-
     FieldFocusDirective,
     FieldAutocompleteDirective,
     DocumentInfoViewerComponent,
+    BottomSheetOperationsHandlerComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { DocumentInfoViewerComponent } from './reusableComponents/document-info-
     OverlayPreloaderComponent,
     BarcodeInfoListViewerComponent,
     FormBuilderComponent,
-    DocumentInfoViewerComponent
+    DocumentInfoViewerComponent,
+    BottomSheetOperationsHandlerComponent
   ],
   providers: [
     GetInitialDataService,
