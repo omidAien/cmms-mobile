@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormBuilderEventEmitterHandler, SystemInformation } from '../../appModels';
 import { ResourceMainStore } from '../../ResourceManager/resourseMainStore';
+import { BarcodeReaderService } from '../../services/barcode-reader.service';
 import { HandleSessionstorage } from '../../SharedClasses/HandleSessionStorage';
 
 @Component({
@@ -15,11 +16,12 @@ export class FormBuilderComponent implements OnInit {
 
   formBuilder: FormGroup;
   pageInfo: Pick<SystemInformation, "Direction" | "Culture">;
-  matFormFieldAppearance: string = "fill";
+  matFormFieldAppearance: string = "outline";
   formFieldErrorMsg: string;
   barcodeFormControl: AbstractControl;
 
   constructor(private handleSessionstorage: HandleSessionstorage, 
+              private barcodeReaderService: BarcodeReaderService,
               private resourceMainStore: ResourceMainStore) { }
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class FormBuilderComponent implements OnInit {
 
     this.formGenerator();
 
-    this.formValueChangesValidator();
+    // this.formValueChangesValidator();
 
   }
 
@@ -81,11 +83,37 @@ export class FormBuilderComponent implements OnInit {
 
         // refactoring the barcode which has been read!
 
-        console.log("send request to server to get detail of barcode.");
+        console.log("sending request toward the server in order to get detail of barcode.");
 
       }
 
     });
+
+  }
+
+  barcodeReaderAutoHandler(event: any) {
+
+    if ( event.target.value.indexOf(" ") > 0 ) {
+
+      this.barcodeReaderService.read(event.target.value.trim());
+
+      event.target.blur();
+
+      event.target.value = "";
+
+    }
+
+  }
+
+  barcodeReaderManualHandler(event: any) {
+
+    if ( event.code === "Enter" ){ 
+
+      event.target.value = "";
+
+      this.barcodeReaderService.read(event.target.value);
+
+    }
 
   }
 

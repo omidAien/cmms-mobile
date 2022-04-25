@@ -1,20 +1,26 @@
 <form [formGroup]="formBuilder">
 
-    <mat-form-field [appearance]=" matFormFieldAppearance ">
+  <mat-form-field [appearance]=" matFormFieldAppearance ">
 
         <mat-label>بارکد</mat-label>
 
-        <input matInput formControlName="barcode" [mapFieldFocus]="2">
+        <!-- <input matInput mapFieldAutocomplete formControlName="barcode" [mapFieldFocus]="0" (keypress)="barcodeReaderHandler($event)"> -->
+        <input matInput 
+               mapFieldAutocomplete 
+               formControlName="barcode" 
+               [mapFieldFocus]="0" 
+               (input)="barcodeReaderAutoHandler($event)"
+               (keypress)="barcodeReaderManualHandler($event)">
 
         <mat-error *ngIf=" formBuilder.get('barcode').hasError('required') ">{{ formFieldErrorMsg }}</mat-error>
-
+        
   </mat-form-field>
 
   <mat-form-field [appearance]=" matFormFieldAppearance ">
 
         <mat-label>انبار</mat-label>
 
-        <input matInput formControlName="warehouse" [mapFieldFocus]="0">
+        <input matInput mapFieldAutocomplete formControlName="warehouse" [mapFieldFocus]="0">
 
         <!-- <mat-select disableOptionCentering formControlName="warehouse" (selectionChange)="selectionChangeHandler($event)"> -->
 
@@ -32,7 +38,7 @@
 
         <mat-label>محل استقرار</mat-label>
 
-        <input matInput formControlName="location" [mapFieldFocus]="0">
+        <input matInput mapFieldAutocomplete formControlName="location" [mapFieldFocus]="0">
 
         <!-- <mat-select disableOptionCentering formControlName="location"> -->
 
