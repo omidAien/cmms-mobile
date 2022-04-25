@@ -38,6 +38,8 @@ export class DocumentInfoViewerComponent implements OnInit {
   formGenerator() {
 
     this.documentForm = new FormGroup({
+      documentNumber: new FormControl('0000000000'),
+      documentDate: new FormControl('1401-02-05'),
       description: new FormControl('')
     });
 

@@ -1,6 +1,6 @@
 <section class="document-info-viewer">
 
-    <section class="document-number">
+    <!-- <section class="document-number">
         <span>{{ documentTitleInfo.number }}</span>
         <span>0000000000000</span>
     </section>
@@ -8,9 +8,19 @@
     <section class="document-date">
         <span>{{ documentTitleInfo.date }}</span>
         <span>1401-01-31</span>
-    </section>
+    </section> -->
 
     <form [formGroup]="documentForm" class="document-description">
+
+        <mat-form-field [appearance]=" formAppearance ">
+            <mat-label>{{ documentTitleInfo.number }}</mat-label>
+            <input matInput formControlName="documentNumber">
+        </mat-form-field>
+
+        <mat-form-field [appearance]=" formAppearance ">
+            <mat-label>{{ documentTitleInfo.date }}</mat-label>
+            <input matInput formControlName="documentDate">
+        </mat-form-field>
 
         <mat-form-field [appearance]=" formAppearance ">
             <mat-label>{{ documentTitleInfo.fieldLabel }}</mat-label>
