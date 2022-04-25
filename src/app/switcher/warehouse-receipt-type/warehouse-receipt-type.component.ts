@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { EntryHttpRequest, FormBuilderEventEmitterHandler, SystemInformation } from 'src/app/shared/appModels';
+import { FormGroup } from '@angular/forms';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { Router } from '@angular/router';
+import { BackButton, EntryHttpRequest, SystemInformation } from 'src/app/shared/appModels';
 import { ResourceMainStore } from 'src/app/shared/ResourceManager/resourseMainStore';
+import { BottomSheetOperationsHandlerComponent } from 'src/app/shared/reusableComponents/bottom-sheet-operations-handler/bottom-sheet-operations-handler.component';
+import { BackButtonService } from 'src/app/shared/services/back-button.service';
 import { GeneralErrorMessage } from 'src/app/shared/SharedClasses/errorHandlingClass';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
 
@@ -13,11 +18,16 @@ export class WarehouseReceiptTypeComponent implements OnInit {
 
   pageInfo: Pick<SystemInformation, "Direction" | "Culture">;
   entryHttpRequest: EntryHttpRequest = {};
-  formBuilderEventHandler: FormBuilderEventEmitterHandler;
-  changeApplyButtonText: string;
+  documentInfoViewerForm: FormGroup;
+  submitChangesButtonText: string;
+
+  submitDetailsInfo: { buttonText: string; captionText: string };
 
   constructor(private handleSessionstorage: HandleSessionstorage,
               private resourceMainStore: ResourceMainStore,
+              private router: Router,
+              private bottomSheet: MatBottomSheet, 
+              private backButtonService: BackButtonService,
               private generalErrorMessage: GeneralErrorMessage) { }
 
   ngOnInit(): void {
@@ -26,7 +36,9 @@ export class WarehouseReceiptTypeComponent implements OnInit {
 
     this.setCultureForResourceMainStore();
 
-    this.setChangeApplyButtonTextResource();
+    this.setSubmitDetailsInfo();
+
+    this.setSubmitChangesButtonTextResource();
 
   }
 
@@ -42,34 +54,52 @@ export class WarehouseReceiptTypeComponent implements OnInit {
 
   }
 
-  formOutputHandler(event: FormBuilderEventEmitterHandler) {
+  setSubmitDetailsInfo() {
 
-    this.formBuilderEventHandler = event;
-
-  }
-
-  submit(event: any) {
-
-    if ( this.formBuilderEventHandler.barcodeFormControl.value.length < 12 ) {
-
-      const errorMsg: string = this.resourceMainStore.getInvalidBarcodeLengthErrorMessageTextResource();
-      this.generalErrorMessage.handleClientSideError(errorMsg, this.pageInfo.Direction);
-
-    } else if ( this.formBuilderEventHandler.formGroup.invalid ) {
-
-      this.formBuilderEventHandler.formGroup.markAllAsTouched();
-
-    } else {
-      
-      console.log(this.formBuilderEventHandler.formGroup.value);
-    
-    }
+    this.submitDetailsInfo = {
+      buttonText: this.resourceMainStore.getSubmitDetailsButtonTextResource(),
+      captionText: this.resourceMainStore.getSubmitDetailsHeaderCaptionTextResource()
+    };
 
   }
 
-  setChangeApplyButtonTextResource() {
+  setSubmitChangesButtonTextResource() {
 
-    this.changeApplyButtonText = this.resourceMainStore.getChangeApplyButtonTextResource();
+    this.submitChangesButtonText = this.resourceMainStore.getChangeApplyButtonTextResource();
+
+  }
+
+  documentInfoViewerFormHandler(event: FormGroup) {
+
+    this.documentInfoViewerForm = event;
+
+  }
+
+  submitDetailsHandler(event: any) {
+
+    this.router.navigateByUrl(`${this.router.url}/detail-form`);
+
+    const backBtn: BackButton = {
+      ObjectID: 0,
+      Caption: this.submitDetailsInfo.captionText,
+      TaskTypeCode: 0,
+      RouterPath: this.router.url,
+      Active: true
+    };
+
+    this.backButtonService.push(backBtn);
+
+  }
+
+  showDetailsHandler(event: any) {
+
+    this.router.navigateByUrl(`${this.router.url}/detail-viewer`);
+
+  }
+
+  operationsHandler(event: any) {
+
+    this.bottomSheet.open(BottomSheetOperationsHandlerComponent);
 
   }
 
