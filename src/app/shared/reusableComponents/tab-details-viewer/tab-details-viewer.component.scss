@@ -1,0 +1,37 @@
+.tab-details-viewer-container {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50px 1fr;
+
+    main {
+        padding: 10px 5px;
+
+        .mat-tab-group {
+
+            .mat-tab-header {
+                border-bottom: unset !important;
+            }
+
+            .mat-tab-label-active {
+                background-color: #d9dcf07a;
+                border-radius: 8px 8px 0 0;
+                opacity: 1 !important;
+            }
+
+            .mat-ink-bar {
+                background-color: unset !important;
+            }
+
+            .mat-tab-body-wrapper {
+                background-color: #d9dcf07a;
+                overflow-x: hidden;
+                overflow-y: auto;
+                height: calc(100vh - 120px);
+                padding: 10px 8px;
+                border-radius: 8px;
+            }
+
+        }
+
+    }
+}

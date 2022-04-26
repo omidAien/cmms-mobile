@@ -37,4 +37,22 @@ export class BottomSheetOperationsHandlerComponent implements OnInit {
 
   }
 
+  showDetails() {
+
+    this.router.navigateByUrl(`${this.router.url}/detail-viewer`);
+
+    const backBtn: BackButton = {
+      ObjectID: 0,
+      Caption: "",
+      TaskTypeCode: 0,
+      RouterPath: this.router.url,
+      Active: true
+    };
+
+    this.backButtonService.push(backBtn);
+
+    this.bottomSheetRef.dismiss();
+
+  }
+
 }

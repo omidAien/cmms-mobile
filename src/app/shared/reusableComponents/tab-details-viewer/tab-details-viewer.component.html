@@ -1,1 +1,29 @@
-<p>tab-details-viewer works!</p>
+<div class="tab-details-viewer-container" [dir]=" pageInfo.Direction ">
+
+    <header>
+        <map-header></map-header>
+    </header>
+
+    <main>
+
+        <map-overlay-preloader></map-overlay-preloader>
+
+        <ng-container *ngIf=" (tabData$ | async) as tabs ">
+
+            <mat-tab-group #matTabGroup> 
+        
+                <mat-tab *ngFor="let tab of tabs">
+        
+                    <ng-template mat-tab-label>{{ tab.Label }}</ng-template>
+        
+                    <ng-template matTabContent>{{ tab.Content }}</ng-template>
+        
+                </mat-tab>
+        
+            </mat-tab-group>
+        
+        </ng-container>
+
+    </main>
+
+</div>
