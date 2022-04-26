@@ -19,6 +19,7 @@ import { FieldAutocompleteDirective } from './reusableComponents/form-builder/fi
 import { DocumentInfoViewerComponent } from './reusableComponents/document-info-viewer/document-info-viewer.component';
 import { BottomSheetOperationsHandlerComponent } from './reusableComponents/bottom-sheet-operations-handler/bottom-sheet-operations-handler.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { TabDetailsViewerComponent } from './reusableComponents/tab-details-viewer/tab-details-viewer.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     FieldAutocompleteDirective,
     DocumentInfoViewerComponent,
     BottomSheetOperationsHandlerComponent,
+    TabDetailsViewerComponent,
   ],
   imports: [
     CommonModule,
