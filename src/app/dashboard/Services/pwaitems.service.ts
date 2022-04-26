@@ -46,7 +46,7 @@ export class PWAItemsService {
                                                                                 })
                                                                               );;
 
-    this.loadingService
+    const subscription = this.loadingService
         .showPreLoaderUntilCompleted(getPWAItems$, true, 500)
         .subscribe((response: PWAItemsResponse) => {
 
@@ -61,6 +61,8 @@ export class PWAItemsService {
             this.generalErrorMessage.handleServerSideError(response.Error.Message);
 
           }
+
+          subscription.unsubscribe();
 
         });
 
