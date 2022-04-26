@@ -10,17 +10,33 @@
 
         <ng-container *ngIf=" (tabData$ | async) as tabs ">
 
-            <mat-tab-group #matTabGroup> 
+            <mat-tab-group *ngIf=" tabs.length !== 0; else noTabData "> 
         
                 <mat-tab *ngFor="let tab of tabs">
         
                     <ng-template mat-tab-label>{{ tab.Label }}</ng-template>
         
-                    <ng-template matTabContent>{{ tab.Content }}</ng-template>
+                    <ng-template matTabContent>
+                        
+                        <map-barcode-info-list-viewer [barcodeInfoList]=" tab.Content "></map-barcode-info-list-viewer>
+
+                    </ng-template>
         
                 </mat-tab>
         
             </mat-tab-group>
+
+            <ng-template #noTabData>
+
+                <section class="no-tab-date-container">
+
+                    <fa-icon [icon]="faTriangleExclamationIcon" size="2xl"></fa-icon>
+
+                    <span>{{ noDataMessage }}</span>
+
+                </section>
+
+            </ng-template>
         
         </ng-container>
 
