@@ -25,6 +25,7 @@ export interface ResourceCultureStore {
     apiResponseErrorMessageText: string;
     submitDetailsButtonText: string;
     submitDetailsHeaderCaptionText: string;
+    noDataForRepresentationText: string;
 }
 
 export interface ILoginPageTextResources {

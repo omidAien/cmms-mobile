@@ -28,7 +28,8 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         documentDescriptionFieldLabelText: "توضیحات",
         apiResponseErrorMessageText: "تنطیمات سرور را بررسی نمایید",
         submitDetailsButtonText: "ثبت فرم جزئیات",
-        submitDetailsHeaderCaptionText: "ثبت فرم جزئیات"
+        submitDetailsHeaderCaptionText: "ثبت فرم جزئیات",
+        noDataForRepresentationText: "داده ای برای نمایش وجود ندارد"
     },
     en: {
         loginPageUsernameText: "Username",
@@ -56,7 +57,8 @@ export const resourceCultureStore:{ [key:string]: ResourceCultureStore } = {
         documentDescriptionFieldLabelText: "Description",
         apiResponseErrorMessageText: "Checking Server Settings",
         submitDetailsButtonText: "Submit Details Form",
-        submitDetailsHeaderCaptionText: "Submit Details Form"
+        submitDetailsHeaderCaptionText: "Submit Details Form",
+        noDataForRepresentationText: "No Data For Presentation"
     },
 
 }

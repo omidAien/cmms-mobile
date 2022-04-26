@@ -245,3 +245,17 @@ export class SubmitDetailsHeaderCaptionTextResource extends ResourceHandler {
     }
 
 }
+
+export class NoDataForRepresentationTextResource extends ResourceHandler {
+
+    constructor(public resourceCulture: ResourceCultureStore) {
+        super();
+    }
+
+    getResource(): string {
+
+        return this.resourceCulture.noDataForRepresentationText;
+
+    }
+
+}

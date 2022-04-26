@@ -178,4 +178,12 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     }
 
+    getNoDataForRepresentationTextResource(): string {
+
+        const instance = new RClasses.NoDataForRepresentationTextResource(this.resourceCulture);
+
+        return this.executerHandler(instance);
+
+    }
+
 }
