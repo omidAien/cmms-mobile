@@ -1,37 +1,70 @@
-<div class="barcode-info-list-viewer" *ngIf=" (barcodeInfoListService.barcodeInfoList$ | async) as barcodeInfoList">
+<!-- Accordion Template  -->
+<ng-template #accordionTemplate>
+  <main>
+    
+    <mat-accordion>
 
-    <header>
-        <span>مشخصات بارکدهای خوانده شده</span>
-    </header>  
+        <mat-expansion-panel *ngFor="let barcode of barcodeInfoList" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
 
-    <main>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ barcode.Barcode }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
 
-        <mat-accordion>
+          <div class="barcode-info-container" *ngFor="let detail of barcode.Detail">
 
-            <mat-expansion-panel *ngFor="let barcode of barcodeInfoList" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <div class="barcode-info-caption">
+                <span>{{ detail.Caption }}</span>
+            </div>
+            <div class="barcode-info-description">
+                <span>{{ detail.Value }}</span>
+            </div>
 
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  {{ barcode.Barcode }}
-                </mat-panel-title>
-              </mat-expansion-panel-header>
+          </div>
 
-              <div class="barcode-info-container" *ngFor="let detail of barcode.Detail">
+        </mat-expansion-panel>
+    
+    </mat-accordion>
 
-                <div class="barcode-info-caption">
-                    <span>{{ detail.Caption }}</span>
-                </div>
-                <div class="barcode-info-description">
-                    <span>{{ detail.Value }}</span>
-                </div>
+  </main>
+</ng-template>
+<!-- End Of Accordion Template  -->
 
-              </div>
+<!-- Async Template -->
+<ng-template #asyncTemplate>
+  
+  <header>
+    <span>مشخصات بارکدهای خوانده شده</span>
+  </header>  
 
-            </mat-expansion-panel>
-        
-        </mat-accordion>
+  <ng-container *ngTemplateOutlet="accordionTemplate"></ng-container>
 
-    </main>
+</ng-template>
+<!-- End of Async Template -->
+
+<!-- Sync Template -->
+<ng-template #syncTemplate>
+  
+  <ng-container *ngTemplateOutlet="accordionTemplate"></ng-container>
+
+</ng-template>
+<!-- End Of Sync Template -->
+
+<!-- Rendering -->
+<div class="barcode-info-list-viewer">
+
+  <ng-container *ngIf=" (barcodeInfoListService.barcodeInfoList$ | async) as barcodeInfoList ">
+
+    <ng-container *ngTemplateOutlet="asyncTemplate"></ng-container>
+
+  </ng-container>
+
+  <ng-container *ngIf=" barcodeInfoList ">
+
+    <ng-container *ngTemplateOutlet="syncTemplate"></ng-container>
+
+  </ng-container>
 
 </div>
 
