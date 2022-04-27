@@ -20,6 +20,7 @@ import { DocumentInfoViewerComponent } from './reusableComponents/document-info-
 import { BottomSheetOperationsHandlerComponent } from './reusableComponents/bottom-sheet-operations-handler/bottom-sheet-operations-handler.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { TabDetailsViewerComponent } from './reusableComponents/tab-details-viewer/tab-details-viewer.component';
+import { ConvertToStringPipe } from './Pips/convert-to-string.pipe';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { TabDetailsViewerComponent } from './reusableComponents/tab-details-view
     DocumentInfoViewerComponent,
     BottomSheetOperationsHandlerComponent,
     TabDetailsViewerComponent,
+    ConvertToStringPipe,
   ],
   imports: [
     CommonModule,
