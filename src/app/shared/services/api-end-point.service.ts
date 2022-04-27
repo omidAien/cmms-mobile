@@ -49,12 +49,12 @@ export class ApiEndPointService {
 
   }
 
-  getPWAPanel(token:string, entryInputs: IModels.EntryInputs): Observable<any> {
+  getPWAPanel(token:string, entryInputs: IModels.EntryInputs): Observable<IModels.PWAPanelResponse> {
     
     const requestURL:Required<string> = this.baseURL.concat("mapGetPWAPanel");
     const body:Required<string> = JSON.stringify(entryInputs);
 
-    return this.httpClient.post<any>(requestURL, body, {headers:this.setHeaders(token)});
+    return this.httpClient.post<IModels.PWAPanelResponse>(requestURL, body, {headers:this.setHeaders(token)});
 
   }
 
