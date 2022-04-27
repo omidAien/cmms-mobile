@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { Router } from '@angular/router';
 import { BackButton } from '../../appModels';
 import { BackButtonService } from '../../services/back-button.service';
+import { BottomSheetOperationsService } from '../../services/bottom-sheet-operations.service';
 
 @Component({
   selector: 'map-bottom-sheet-operations-handler',
@@ -14,6 +15,7 @@ export class BottomSheetOperationsHandlerComponent implements OnInit {
   constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
               private bottomSheetRef: MatBottomSheetRef<BottomSheetOperationsHandlerComponent>,
               private router: Router, 
+              public bottomSheetOperationsService: BottomSheetOperationsService,
               private backButtonService: BackButtonService) { }
 
   ngOnInit(): void {

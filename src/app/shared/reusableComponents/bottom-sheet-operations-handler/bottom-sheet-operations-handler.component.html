@@ -1,9 +1,9 @@
-<div class="main-container">
+<div class="main-container" *ngIf=" ( bottomSheetOperationsService.buttons$ | async ) as buttons ">
 
-    <button mat-raised-button (click)="onClick()" >ثبت جزئیات</button>
+    <ng-container *ngFor="let btn of buttons">
 
-    <button mat-raised-button (click)="showDetails()">نمایش جزئیات</button>
+        <button mat-raised-button>{{ btn.Caption }}</button>
 
-    <button mat-raised-button>چاپ</button>
+    </ng-container>
     
 </div>
