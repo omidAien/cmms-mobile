@@ -1,3 +1,4 @@
 export const FormFieldControlTypes: { [key: string]: number } = {
-    "barcode": 2
+    "BARCODE": 112,
+    "LED": 511
 };
