@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { Router } from '@angular/router';
-import { BackButton, EntryHttpRequest, SystemInformation } from 'src/app/shared/appModels';
+import { EntryHttpRequest, SystemInformation } from 'src/app/shared/appModels';
 import { ResourceMainStore } from 'src/app/shared/ResourceManager/resourseMainStore';
 import { BottomSheetOperationsHandlerComponent } from 'src/app/shared/reusableComponents/bottom-sheet-operations-handler/bottom-sheet-operations-handler.component';
 import { BackButtonService } from 'src/app/shared/services/back-button.service';
-import { GeneralErrorMessage } from 'src/app/shared/SharedClasses/errorHandlingClass';
+import { PWAPanelService } from 'src/app/shared/services/pwapanel.service';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
 
 @Component({
@@ -25,10 +24,9 @@ export class WarehouseReceiptTypeComponent implements OnInit {
 
   constructor(private handleSessionstorage: HandleSessionstorage,
               private resourceMainStore: ResourceMainStore,
-              private router: Router,
               private bottomSheet: MatBottomSheet, 
-              private backButtonService: BackButtonService,
-              private generalErrorMessage: GeneralErrorMessage) { }
+              private pwaPanelService: PWAPanelService,
+              private backButtonService: BackButtonService) { }
 
   ngOnInit(): void {
 
@@ -36,9 +34,11 @@ export class WarehouseReceiptTypeComponent implements OnInit {
 
     this.setCultureForResourceMainStore();
 
-    this.setSubmitDetailsInfo();
+    // this.setSubmitDetailsInfo();
 
     this.setSubmitChangesButtonTextResource();
+
+    this.getPWAPanelData();
 
   }
 
@@ -51,6 +51,14 @@ export class WarehouseReceiptTypeComponent implements OnInit {
   setCultureForResourceMainStore() {
 
     this.resourceMainStore.culture = this.pageInfo.Culture;
+
+  }
+
+  getPWAPanelData() {
+
+    const objectID: number = this.backButtonService.peek().ObjectID;
+
+    this.pwaPanelService.get(objectID);
 
   }
 
@@ -72,28 +80,6 @@ export class WarehouseReceiptTypeComponent implements OnInit {
   documentInfoViewerFormHandler(event: FormGroup) {
 
     this.documentInfoViewerForm = event;
-
-  }
-
-  submitDetailsHandler(event: any) {
-
-    this.router.navigateByUrl(`${this.router.url}/detail-form`);
-
-    const backBtn: BackButton = {
-      ObjectID: 0,
-      Caption: this.submitDetailsInfo.captionText,
-      TaskTypeCode: 0,
-      RouterPath: this.router.url,
-      Active: true
-    };
-
-    this.backButtonService.push(backBtn);
-
-  }
-
-  showDetailsHandler(event: any) {
-
-    this.router.navigateByUrl(`${this.router.url}/detail-viewer`);
 
   }
 
