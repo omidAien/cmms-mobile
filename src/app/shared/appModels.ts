@@ -140,3 +140,39 @@ export interface BarcodeTrackerResponse {
     Error: ErrorModel;
     Barcode: BarcodeInformation[];
 }
+
+export interface TableField {
+    Error: ErrorModel | null;
+    FieldID:number;
+    FieldName:string;
+    LookupValue: { LookupValue:string; LookupText:string; }[] | null;
+    Caption:string;
+    ViewOrder:number;
+    isSearchable:boolean;
+    isVisible:boolean;
+    isRequired:boolean;
+    isEnable:boolean;
+    Remark:string;
+    ControlTypeCode:number;
+    Mask:string;
+    FieldLength:number;
+    Value:string;
+}
+
+export interface OperationButton {
+    ActionType: number;
+    Caption: string;
+    Icon: string;
+    Object: OperationButton[]
+    ObjectID: number;
+    ObjectType: number;
+    Remark: string;
+    hasLinkPage: boolean;
+    isEnable: boolean;
+}
+
+export interface PWAPanelResponse {
+    Error: ErrorModel;
+    TableFields: TableField[];
+    Toolbar: OperationButton[];
+}
