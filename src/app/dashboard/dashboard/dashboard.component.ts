@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     /* this function will be called in two places. 
     First, when user has been moved to dashboard-page first of all, second, when user refresh the page */
-
+    
     const lastBackBtn: BackButton = this.backButtonService.peek();
 
     this.pwaItemsService.getItems(lastBackBtn.ObjectID);
@@ -88,7 +88,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
       // 7. updating PWAItems
       this.pwaItemsService.reset();
-      this.pwaItemsService.getItems(extractedData.ObjectID);
+      
+      if ( extractedData.TaskTypeCode === 0 ) {
+
+        this.pwaItemsService.getItems(extractedData.ObjectID);
+
+      }
+      
   
     }
 
