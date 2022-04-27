@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderInfoService } from '../../services/header-info.service';
 import { faArrowLeft, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { BackButtonService } from '../../services/back-button.service';
-import { BackButton, SystemInformation } from '../../appModels';
+import { BackButton } from '../../appModels';
 import { PWAItemsService } from 'src/app/dashboard/Services/pwaitems.service';
-import { HandleSessionstorage } from '../../SharedClasses/HandleSessionStorage';
 import { Router } from '@angular/router';
 import { TaskTypeCodeHandler } from '../../taskTypeManager/taskTypes';
 
@@ -21,6 +20,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(public headerInfoService: HeaderInfoService, 
               private pwaItemsService: PWAItemsService,
+              private router: Router,
               private taskTypeCodeHandler: TaskTypeCodeHandler,
               private backButtonService: BackButtonService) { }
 
@@ -53,8 +53,14 @@ export class HeaderComponent implements OnInit {
 
   updatePWAItems(): void {
 
-    this.pwaItemsService.reset();
-    this.pwaItemsService.getItems(this.lastBackButon.ObjectID);
+    const dashboardRouterPath: string = "/dashboard";
+
+    if ( this.router.url === dashboardRouterPath  ) {
+
+      this.pwaItemsService.reset();
+      this.pwaItemsService.getItems(this.lastBackButon.ObjectID);
+
+    }
 
   }
 
@@ -66,9 +72,9 @@ export class HeaderComponent implements OnInit {
 
       this.updateHeader();
 
-      this.changeUrl();
-
       this.updatePWAItems();
+
+      this.changeUrl();
 
     }
 
