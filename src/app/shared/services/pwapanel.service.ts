@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
-import { EntryInputs, UserWorkgroup } from '../appModels';
-import { GeneralErrorMessage, HandleUnauthorizeError } from '../SharedClasses/errorHandlingClass';
+import { EntryInputs, PWAPanelResponse, UserWorkgroup } from '../appModels';
+import { HandleUnauthorizeError } from '../SharedClasses/errorHandlingClass';
 import { HandleSessionstorage } from '../SharedClasses/HandleSessionStorage';
 import { ApiEndPointService } from './api-end-point.service';
+import { BottomSheetOperationsService } from './bottom-sheet-operations.service';
+import { FormFieldsService } from './form-fields.service';
 import { LoadingService } from './loading.service';
 
 @Injectable({
@@ -18,7 +20,8 @@ export class PWAPanelService {
   private objectID: number;
 
   constructor(private handleSessionstorage: HandleSessionstorage,
-              private generalErrorMessage: GeneralErrorMessage,
+              private formFieldsService: FormFieldsService,
+              private bottomSheetOperationsService: BottomSheetOperationsService,
               private apiEndPointService: ApiEndPointService,
               private cookieService: CookieService,
               private handleUnauthorizeError: HandleUnauthorizeError,
@@ -54,7 +57,15 @@ export class PWAPanelService {
 
     this.prepareRequestData();
 
-    this.loadingService.showPreLoaderUntilCompleted(this.getPWAPanel$).subscribe((res) => console.log(res));
+    this.loadingService
+        .showPreLoaderUntilCompleted(this.getPWAPanel$)
+        .subscribe((response: PWAPanelResponse) => {
+
+          this.formFieldsService.set(response.TableFields);
+
+          this.bottomSheetOperationsService.set(response.Toolbar);
+
+        } );
 
   }
 
