@@ -42,10 +42,19 @@ export class ApiEndPointService {
 
   getPWAItems(token:string, entryInputs: IModels.EntryInputs): Observable<IModels.PWAItemsResponse> {
     
-    const requestURL:Required<string> = this.baseURL.concat("mapGetPWAItems");
+    const requestURL:Required<string> = this.baseURL.concat("mapGetPWAMenu");
     const body:Required<string> = JSON.stringify(entryInputs);
 
     return this.httpClient.post<IModels.PWAItemsResponse>(requestURL, body, {headers:this.setHeaders(token)});
+
+  }
+
+  getPWAPanel(token:string, entryInputs: IModels.EntryInputs): Observable<any> {
+    
+    const requestURL:Required<string> = this.baseURL.concat("mapGetPWAPanel");
+    const body:Required<string> = JSON.stringify(entryInputs);
+
+    return this.httpClient.post<any>(requestURL, body, {headers:this.setHeaders(token)});
 
   }
 
