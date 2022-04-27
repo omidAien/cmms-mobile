@@ -1,8 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormBuilderEventEmitterHandler, SystemInformation } from '../../appModels';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { FormBuilderEventEmitterHandler, SystemInformation, TableField } from '../../appModels';
 import { ResourceMainStore } from '../../ResourceManager/resourseMainStore';
 import { BarcodeReaderService } from '../../services/barcode-reader.service';
+import { FormFieldsService } from '../../services/form-fields.service';
 import { HandleSessionstorage } from '../../SharedClasses/HandleSessionStorage';
 
 @Component({
@@ -10,7 +12,7 @@ import { HandleSessionstorage } from '../../SharedClasses/HandleSessionStorage';
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss']
 })
-export class FormBuilderComponent implements OnInit {
+export class FormBuilderComponent implements OnInit, OnDestroy {
 
   @Output() formOutputHandler = new EventEmitter<FormBuilderEventEmitterHandler>();
 
@@ -18,8 +20,10 @@ export class FormBuilderComponent implements OnInit {
   pageInfo: Pick<SystemInformation, "Direction" | "Culture">;
   formFieldErrorMsg: string;
   barcodeFormControl: AbstractControl;
+  formFieldsSubcrp: Subscription;
 
   constructor(private handleSessionstorage: HandleSessionstorage, 
+              public formFieldsService: FormFieldsService,
               private barcodeReaderService: BarcodeReaderService,
               private resourceMainStore: ResourceMainStore) { }
 
@@ -62,15 +66,27 @@ export class FormBuilderComponent implements OnInit {
 
   }
 
+  formGeneratorHandler(formFields: TableField[]) {
+
+    if ( formFields && formFields.length > 0 ) {
+
+      this.formBuilder = new FormGroup({});
+
+      formFields.map((formField: TableField) => {
+
+        this.formBuilder.addControl(formField.FieldID.toLocaleString(), new FormControl(formField.Value));
+
+      });
+
+      this.setFormOutputHandler();
+
+    }
+
+  }
+
   formGenerator() {
 
-    this.formBuilder = new FormGroup({
-      barcode: new FormControl('', Validators.required),
-      warehouse: new FormControl('', Validators.required),
-      location: new FormControl('', Validators.required)
-    });
-
-    this.setFormOutputHandler();
+    this.formFieldsSubcrp = this.formFieldsService.formFields$.subscribe((formFields: TableField[]) => this.formGeneratorHandler(formFields));
 
   }
 
@@ -117,5 +133,12 @@ export class FormBuilderComponent implements OnInit {
   }
 
   selectionChangeHandler(event: any) {}
+
+  ngOnDestroy(): void {
+    
+    this.formFieldsService.reset();
+    this.formFieldsSubcrp.unsubscribe();
+
+  }
 
 }

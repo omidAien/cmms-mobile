@@ -1,55 +1,73 @@
-<form [formGroup]="formBuilder">
+<form [formGroup]="formBuilder" *ngIf=" (formFieldsService.formFields$ | async) as formFields ">
 
-  <mat-form-field>
+  <ng-container *ngFor="let field of formFields">
+    
+    <!-- input, type === text -->
+    <mat-form-field *ngIf=" field.ControlTypeCode === 110 && field.isVisible ">
+  
+      <mat-label *ngIf=" field.isRequired; else NotRequierd " >
+        {{ field.Caption }}
+        <span>&#42;</span>
+      </mat-label>
+          
+      <ng-template #NotRequierd>
+          <mat-label>
+            {{ field.Caption }}
+          </mat-label>
+      </ng-template>
+  
+      <input matInput [formControlName]=" field.FieldID | convertToString " mapFieldAutocomplete>
+  
+    </mat-form-field>
+    
+    <!-- barcode -->
+    <mat-form-field *ngIf=" field.ControlTypeCode === 112 && field.isVisible ">
+  
+      <mat-label *ngIf=" field.isRequired; else NotRequierd " >
+        {{ field.Caption }}
+        <span>&#42;</span>
+      </mat-label>
+          
+      <ng-template #NotRequierd>
+          <mat-label>
+            {{ field.Caption }}
+          </mat-label>
+      </ng-template>
+           
+      <input matInput 
+             mapFieldAutocomplete 
+             [formControlName]=" field.FieldID | convertToString " 
+             (input)="barcodeReaderAutoHandler($event)"
+             (keypress)="barcodeReaderManualHandler($event)">
+          
+    </mat-form-field>
 
-        <mat-label>بارکد</mat-label>
+    <!-- textarea -->
+    <mat-form-field *ngIf=" field.ControlTypeCode === 111 && field.isVisible ">
+      <mat-label>{{ field.Caption }}</mat-label>
+      <textarea matInput [formControlName]=" field.FieldID | convertToString " mapFieldAutocomplete></textarea>
+    </mat-form-field>
 
-        <!-- <input matInput mapFieldAutocomplete formControlName="barcode" [mapFieldFocus]="0" (keypress)="barcodeReaderHandler($event)"> -->
-        <input matInput 
-               mapFieldAutocomplete 
-               formControlName="barcode" 
-               [mapFieldFocus]="0" 
-               (input)="barcodeReaderAutoHandler($event)"
-               (keypress)="barcodeReaderManualHandler($event)">
+  </ng-container>
 
-        <mat-error *ngIf=" formBuilder.get('barcode').hasError('required') ">{{ formFieldErrorMsg }}</mat-error>
-        
-  </mat-form-field>
+</form>
 
-  <mat-form-field>
+
+
+  <!-- <mat-form-field>
 
         <mat-label>انبار</mat-label>
 
         <input matInput mapFieldAutocomplete formControlName="warehouse" [mapFieldFocus]="0">
 
-        <!-- <mat-select disableOptionCentering formControlName="warehouse" (selectionChange)="selectionChangeHandler($event)"> -->
+        <mat-select disableOptionCentering formControlName="warehouse" (selectionChange)="selectionChangeHandler($event)">
 
-          <!-- <mat-option *ngFor="let item of dataInput.warehouseList" [value]="item.PK_WarehouseCode">
+          <mat-option *ngFor="let item of dataInput.warehouseList" [value]="item.PK_WarehouseCode">
                       {{ item.Warehouse }}
-          </mat-option> -->
+          </mat-option>
 
-        <!-- </mat-select> -->
+        </mat-select>
 
         <mat-error *ngIf=" formBuilder.get('warehouse').hasError('required') ">{{ formFieldErrorMsg }}</mat-error>
 
-  </mat-form-field>
-
-  <mat-form-field>
-
-        <mat-label>محل استقرار</mat-label>
-
-        <input matInput mapFieldAutocomplete formControlName="location" [mapFieldFocus]="0">
-
-        <!-- <mat-select disableOptionCentering formControlName="location"> -->
-
-          <!-- <mat-option *ngFor="let item of locationList" [value]="item.pk_LocationCode">
-                      {{ item.pk_LocationCode }}
-          </mat-option> -->
-
-        <!-- </mat-select> -->
-
-        <mat-error *ngIf=" formBuilder.get('location').hasError('required') ">{{ formFieldErrorMsg }}</mat-error>
-
-  </mat-form-field>
-
-</form>
+  </mat-form-field> -->
