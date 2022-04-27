@@ -3,7 +3,7 @@
   <ng-container *ngFor="let field of formFields">
     
     <!-- input, type === text -->
-    <mat-form-field *ngIf=" field.ControlTypeCode === 110 && field.isVisible ">
+    <mat-form-field *ngIf=" field.ControlTypeCode === 110 && field.isVisible " [ngClass]="{'form-field-disabled': !field.isEnable === true }">
   
       <mat-label *ngIf=" field.isRequired; else NotRequierd " >
         {{ field.Caption }}
@@ -21,7 +21,7 @@
     </mat-form-field>
     
     <!-- barcode -->
-    <mat-form-field *ngIf=" field.ControlTypeCode === 112 && field.isVisible ">
+    <mat-form-field *ngIf=" field.ControlTypeCode === 112 && field.isVisible " [ngClass]="{'form-field-disabled': !field.isEnable === true }">
   
       <mat-label *ngIf=" field.isRequired; else NotRequierd " >
         {{ field.Caption }}
@@ -43,7 +43,7 @@
     </mat-form-field>
 
     <!-- textarea -->
-    <mat-form-field *ngIf=" field.ControlTypeCode === 111 && field.isVisible ">
+    <mat-form-field *ngIf=" field.ControlTypeCode === 111 && field.isVisible " [ngClass]="{'form-field-disabled': !field.isEnable === true }">
       <mat-label>{{ field.Caption }}</mat-label>
       <textarea matInput [formControlName]=" field.FieldID | convertToString " mapFieldAutocomplete></textarea>
     </mat-form-field>
