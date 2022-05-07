@@ -22,6 +22,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { TabDetailsViewerComponent } from './reusableComponents/tab-details-viewer/tab-details-viewer.component';
 import { ConvertToStringPipe } from './Pips/convert-to-string.pipe';
 import * as backBtnHandlers from './SharedClasses/backButtonStackHandler';
+import { BottomSheetBackBtnHandlerComponent } from './reusableComponents/bottom-sheet-back-btn-handler/bottom-sheet-back-btn-handler.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import * as backBtnHandlers from './SharedClasses/backButtonStackHandler';
     BottomSheetOperationsHandlerComponent,
     TabDetailsViewerComponent,
     ConvertToStringPipe,
+    BottomSheetBackBtnHandlerComponent,
   ],
   imports: [
     CommonModule,
