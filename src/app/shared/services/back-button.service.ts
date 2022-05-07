@@ -14,7 +14,8 @@ export class BackButtonService {
     TaskTypeCode: 0,
     Caption: "",
     RouterPath: location.hash.replace("#", ""),
-    Active: false  
+    Active: false,
+    componentName: "DashboardComponent"
   };
   private backButtonStackSubject = new BehaviorSubject<BackButton[]>([]);
   

@@ -1,14 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { BackButton } from "../appModels";
+import { BackButtonService } from "../services/back-button.service";
 
 interface TaskTypeCode {
     componentName: string;
     routerPath: string;
 }
 
-class TaskTypeCodeInfo {
+@Injectable()
+export class TaskTypeCodeInfo {
 
-    protected TaskTypeCodes: { [key:string]: TaskTypeCode } = {
+    TaskTypeCodes: { [key:string]: TaskTypeCode } = {
         "0": {
             componentName: "DashboardComponent",
             routerPath: "/dashboard"

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { BackButton, SystemInformation, UserWorkgroup } from 'src/app/shared/appModels';
 import { BackButtonService } from 'src/app/shared/services/back-button.service';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
-import { TaskTypeCodeHandler } from 'src/app/shared/taskTypeManager/taskTypes';
+import { TaskTypeCodeHandler, TaskTypeCodeInfo } from 'src/app/shared/taskTypeManager/taskTypes';
 import { PWAItemsService } from '../Services/pwaitems.service';
 
 @Component({
@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   constructor(private handleSessionstorage: HandleSessionstorage,
               public pwaItemsService: PWAItemsService,
+              private taskTypeCodeInfo: TaskTypeCodeInfo,
               private taskTypeCodeHandler: TaskTypeCodeHandler,
               private backButtonService: BackButtonService) { }
 
@@ -81,7 +82,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       extractedData = this.extractHtmlDataOperation(sectionElement);
         
       // 5. manage back-button-stack
-      this.backButtonService.push({ ...extractedData, Active: true });
+      const _componentName: string = this.taskTypeCodeInfo.TaskTypeCodes[extractedData.TaskTypeCode].componentName;
+      
+      this.backButtonService.push({ ...extractedData, Active: true, componentName: _componentName });
           
       // 6. navigating to new url based on TaskTypeCode
       this.taskTypeCodeHandler.navigator(extractedData.TaskTypeCode);
