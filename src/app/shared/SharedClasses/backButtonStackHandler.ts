@@ -2,10 +2,12 @@ import { Injectable } from "@angular/core";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { Router } from "@angular/router";
 import { PWAItemsService } from "src/app/dashboard/Services/pwaitems.service";
-import { BackButton } from "../appModels";
+import { BackButton, SystemInformation } from "../appModels";
+import { BottomSheetBackBtnHandlerComponent } from "../reusableComponents/bottom-sheet-back-btn-handler/bottom-sheet-back-btn-handler.component";
 import { BackButtonService } from "../services/back-button.service";
 import { HeaderInfoService } from "../services/header-info.service";
 import { TaskTypeCodeHandler } from "../taskTypeManager/taskTypes";
+import { HandleSessionstorage } from "./HandleSessionStorage";
 
 @Injectable()
 export class UpdateHeaderComponentHandler {
@@ -97,12 +99,34 @@ export class DashboardTypeBackButtonStackHandler {
 export class WarehouseReceiptTypeBackButtonStackHandler {
 
     constructor(private bottomSheet: MatBottomSheet,
+                private handleSessionstorage: HandleSessionstorage,
                 private backButtonStackRoutineUpdator: BackButtonStackRoutineUpdator) {}
+
+    private getPageInfo(): string {
+
+        const pageInfo: Pick<SystemInformation, "Direction" | "Culture"> = this.handleSessionstorage.get("pageInfo");
+
+        return pageInfo.Direction;
+
+    }            
 
     backButtonStackHandler() {
 
-        // open snack bar
-        console.log("open snack bar");
+        const _bottomSheet = this.bottomSheet.open(BottomSheetBackBtnHandlerComponent, {
+            autoFocus: false,
+            direction: this.getPageInfo() === 'rtl' ? 'rtl' : 'ltr'
+        });
+        
+        _bottomSheet.afterDismissed()
+                    .subscribe((response: boolean) => {
+
+                        if ( response ) {
+
+                            this.backButtonStackRoutineUpdator.updatePageContent();
+
+                        }
+
+                    });
 
     }
 

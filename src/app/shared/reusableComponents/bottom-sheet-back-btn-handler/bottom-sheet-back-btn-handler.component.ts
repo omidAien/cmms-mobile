@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'map-bottom-sheet-back-btn-handler',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BottomSheetBackBtnHandlerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _bottomSheetRef: MatBottomSheetRef<any>) { }
 
   ngOnInit(): void {
+  }
+
+  btnOperationHandler(event: any) {
+
+    this._bottomSheetRef.dismiss(true);
+
   }
 
 }
