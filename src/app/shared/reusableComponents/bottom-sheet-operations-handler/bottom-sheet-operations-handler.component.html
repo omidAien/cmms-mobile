@@ -1,9 +1,13 @@
 <div class="main-container" *ngIf=" ( bottomSheetOperationsService.buttons$ | async ) as buttons ">
 
-    <ng-container *ngFor="let btn of buttons">
+    <div class="btns-container" (click)="btnOperationHandler($event)">
 
-        <button mat-raised-button>{{ btn.Caption }}</button>
+        <ng-container *ngFor="let btn of buttons">
 
-    </ng-container>
+            <button mat-raised-button>{{ btn.Caption }}</button>
     
+        </ng-container>
+
+    </div>
+
 </div>
