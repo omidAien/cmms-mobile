@@ -21,6 +21,7 @@ import { BottomSheetOperationsHandlerComponent } from './reusableComponents/bott
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { TabDetailsViewerComponent } from './reusableComponents/tab-details-viewer/tab-details-viewer.component';
 import { ConvertToStringPipe } from './Pips/convert-to-string.pipe';
+import * as backBtnHandlers from './SharedClasses/backButtonStackHandler';
 
 
 @NgModule({
@@ -63,7 +64,14 @@ import { ConvertToStringPipe } from './Pips/convert-to-string.pipe';
     HandleSessionstorage,
     ResourceMainStore,
     TaskTypeCodeHandler,
-    TaskTypeCodeInfo
+    TaskTypeCodeInfo,
+    backBtnHandlers.UpdateHeaderComponentHandler,
+    backBtnHandlers.UpdatePWAItemsHandler,
+    backBtnHandlers.UpdateURLHandler,
+    backBtnHandlers.BackButtonStackRoutineUpdator,
+    backBtnHandlers.DashboardTypeBackButtonStackHandler,
+    backBtnHandlers.WarehouseReceiptTypeBackButtonStackHandler,
+    backBtnHandlers.ButtonStackStoreHandler
   ]
 })
 export class SharedModule { }
