@@ -1,1 +1,19 @@
-<p>labeling-type works!</p>
+<div class="labeling-type-container" [dir]=" pageInfo.Direction ">
+
+    <header>
+        <map-header></map-header>
+    </header>
+
+    <main>
+        
+        <map-overlay-preloader></map-overlay-preloader>
+        
+        <map-form-builder (formOutputHandler)="documentInfoViewerFormHandler($event)"></map-form-builder>
+
+    </main>
+
+    <footer>
+        <button class="submit-changes" matRipple>عملیات</button>
+    </footer>
+
+</div>
