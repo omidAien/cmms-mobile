@@ -14,6 +14,10 @@ export class TaskTypeCodeInfo {
             componentName: "DashboardComponent",
             routerPath: "/dashboard"
         },
+        "1": {
+            componentName: "LabelingTypeComponent",
+            routerPath: "/swcomp/labeling"
+        },
         "2": {
             componentName: "WarehouseReceiptTypeComponent",
             routerPath: "/swcomp/wrt"
@@ -23,17 +27,14 @@ export class TaskTypeCodeInfo {
 }
 
 @Injectable()
-export class TaskTypeCodeHandler extends TaskTypeCodeInfo {
+export class TaskTypeCodeHandler {
 
-    constructor(private router: Router) {
-
-        super();
-
-    }
+    constructor(private router: Router, 
+                private taskTypeCodeInfo: TaskTypeCodeInfo) {}
 
     navigator(taskTypeCode: number) {
 
-        const routerPath: string = this.TaskTypeCodes[taskTypeCode].routerPath;
+        const routerPath: string = this.taskTypeCodeInfo.TaskTypeCodes[taskTypeCode].routerPath;
 
         this.router.navigateByUrl(routerPath);
  

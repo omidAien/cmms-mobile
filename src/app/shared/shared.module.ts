@@ -73,6 +73,7 @@ import { BottomSheetBackBtnHandlerComponent } from './reusableComponents/bottom-
     backBtnHandlers.BackButtonStackRoutineUpdator,
     backBtnHandlers.DashboardTypeBackButtonStackHandler,
     backBtnHandlers.WarehouseReceiptTypeBackButtonStackHandler,
+    backBtnHandlers.LabelingTypeBackButtonStackHandler,
     backBtnHandlers.ButtonStackStoreHandler
   ]
 })
