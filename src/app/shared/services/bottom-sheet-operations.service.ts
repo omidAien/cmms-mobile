@@ -14,6 +14,8 @@ export class BottomSheetOperationsService {
 
   set(value: OperationButton[]) {
 
+    this.reset();
+
     this.buttonsSubject.next(value);
 
   }
