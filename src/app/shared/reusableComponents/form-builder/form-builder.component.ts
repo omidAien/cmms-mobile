@@ -16,7 +16,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   @Output() formOutputHandler = new EventEmitter<FormBuilderEventEmitterHandler>();
 
-  formBuilder: FormGroup;
+  formBuilder: FormGroup = new FormGroup({});
   pageInfo: Pick<SystemInformation, "Direction" | "Culture">;
   formFieldErrorMsg: string;
   barcodeFormControl: AbstractControl;
@@ -74,7 +74,11 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
       formFields.map((formField: TableField) => {
 
-        this.formBuilder.addControl(formField.FieldID.toLocaleString(), new FormControl(formField.Value));
+        if ( formField.isVisible ) {
+
+          this.formBuilder.addControl(formField.FieldID.toLocaleString(), new FormControl(formField.Value));
+
+        }
 
       });
 
