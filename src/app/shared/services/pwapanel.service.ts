@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
-import { EntryInputs, PWAPanelResponse, UserWorkgroup } from '../appModels';
+import { EntryInputs, OperationButton, PWAPanelResponse, UserWorkgroup } from '../appModels';
 import { HandleUnauthorizeError } from '../SharedClasses/errorHandlingClass';
 import { HandleSessionstorage } from '../SharedClasses/HandleSessionStorage';
 import { ApiEndPointService } from './api-end-point.service';
@@ -63,9 +63,20 @@ export class PWAPanelService {
 
           this.formFieldsService.set(response.TableFields);
 
-          this.bottomSheetOperationsService.set(response.Toolbar);
+          // assesment buttons which will be contained in BottomSheetOperationComponent
+          const bottomSheetbButtons: OperationButton[] = response.Toolbar.filter((btn: OperationButton) => btn.isEnable);
 
-        } );
+          if ( bottomSheetbButtons.length > 0 ) {
+
+            this.bottomSheetOperationsService.set(response.Toolbar);
+
+          } else {
+
+            this.bottomSheetOperationsService.reset();
+
+          }
+
+        });
 
   }
 
