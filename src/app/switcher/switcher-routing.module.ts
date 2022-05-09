@@ -19,7 +19,7 @@ const routes: Routes = [
     component: TabDetailsViewerComponent
   },
   {
-    path: "label",
+    path: "labeling",
     component: LabelingTypeComponent
   }
 ];
