@@ -5,14 +5,12 @@ import { SwitcherRoutingModule } from './switcher-routing.module';
 import { WarehouseReceiptTypeComponent } from './warehouse-receipt-type/warehouse-receipt-type.component';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
-import { DetailFormComponent } from './warehouse-receipt-type/detail-form/detail-form.component';
 import { LabelingTypeComponent } from './labeling-type/labeling-type.component';
 
 
 @NgModule({
   declarations: [
     WarehouseReceiptTypeComponent,
-    DetailFormComponent,
     LabelingTypeComponent,
   ],
   imports: [

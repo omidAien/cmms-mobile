@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabDetailsViewerComponent } from '../shared/reusableComponents/tab-details-viewer/tab-details-viewer.component';
 import { LabelingTypeComponent } from './labeling-type/labeling-type.component';
-import { DetailFormComponent } from './warehouse-receipt-type/detail-form/detail-form.component';
+import { DetailFormComponent } from '../shared/reusableComponents/detail-form/detail-form.component';
 import { WarehouseReceiptTypeComponent } from './warehouse-receipt-type/warehouse-receipt-type.component';
 
 const routes: Routes = [
@@ -11,7 +11,7 @@ const routes: Routes = [
     component: WarehouseReceiptTypeComponent,
   },
   {
-    path: "wrt/detail-form",
+    path: "detail-form",
     component: DetailFormComponent
   },
   {

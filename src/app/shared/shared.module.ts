@@ -23,6 +23,7 @@ import { TabDetailsViewerComponent } from './reusableComponents/tab-details-view
 import { ConvertToStringPipe } from './Pips/convert-to-string.pipe';
 import * as backBtnHandlers from './SharedClasses/backButtonStackHandler';
 import { BottomSheetBackBtnHandlerComponent } from './reusableComponents/bottom-sheet-back-btn-handler/bottom-sheet-back-btn-handler.component';
+import { DetailFormComponent } from './reusableComponents/detail-form/detail-form.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { BottomSheetBackBtnHandlerComponent } from './reusableComponents/bottom-
     TabDetailsViewerComponent,
     ConvertToStringPipe,
     BottomSheetBackBtnHandlerComponent,
+    DetailFormComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,8 @@ import { BottomSheetBackBtnHandlerComponent } from './reusableComponents/bottom-
     BarcodeInfoListViewerComponent,
     FormBuilderComponent,
     DocumentInfoViewerComponent,
-    BottomSheetOperationsHandlerComponent
+    BottomSheetOperationsHandlerComponent,
+    DetailFormComponent
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: "outline" } },
