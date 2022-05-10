@@ -48,26 +48,32 @@
       <textarea matInput [formControlName]=" field.FieldID | convertToString " mapFieldAutocomplete></textarea>
     </mat-form-field>
 
+    <!-- single select -->
+    <mat-form-field *ngIf=" field.ControlTypeCode === 210 && field.isVisible " [ngClass]="{'form-field-disabled': !field.isEnable === true }">
+
+      <mat-label *ngIf=" field.isRequired; else NotRequierd " >
+        {{ field.Caption }}
+        <span>&#42;</span>
+      </mat-label>
+          
+      <ng-template #NotRequierd>
+          <mat-label>
+            {{ field.Caption }}
+          </mat-label>
+      </ng-template>
+
+      <mat-select disableOptionCentering 
+                  [formControlName]=" field.FieldID | convertToString " 
+                  (selectionChange)="selectionChangeHandler($event)">
+
+        <mat-option *ngFor="let item of field.LookupValue" [value]="item.LookupValue">
+                    {{ item.LookupText }}
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
   </ng-container>
 
 </form>
-
-
-
-  <!-- <mat-form-field>
-
-        <mat-label>انبار</mat-label>
-
-        <input matInput mapFieldAutocomplete formControlName="warehouse" [mapFieldFocus]="0">
-
-        <mat-select disableOptionCentering formControlName="warehouse" (selectionChange)="selectionChangeHandler($event)">
-
-          <mat-option *ngFor="let item of dataInput.warehouseList" [value]="item.PK_WarehouseCode">
-                      {{ item.Warehouse }}
-          </mat-option>
-
-        </mat-select>
-
-        <mat-error *ngIf=" formBuilder.get('warehouse').hasError('required') ">{{ formFieldErrorMsg }}</mat-error>
-
-  </mat-form-field> -->

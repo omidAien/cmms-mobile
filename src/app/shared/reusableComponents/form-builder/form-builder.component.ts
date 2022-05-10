@@ -66,31 +66,23 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   }
 
-  formGeneratorHandler(formFields: TableField[]) {
+  formFieldHandler(formFields: TableField[]) {
 
-    if ( formFields && formFields.length > 0 ) {
-
-      this.formBuilder = new FormGroup({});
-
-      formFields.map((formField: TableField) => {
-
-        if ( formField.isVisible ) {
-
-          this.formBuilder.addControl(formField.FieldID.toLocaleString(), new FormControl(formField.Value));
-
-        }
-
-      });
-
+    try {
+      
+      formFields
+        .filter((formField: TableField) => formField.isVisible)
+        .map((formField: TableField) => this.formBuilder.addControl(formField.FieldID.toLocaleString(), new FormControl(formField.Value)));
+  
       this.setFormOutputHandler();
 
-    }
+    } catch (error) {}
 
   }
 
   formGenerator() {
 
-    this.formFieldsSubcrp = this.formFieldsService.formFields$.subscribe((formFields: TableField[]) => this.formGeneratorHandler(formFields));
+    this.formFieldsSubcrp = this.formFieldsService.formFields$.subscribe((formFields: TableField[]) => this.formFieldHandler(formFields));
 
   }
 
