@@ -17,6 +17,10 @@
       </ng-template>
   
       <input matInput [formControlName]=" field.FieldID | convertToString " mapFieldAutocomplete>
+
+      <mat-error *ngIf=" assessFieldErrorStatus(field.FieldID) ">
+        {{ extractFieldErrorMessage(field.FieldID) }}
+      </mat-error>
   
     </mat-form-field>
     
@@ -39,6 +43,10 @@
              [formControlName]=" field.FieldID | convertToString " 
              (input)="barcodeReaderAutoHandler($event)"
              (keypress)="barcodeReaderManualHandler($event)">
+
+      <mat-error *ngIf=" assessFieldErrorStatus(field.FieldID) ">
+        {{ extractFieldErrorMessage(field.FieldID) }}
+      </mat-error>       
           
     </mat-form-field>
 
@@ -71,6 +79,10 @@
         </mat-option>
 
       </mat-select>
+
+      <mat-error *ngIf=" assessFieldErrorStatus(field.FieldID) ">
+        {{ extractFieldErrorMessage(field.FieldID) }}
+      </mat-error>
 
     </mat-form-field>
 

@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { FormBuilderEventEmitterHandler, SystemInformation, TableField } from '../../appModels';
+import { FormBuilderEventEmitterHandler, LogData, SystemInformation, TableField } from '../../appModels';
 import { ResourceMainStore } from '../../ResourceManager/resourseMainStore';
 import { BarcodeReaderService } from '../../services/barcode-reader.service';
+import { FormFieldErrorService } from '../../services/form-field-error.service';
 import { FormFieldsService } from '../../services/form-fields.service';
 import { HandleSessionstorage } from '../../SharedClasses/HandleSessionStorage';
 
@@ -18,44 +19,33 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   formBuilder: FormGroup = new FormGroup({});
   pageInfo: Pick<SystemInformation, "Direction" | "Culture">;
-  formFieldErrorMsg: string;
   barcodeFormControl: AbstractControl;
   formFieldsSubcrp: Subscription;
+  formFieldErrorSubcrp: Subscription;
 
   constructor(private handleSessionstorage: HandleSessionstorage, 
               public formFieldsService: FormFieldsService,
+              private formFieldErrorService: FormFieldErrorService,
               private barcodeReaderService: BarcodeReaderService,
               private resourceMainStore: ResourceMainStore) { }
 
   ngOnInit(): void {
 
-    this.detectPageInfo();
-
-    this.setCultureForResourceMainStore();
-
-    this.setFormFieldErrorMsg();
+    this.initialSetup();
 
     this.formGenerator();
 
-    // this.formValueChangesValidator();
+    this.formFieldServerSideValidation();
 
   }
 
-  detectPageInfo() {
+  initialSetup() {
 
+    // 1. getting PageInfo from SessionStorage
     this.pageInfo = this.handleSessionstorage.get("pageInfo");
 
-  }
-
-  setCultureForResourceMainStore() {
-
+    // 2. setting culture for ResourceMainStore
     this.resourceMainStore.culture = this.pageInfo.Culture;
-
-  }
-
-  setFormFieldErrorMsg() {
-
-    this.formFieldErrorMsg = this.resourceMainStore.getFormFieldErrorMessageTextResource();
 
   }
 
@@ -70,8 +60,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
     try {
       
-      formFields
-        .map((formField: TableField) => this.formBuilder.addControl(formField.FieldID.toLocaleString(), new FormControl(formField.Value)));
+      formFields.map((formField: TableField) => 
+                      this.formBuilder.addControl(formField.FieldID.toLocaleString(), new FormControl(formField.Value)));
   
       this.setFormOutputHandler();
 
@@ -82,6 +72,39 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   formGenerator() {
 
     this.formFieldsSubcrp = this.formFieldsService.formFields$.subscribe((formFields: TableField[]) => this.formFieldHandler(formFields));
+
+  }
+
+  formFieldSetErrors(item: LogData) {
+
+    this.formBuilder.get(item.FieldID.toString()).setErrors({ serverSideError : { status: true, message: item.ErrorMessage } });
+    this.formBuilder.get(item.FieldID.toString()).markAsTouched();
+
+  }
+
+  formFieldServerSideValidation() {
+
+    this.formFieldErrorSubcrp = this.formFieldErrorService
+                                    .formFieldError$
+                                    .subscribe((logDataList: LogData[]) => {
+
+                                      logDataList?.filter((item) => item.ErrorCode !== 0).map((item) => this.formFieldSetErrors(item));
+
+                                      this.formBuilder.updateValueAndValidity();
+
+                                    });
+
+  }
+
+  assessFieldErrorStatus(formControlName:number): boolean {
+
+    return this.formBuilder.get(formControlName.toString()).errors?.serverSideError.status;
+
+  }
+
+  extractFieldErrorMessage(formControlName:number): string {
+
+    return this.formBuilder.get(formControlName.toString()).errors?.serverSideError.message; 
 
   }
 
@@ -132,7 +155,10 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     
     this.formFieldsService.reset();
+    this.formFieldErrorService.reset();
+    
     this.formFieldsSubcrp.unsubscribe();
+    this.formFieldErrorSubcrp.unsubscribe();
 
   }
 

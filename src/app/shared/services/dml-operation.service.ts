@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { DMLDataInput, ErrorModel } from '../appModels';
 import { GeneralErrorMessage, HandleUnauthorizeError } from '../SharedClasses/errorHandlingClass';
 import { ApiEndPointService } from './api-end-point.service';
+import { FormFieldErrorService } from './form-field-error.service';
 import { LoadingService } from './loading.service';
 
 @Injectable({
@@ -18,6 +19,7 @@ export class DmlOperationService {
   constructor(private apiEndPointService: ApiEndPointService,
               private handleUnauthorizeError: HandleUnauthorizeError,
               private loadingService: LoadingService,
+              private formFieldErrorService: FormFieldErrorService,
               private generalErrorMessage: GeneralErrorMessage,
               private cookieService: CookieService) { }
 
@@ -48,6 +50,8 @@ export class DmlOperationService {
           if ( response.hasError ) {
 
             this.generalErrorMessage.showMessage(response.Message);
+
+            this.formFieldErrorService.setLogData(response.LogData);
 
           } 
 

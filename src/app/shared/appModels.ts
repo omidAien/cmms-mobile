@@ -183,3 +183,10 @@ export interface DMLDataInput {
     fields: {fieldID: number, fieldValue: string }[];
     workgroupID: number;
 }
+
+export interface LogData {
+    FieldID:number; 
+    FieldValue:string; 
+    ErrorCode:number; 
+    ErrorMessage:string
+  }

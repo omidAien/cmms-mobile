@@ -46,6 +46,8 @@ export class DetailFormComponent implements OnInit {
 
   }
 
+  
+
   formBuilderOutputHandler(event: FormBuilderEventEmitterHandler) {
 
     this.formBuilderHandler = event.formGroup;
