@@ -71,7 +71,6 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     try {
       
       formFields
-        .filter((formField: TableField) => formField.isVisible)
         .map((formField: TableField) => this.formBuilder.addControl(formField.FieldID.toLocaleString(), new FormControl(formField.Value)));
   
       this.setFormOutputHandler();
