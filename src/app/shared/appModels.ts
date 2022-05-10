@@ -176,3 +176,10 @@ export interface PWAPanelResponse {
     TableFields: TableField[];
     Toolbar: OperationButton[];
 }
+
+export interface DMLDataInput {
+    objectID: number;
+    rowID: number;
+    fields: {fieldID: number, fieldValue: string }[];
+    workgroupID: number;
+}

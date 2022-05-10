@@ -67,4 +67,13 @@ export class ApiEndPointService {
 
   }
 
+  mapDML(token:string, DMLDataInput: IModels.DMLDataInput): Observable<IModels.ErrorModel> {
+
+    const requestURL:Required<string> = this.baseURL.concat("mapDML");
+    const body:Required<string> = JSON.stringify(DMLDataInput);
+
+    return this.httpClient.post<IModels.ErrorModel>(requestURL, body, {headers:this.setHeaders(token)});
+
+  }
+
 }
