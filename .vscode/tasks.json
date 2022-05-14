@@ -6,7 +6,7 @@
 			"script": "start",
 			"problemMatcher": [],
 			"label": "npm: start",
-			"detail": "ng serve --host 192.168.1.9 --port 4600"
+			"detail": "ng serve --host 192.168.211.2 --port 4600"
 		}
 	]
 }
