@@ -4,7 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import { EntryInputs, OperationButton, PWAPanelResponse, UserWorkgroup } from '../appModels';
-import { HandleUnauthorizeError } from '../SharedClasses/errorHandlingClass';
+import { GeneralErrorMessage, HandleUnauthorizeError } from '../SharedClasses/errorHandlingClass';
 import { HandleSessionstorage } from '../SharedClasses/HandleSessionStorage';
 import { ApiEndPointService } from './api-end-point.service';
 import { BottomSheetOperationsService } from './bottom-sheet-operations.service';
@@ -24,6 +24,7 @@ export class PWAPanelService {
               private bottomSheetOperationsService: BottomSheetOperationsService,
               private apiEndPointService: ApiEndPointService,
               private cookieService: CookieService,
+              private generalErrorMessage: GeneralErrorMessage,
               private handleUnauthorizeError: HandleUnauthorizeError,
               private loadingService: LoadingService) { }
 
@@ -61,18 +62,26 @@ export class PWAPanelService {
         .showPreLoaderUntilCompleted(this.getPWAPanel$)
         .subscribe((response: PWAPanelResponse) => {
 
-          this.formFieldsService.set(response.TableFields);
+          if ( !response.Error.hasError ) {
 
-          // assesment buttons which will be contained in BottomSheetOperationComponent
-          const bottomSheetbButtons: OperationButton[] = response.Toolbar.filter((btn: OperationButton) => btn.isEnable);
+            this.formFieldsService.set(response.TableFields);
 
-          if ( bottomSheetbButtons.length > 0 ) {
-
-            this.bottomSheetOperationsService.set(response.Toolbar);
+            // assesment buttons which will be contained in BottomSheetOperationComponent
+            const bottomSheetbButtons: OperationButton[] = response.Toolbar?.filter((btn: OperationButton) => btn.isEnable);
+  
+            if ( bottomSheetbButtons?.length > 0 ) {
+  
+              this.bottomSheetOperationsService.set(response.Toolbar);
+  
+            } else {
+  
+              this.bottomSheetOperationsService.reset();
+  
+            }
 
           } else {
 
-            this.bottomSheetOperationsService.reset();
+            this.generalErrorMessage.showMessage(response.Error.Message);
 
           }
 
