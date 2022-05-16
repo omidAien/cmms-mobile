@@ -37,12 +37,14 @@
             {{ field.Caption }}
           </mat-label>
       </ng-template>
-           
-      <input matInput 
-             mapFieldAutocomplete 
-             [formControlName]=" field.FieldID | convertToString " 
-             (input)="barcodeReaderAutoHandler($event)"
-             (keypress)="barcodeReaderManualHandler($event)">
+          
+      <textarea matInput 
+                class="barcode-textarea"
+                [formControlName]=" field.FieldID | convertToString " 
+                (input)="barcodeReaderAutoHandler($event)"
+                (keypress)="barcodeReaderManualHandler($event)"
+                mapFieldAutocomplete>
+      </textarea>
 
       <mat-error *ngIf=" assessFieldErrorStatus(field.FieldID) ">
         {{ extractFieldErrorMessage(field.FieldID) }}

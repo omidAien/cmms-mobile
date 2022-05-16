@@ -134,6 +134,10 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
       event.target.value = "";
 
+    } else if ( event.target.value.includes("\n") ) {
+
+      alert(event.target.value)
+
     }
 
   }
@@ -145,6 +149,10 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       event.target.value = "";
 
       this.barcodeReaderService.read(event.target.value);
+
+    } else if ( event.target.value.includes("\n") ) {
+
+      alert(event.target.value)
 
     }
 
