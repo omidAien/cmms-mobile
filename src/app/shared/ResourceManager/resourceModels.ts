@@ -18,7 +18,7 @@ export interface ResourceCultureStore {
     generalServerErrorMessageText: string;
     formFieldErrorMessageText:string;
     invalidBarcodeLengthErrorMessageText: string;
-    changeApplyButtonText: string;
+    operationButtonText: string;
     documentNumberTitleText: string;
     documentDateTitleText: string;
     documentDescriptionFieldLabelText: string;

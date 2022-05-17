@@ -148,7 +148,7 @@ export class InvalidBarcodeLengthErrorMessageTextResource extends ResourceHandle
 
 }
 
-export class ChangeApplyButtonTextResource extends ResourceHandler {
+export class OperationButtonTextResource extends ResourceHandler {
 
     constructor(public resourceCulture: ResourceCultureStore) {
         super();
@@ -156,7 +156,7 @@ export class ChangeApplyButtonTextResource extends ResourceHandler {
 
     getResource(): string {
 
-        return this.resourceCulture.changeApplyButtonText;
+        return this.resourceCulture.operationButtonText;
 
     }
 

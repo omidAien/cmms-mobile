@@ -122,9 +122,9 @@ export class ResourceMainStore extends BaseResourceMainStore {
 
     }
 
-    getChangeApplyButtonTextResource(): string {
+    getOperationButtonTextResource(): string {
 
-        const instance = new RClasses.ChangeApplyButtonTextResource(this.resourceCulture);
+        const instance = new RClasses.OperationButtonTextResource(this.resourceCulture);
 
         return this.executerHandler(instance);
 
