@@ -71,7 +71,7 @@ export class PWAPanelService {
   
             if ( bottomSheetbButtons?.length > 0 ) {
   
-              this.bottomSheetOperationsService.set(response.Toolbar);
+              this.bottomSheetOperationsService.set(bottomSheetbButtons);
   
             } else {
   
