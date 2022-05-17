@@ -146,6 +146,19 @@ export class LabelingTypeBackButtonStackHandler {
 }
 
 @Injectable()
+export class DetailFormTypeBackButtonStackHandler {
+
+    constructor(private backButtonStackRoutineUpdator: BackButtonStackRoutineUpdator) {}
+
+    backButtonStackHandler() {
+
+        this.backButtonStackRoutineUpdator.updatePageContent();
+
+    }
+
+}
+
+@Injectable()
 export class ButtonStackStoreHandler {
 
     private instanceHandler: { [key: string]: any } = {};
@@ -153,6 +166,7 @@ export class ButtonStackStoreHandler {
     constructor(private dashboardTypeBackButtonStackHandler: DashboardTypeBackButtonStackHandler,
                 private backButtonService: BackButtonService,
                 private labelingTypeBackButtonStackHandler: LabelingTypeBackButtonStackHandler,
+                private detailFormTypeBackButtonStackHandler: DetailFormTypeBackButtonStackHandler,
                 private warehouseReceiptTypeBackButtonStackHandler: WarehouseReceiptTypeBackButtonStackHandler) {}
 
     private setInstaceHandler() {
@@ -160,6 +174,7 @@ export class ButtonStackStoreHandler {
         this.instanceHandler["0"] = this.dashboardTypeBackButtonStackHandler;
         this.instanceHandler["1"] = this.labelingTypeBackButtonStackHandler;
         this.instanceHandler["2"] = this.warehouseReceiptTypeBackButtonStackHandler;
+        this.instanceHandler["3"] = this.detailFormTypeBackButtonStackHandler;
 
     }            
 

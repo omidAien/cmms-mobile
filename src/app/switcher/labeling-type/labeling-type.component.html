@@ -8,12 +8,12 @@
         
         <map-overlay-preloader></map-overlay-preloader>
         
-        <map-form-builder (formOutputHandler)="documentInfoViewerFormHandler($event)"></map-form-builder>
+        <map-form-builder (formOutputHandler)="formOutputHandler($event)"></map-form-builder>
 
     </main>
 
     <footer>
-        <button class="submit-changes" matRipple>عملیات</button>
+        <button class="submit-changes" matRipple (click)="operationsHandler($event)">{{ operationButtonText }}</button>
     </footer>
 
 </div>

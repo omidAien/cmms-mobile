@@ -3,6 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { FormBuilderEventEmitterHandler, SystemInformation } from 'src/app/shared/appModels';
 import { ResourceMainStore } from 'src/app/shared/ResourceManager/resourseMainStore';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
+import { BackButtonService } from '../../services/back-button.service';
+import { PWAPanelService } from '../../services/pwapanel.service';
 
 @Component({
   selector: 'map-detail-form',
@@ -12,10 +14,12 @@ import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSession
 export class DetailFormComponent implements OnInit {
 
   pageInfo: Pick<SystemInformation, "Direction" | "Culture">;
-  submitChangesButtonText: string;
+  operationButtonText: string;
   formBuilderHandler: FormGroup;
 
   constructor(private handleSessionstorage: HandleSessionstorage,
+              private backButtonService: BackButtonService,
+              private pwaPanelService: PWAPanelService,
               private resourceMainStore: ResourceMainStore) { }
 
   ngOnInit(): void {
@@ -24,7 +28,9 @@ export class DetailFormComponent implements OnInit {
 
     this.setCultureForResourceMainStore();
 
-    this.setSubmitChangesButtonTextResource();
+    this.setOperationButtonTextResource();
+
+    this.getPWAPanelData();
 
   }
 
@@ -40,13 +46,19 @@ export class DetailFormComponent implements OnInit {
 
   }
 
-  setSubmitChangesButtonTextResource() {
+  getPWAPanelData() {
 
-    this.submitChangesButtonText = this.resourceMainStore.getChangeApplyButtonTextResource();
+    const objectID: number = this.backButtonService.peek().ObjectID;
+
+    this.pwaPanelService.get(objectID);
 
   }
 
-  
+  setOperationButtonTextResource() {
+
+    this.operationButtonText = this.resourceMainStore.getOperationButtonTextResource();
+
+  }
 
   formBuilderOutputHandler(event: FormBuilderEventEmitterHandler) {
 

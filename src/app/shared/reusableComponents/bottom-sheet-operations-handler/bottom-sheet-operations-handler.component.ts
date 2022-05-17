@@ -1,9 +1,10 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { Router } from '@angular/router';
-import { BackButton } from '../../appModels';
+import { BackButton, OperationButton } from '../../appModels';
 import { BackButtonService } from '../../services/back-button.service';
 import { BottomSheetOperationsService } from '../../services/bottom-sheet-operations.service';
+import { TaskTypeCodeHandler } from '../../taskTypeManager/taskTypes';
 
 @Component({
   selector: 'map-bottom-sheet-operations-handler',
@@ -15,63 +16,65 @@ export class BottomSheetOperationsHandlerComponent implements OnInit {
   constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
               private bottomSheetRef: MatBottomSheetRef<BottomSheetOperationsHandlerComponent>,
               private router: Router, 
+              private taskTypeCodeHandler: TaskTypeCodeHandler,
               public bottomSheetOperationsService: BottomSheetOperationsService,
               private backButtonService: BackButtonService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  onClick() {
+  btnOperationHandler(event: any, _btn: OperationButton) {
 
-    this.router.navigateByUrl(`${this.router.url}/detail-form`);
+    // actionType === 710 <===> LabelSubmit&Print
+    // actionType === 711 <===> LabelRPrint
 
-    const backBtn: BackButton = {
-      ObjectID: 0,
-      Caption: "",
-      TaskTypeCode: 0,
-      RouterPath: this.router.url,
-      Active: true
-    };
+    const btnObjectId: number = _btn.ObjectID;
+    const btnCaption: string = _btn.Caption;
+    const btnActionTypeCode: number = _btn.ActionTypeCode;
+    const btnTaskTypeCode: number = _btn.TaskTypeCode;
 
-    this.backButtonService.push(backBtn);
+    if ( btnActionTypeCode === 0 ) {
 
-    this.bottomSheetRef.dismiss();
+      if ( btnTaskTypeCode === 3 ) {
 
-  }
+        const backBtn: BackButton = {
+          ObjectID: btnObjectId,
+          Caption: btnCaption,
+          TaskTypeCode: btnTaskTypeCode,
+          RouterPath: this.router.url,
+          Active: true
+        };
+    
+        this.backButtonService.push(backBtn);
+    
+        this.bottomSheetRef.dismiss();
 
-  showDetails() {
+        this.taskTypeCodeHandler.navigator(btnTaskTypeCode);
 
-    this.router.navigateByUrl(`${this.router.url}/detail-viewer`);
+      }
 
-    const backBtn: BackButton = {
-      ObjectID: 0,
-      Caption: "",
-      TaskTypeCode: 0,
-      RouterPath: this.router.url,
-      Active: true
-    };
+    } else if ( btnActionTypeCode === 710 ) {
 
-    this.backButtonService.push(backBtn);
+      const result: { status: string; objectId: number } = { status: "final-submit", objectId: btnObjectId };
 
-    this.bottomSheetRef.dismiss();
+      this.bottomSheetRef.dismiss(result);
 
-  }
+    } else if ( btnActionTypeCode === 711 ) {
 
-  btnOperationHandler(event: any) {
+      this.router.navigateByUrl('swcomp/detail-form');
 
-    this.router.navigateByUrl(`${this.router.url}/detail-viewer`);
+      const backBtn: BackButton = {
+        ObjectID: btnObjectId,
+        Caption: btnCaption,
+        TaskTypeCode: 0,
+        RouterPath: this.router.url,
+        Active: true
+      };
+  
+      this.backButtonService.push(backBtn);
+  
+      this.bottomSheetRef.dismiss();
 
-    const backBtn: BackButton = {
-      ObjectID: 0,
-      Caption: "",
-      TaskTypeCode: 0,
-      RouterPath: this.router.url,
-      Active: true
-    };
-
-    this.backButtonService.push(backBtn);
-
-    this.bottomSheetRef.dismiss();
+    }
     
   }
 

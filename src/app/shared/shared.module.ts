@@ -77,6 +77,7 @@ import { DetailFormComponent } from './reusableComponents/detail-form/detail-for
     backBtnHandlers.DashboardTypeBackButtonStackHandler,
     backBtnHandlers.WarehouseReceiptTypeBackButtonStackHandler,
     backBtnHandlers.LabelingTypeBackButtonStackHandler,
+    backBtnHandlers.DetailFormTypeBackButtonStackHandler,
     backBtnHandlers.ButtonStackStoreHandler
   ]
 })

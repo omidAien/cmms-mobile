@@ -21,6 +21,10 @@ export class TaskTypeCodeInfo {
         "2": {
             componentName: "WarehouseReceiptTypeComponent",
             routerPath: "/swcomp/wrt"
+        },
+        "3": {
+            componentName: "DetailFormComponent",
+            routerPath: "/swcomp/detail-form"
         }
     }
 

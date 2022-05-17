@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { EntryHttpRequest, SystemInformation } from 'src/app/shared/appModels';
+import { DMLDataInput, EntryHttpRequest, SystemInformation } from 'src/app/shared/appModels';
 import { ResourceMainStore } from 'src/app/shared/ResourceManager/resourseMainStore';
 import { BottomSheetOperationsHandlerComponent } from 'src/app/shared/reusableComponents/bottom-sheet-operations-handler/bottom-sheet-operations-handler.component';
 import { BackButtonService } from 'src/app/shared/services/back-button.service';
+import { BottomSheetOperationsService } from 'src/app/shared/services/bottom-sheet-operations.service';
+import { DmlOperationService } from 'src/app/shared/services/dml-operation.service';
 import { PWAPanelService } from 'src/app/shared/services/pwapanel.service';
 import { HandleSessionstorage } from 'src/app/shared/SharedClasses/HandleSessionStorage';
 
@@ -17,76 +19,99 @@ export class WarehouseReceiptTypeComponent implements OnInit {
 
   pageInfo: Pick<SystemInformation, "Direction" | "Culture">;
   entryHttpRequest: EntryHttpRequest = {};
-  documentInfoViewerForm: FormGroup;
-  submitChangesButtonText: string;
+  formOutputRefrenceHandler: { formGroup: FormGroup; barcodeFormControl: FormControl };
+  operationButtonText: string;
 
   submitDetailsInfo: { buttonText: string; captionText: string };
 
   constructor(private handleSessionstorage: HandleSessionstorage,
               private resourceMainStore: ResourceMainStore,
-              private bottomSheet: MatBottomSheet, 
+              private bottomSheet: MatBottomSheet,
+              private bottomSheetOperationsService: BottomSheetOperationsService, 
               private pwaPanelService: PWAPanelService,
+              private dmlOperationService: DmlOperationService,
               private backButtonService: BackButtonService) { }
 
   ngOnInit(): void {
 
-    this.detectPageInfo();
+    this.initialSetup();
 
-    this.setCultureForResourceMainStore();
-
-    // this.setSubmitDetailsInfo();
-
-    this.setSubmitChangesButtonTextResource();
-
-    this.getPWAPanelData();
+    this.setOperationButtonTextResource();
 
   }
 
-  detectPageInfo() {
+  initialSetup() {
 
+    // 1. getting PageInfo from SessionStorage
     this.pageInfo = this.handleSessionstorage.get("pageInfo");
 
-  }
-
-  setCultureForResourceMainStore() {
-
+    // 2. setting culture for ResourceMainStore
     this.resourceMainStore.culture = this.pageInfo.Culture;
 
-  }
-
-  getPWAPanelData() {
-
+    // 3. getting PWAPanelData
     const objectID: number = this.backButtonService.peek().ObjectID;
-
     this.pwaPanelService.get(objectID);
 
   }
 
-  setSubmitDetailsInfo() {
+  setOperationButtonTextResource() {
 
-    this.submitDetailsInfo = {
-      buttonText: this.resourceMainStore.getSubmitDetailsButtonTextResource(),
-      captionText: this.resourceMainStore.getSubmitDetailsHeaderCaptionTextResource()
+    this.operationButtonText = this.resourceMainStore.getOperationButtonTextResource();
+
+  }
+
+  formOutputHandler(event: any) {
+
+    this.formOutputRefrenceHandler = event;
+
+  }
+
+  dmlFieldsGenerator(): { fieldID: number; fieldValue: string }[] {
+
+    const _fields: { fieldID: number; fieldValue: string }[] = [];
+
+    Object.entries(this.formOutputRefrenceHandler.formGroup.value)
+          .forEach((item) => _fields.push({ fieldID: +item[0], fieldValue: item[1].toString() }));
+
+    return _fields;
+
+  }
+
+  dmlEntryInputRequestGenerator(response: { status: string; objectId: number }): DMLDataInput {
+
+    const entryInputRequest: DMLDataInput = { 
+      objectID: response.objectId,
+      fields: this.dmlFieldsGenerator(),
+      rowID: 0,
+      workgroupID: 0
     };
 
-  }
-
-  setSubmitChangesButtonTextResource() {
-
-    this.submitChangesButtonText = this.resourceMainStore.getChangeApplyButtonTextResource();
-
-  }
-
-  documentInfoViewerFormHandler(event: FormGroup) {
-
-    this.documentInfoViewerForm = event;
+    return entryInputRequest;
 
   }
 
   operationsHandler(event: any) {
 
-    this.bottomSheet.open(BottomSheetOperationsHandlerComponent);
+    if ( this.bottomSheetOperationsService.hasValue() ) {
 
+      const bottomSheetSubscription = this.bottomSheet.open(BottomSheetOperationsHandlerComponent);
+
+      bottomSheetSubscription
+        .afterDismissed()
+        .subscribe((response: { status: string; objectId: number }) => { 
+          
+          if ( response ) {
+
+            const entryInputRequest: DMLDataInput = this.dmlEntryInputRequestGenerator(response);
+
+            this.dmlOperationService.excute(entryInputRequest);
+
+          }
+
+        });
+
+    }
+    
   }
 
 }
