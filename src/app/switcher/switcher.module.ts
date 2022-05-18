@@ -6,12 +6,14 @@ import { WarehouseReceiptTypeComponent } from './warehouse-receipt-type/warehous
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { LabelingTypeComponent } from './labeling-type/labeling-type.component';
+import { ProductManagementTypeComponent } from './product-management-type/product-management-type.component';
 
 
 @NgModule({
   declarations: [
     WarehouseReceiptTypeComponent,
     LabelingTypeComponent,
+    ProductManagementTypeComponent,
   ],
   imports: [
     CommonModule,
