@@ -180,9 +180,14 @@ export class HandleUnauthorizeError extends ShowMessage {
             window.location.reload();
             break;
 
-        case 404:
+         case 404:
             const NotFoundMessage: string = this.resourceMainStore.getAPIResponseErrorMessageTextResource();
             this.showMessage(NotFoundMessage);    
+            break;
+                
+        case 400:
+            const BadRequestMessage: string = this.resourceMainStore.getAPIResponseErrorMessageTextResource();
+            this.showMessage(BadRequestMessage);    
             break;
 
         case 0:
