@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import { EntryInputs, PWAItems, PWAItemsResponse, UserWorkgroup } from 'src/app/shared/appModels';
@@ -20,13 +19,11 @@ export class PWAItemsService {
   constructor(private handleSessionstorage: HandleSessionstorage,
               private generalErrorMessage: GeneralErrorMessage,
               private apiEndPointService: ApiEndPointService,
-              private cookieService: CookieService,
               private handleUnauthorizeError: HandleUnauthorizeError,
               private loadingService: LoadingService) { }
 
   getItems(objectID: number) {
 
-    const token:string = "bearer ".concat(JSON.parse(this.cookieService.get("token")));
     const userDefaultWorkGroup:UserWorkgroup = this.handleSessionstorage.get("userDefaultWorkGroup");
     const workgroupID:number = userDefaultWorkGroup.PK_WorkgroupID;
 
@@ -37,7 +34,7 @@ export class PWAItemsService {
       rowID: 0
     };
 
-    const getPWAItems$: Observable<PWAItemsResponse> = this.apiEndPointService.getPWAItems(token, entryInputs)
+    const getPWAItems$: Observable<PWAItemsResponse> = this.apiEndPointService.getPWAItems(entryInputs)
                                                                               .pipe(
                                                                                 shareReplay(),
                                                                                 catchError((error: HttpErrorResponse) => {

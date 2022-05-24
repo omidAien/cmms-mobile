@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import { EntryInputs, OperationButton, PWAPanelResponse, UserWorkgroup } from '../appModels';
@@ -23,14 +22,12 @@ export class PWAPanelService {
               private formFieldsService: FormFieldsService,
               private bottomSheetOperationsService: BottomSheetOperationsService,
               private apiEndPointService: ApiEndPointService,
-              private cookieService: CookieService,
               private generalErrorMessage: GeneralErrorMessage,
               private handleUnauthorizeError: HandleUnauthorizeError,
               private loadingService: LoadingService) { }
 
   private prepareRequestData() {
 
-    const token:string = "bearer ".concat(JSON.parse(this.cookieService.get("token")));
     const userDefaultWorkGroup:UserWorkgroup = this.handleSessionstorage.get("userDefaultWorkGroup");
     const workgroupID:number = userDefaultWorkGroup.PK_WorkgroupID;
 
@@ -41,7 +38,7 @@ export class PWAPanelService {
       rowID: 0
     };
 
-    this.getPWAPanel$ = this.apiEndPointService.getPWAPanel(token, entryInputs)
+    this.getPWAPanel$ = this.apiEndPointService.getPWAPanel(entryInputs)
                                                .pipe(
                                                  shareReplay(),
                                                  catchError((error: HttpErrorResponse) => {

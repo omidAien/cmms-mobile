@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DMLDataInput, ErrorModel } from '../appModels';
@@ -8,6 +7,7 @@ import { GeneralErrorMessage, HandleUnauthorizeError } from '../SharedClasses/er
 import { ApiEndPointService } from './api-end-point.service';
 import { FormFieldErrorService } from './form-field-error.service';
 import { LoadingService } from './loading.service';
+import { PWAPanelService } from './pwapanel.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,16 +19,14 @@ export class DmlOperationService {
   constructor(private apiEndPointService: ApiEndPointService,
               private handleUnauthorizeError: HandleUnauthorizeError,
               private loadingService: LoadingService,
+              private pwaPanelService: PWAPanelService,
               private formFieldErrorService: FormFieldErrorService,
-              private generalErrorMessage: GeneralErrorMessage,
-              private cookieService: CookieService) { }
+              private generalErrorMessage: GeneralErrorMessage) { }
 
 
   private generateRequestAPI(): Observable<ErrorModel> {
 
-    const token:string = "bearer ".concat(JSON.parse(this.cookieService.get("token")));
-    
-    return this.apiEndPointService.mapDML(token, this.entryInputs)
+    return this.apiEndPointService.mapDML(this.entryInputs)
                                   .pipe(
                                     catchError((error: HttpErrorResponse) => {
                                       this.handleUnauthorizeError.excuteTask(error);
@@ -38,13 +36,13 @@ export class DmlOperationService {
 
   }
   
-  excute(entryInputs: DMLDataInput) {
+  excute(entryInputs: DMLDataInput, updatePWAPanelObjectId: number = 0) {
 
     this.entryInputs = entryInputs;
-    const barcodeTracker$:Observable<ErrorModel> = this.generateRequestAPI();
+    const dmlRequest$:Observable<ErrorModel> = this.generateRequestAPI();
 
     this.loadingService
-        .showPreLoaderUntilCompleted(barcodeTracker$, true, 1000)
+        .showPreLoaderUntilCompleted(dmlRequest$, true, 1000)
         .subscribe((response:Required<ErrorModel>) => {
 
           if ( response.hasError ) {
@@ -53,7 +51,15 @@ export class DmlOperationService {
 
             this.formFieldErrorService.setLogData(response.LogData);
 
-          } 
+          } else {
+
+            if ( updatePWAPanelObjectId ) {
+
+              this.pwaPanelService.get(updatePWAPanelObjectId);
+  
+            }
+
+          }
 
         });
 

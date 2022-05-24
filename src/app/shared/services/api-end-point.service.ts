@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import * as IModels from '../appModels';
 import { HandleSessionstorage } from '../SharedClasses/HandleSessionStorage';
@@ -12,6 +13,7 @@ export class ApiEndPointService {
   private baseURL:Required<string>;
 
   constructor(private httpClient: HttpClient, 
+              private cookieService: CookieService,
               private handleSessionstorage: HandleSessionstorage) { 
 
     const baseURLSessionStorage:string = this.handleSessionstorage.get("baseURL");       
@@ -23,12 +25,17 @@ export class ApiEndPointService {
     return this.httpClient.get(filename, {responseType: 'text'});
   }
 
-  private setHeaders(token:Required<string>) {
+  private setHeaders() {
+
+    const token: string = "bearer ".concat(JSON.parse(this.cookieService.get("token")));
+
     const headres = new HttpHeaders({
       "Authorization" : token,
       "Content-Type" : "application/json; charset=utf-8",
     });
-    return headres
+
+    return headres;
+
   }
 
   loginProcedure(authenticateParameters:IModels.AuthenticateParameters): Observable<IModels.AuthenticateResponse> {
@@ -40,39 +47,39 @@ export class ApiEndPointService {
     return this.httpClient.post<IModels.AuthenticateResponse>(requestURL, body, { headers: headers });
   }
 
-  getPWAItems(token:string, entryInputs: IModels.EntryInputs): Observable<IModels.PWAItemsResponse> {
+  getPWAItems(entryInputs: IModels.EntryInputs): Observable<IModels.PWAItemsResponse> {
     
     const requestURL:Required<string> = this.baseURL.concat("mapGetPWAMenu");
     const body:Required<string> = JSON.stringify(entryInputs);
 
-    return this.httpClient.post<IModels.PWAItemsResponse>(requestURL, body, {headers:this.setHeaders(token)});
+    return this.httpClient.post<IModels.PWAItemsResponse>(requestURL, body, {headers:this.setHeaders()});
 
   }
 
-  getPWAPanel(token:string, entryInputs: IModels.EntryInputs): Observable<IModels.PWAPanelResponse> {
+  getPWAPanel(entryInputs: IModels.EntryInputs): Observable<IModels.PWAPanelResponse> {
     
     const requestURL:Required<string> = this.baseURL.concat("mapGetPWAPanel");
     const body:Required<string> = JSON.stringify(entryInputs);
 
-    return this.httpClient.post<IModels.PWAPanelResponse>(requestURL, body, {headers:this.setHeaders(token)});
+    return this.httpClient.post<IModels.PWAPanelResponse>(requestURL, body, {headers:this.setHeaders()});
 
   }
 
-  mapTracking(token:string, barcodeTracker: IModels.BarcodeTracker):Observable<IModels.BarcodeTrackerResponse> {
+  mapTracking(barcodeTracker: IModels.BarcodeTracker):Observable<IModels.BarcodeTrackerResponse> {
 
     const requestURL:Required<string> = this.baseURL.concat("mapTracking");
     const body:Required<string> = JSON.stringify(barcodeTracker);
 
-    return this.httpClient.post<IModels.BarcodeTrackerResponse>(requestURL, body, {headers:this.setHeaders(token)});
+    return this.httpClient.post<IModels.BarcodeTrackerResponse>(requestURL, body, {headers:this.setHeaders()});
 
   }
 
-  mapDML(token:string, DMLDataInput: IModels.DMLDataInput): Observable<IModels.ErrorModel> {
+  mapDML(DMLDataInput: IModels.DMLDataInput): Observable<IModels.ErrorModel> {
 
     const requestURL:Required<string> = this.baseURL.concat("mapDML");
     const body:Required<string> = JSON.stringify(DMLDataInput);
 
-    return this.httpClient.post<IModels.ErrorModel>(requestURL, body, {headers:this.setHeaders(token)});
+    return this.httpClient.post<IModels.ErrorModel>(requestURL, body, {headers:this.setHeaders()});
 
   }
 

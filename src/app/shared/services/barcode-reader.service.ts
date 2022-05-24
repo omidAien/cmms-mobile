@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BarcodeTracker, BarcodeTrackerResponse } from '../appModels';
@@ -18,13 +17,11 @@ export class BarcodeReaderService {
   constructor(private apiEndPointService: ApiEndPointService, 
               private handleUnauthorizeError: HandleUnauthorizeError,
               private loadingService: LoadingService,
-              private generalErrorMessage: GeneralErrorMessage,
-              private cookieService: CookieService) {}
+              private generalErrorMessage: GeneralErrorMessage) {}
 
   private generateRequestAPI(): Observable<BarcodeTrackerResponse> {
 
-    const token:string = "bearer ".concat(JSON.parse(this.cookieService.get("token")));
-    return this.apiEndPointService.mapTracking(token, this.entryInputs)
+    return this.apiEndPointService.mapTracking(this.entryInputs)
                                   .pipe(
                                     catchError((error: HttpErrorResponse) => {
                                       this.handleUnauthorizeError.excuteTask(error);
