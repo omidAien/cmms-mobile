@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import * as IModels from '../appModels';
@@ -14,6 +15,7 @@ export class ApiEndPointService {
 
   constructor(private httpClient: HttpClient, 
               private cookieService: CookieService,
+              private router: Router,
               private handleSessionstorage: HandleSessionstorage) { 
 
     const baseURLSessionStorage:string = this.handleSessionstorage.get("baseURL");       
@@ -27,14 +29,24 @@ export class ApiEndPointService {
 
   private setHeaders() {
 
-    const token: string = "bearer ".concat(JSON.parse(this.cookieService.get("token")));
+    try {
+      
+      const token: string = "bearer ".concat(JSON.parse(this.cookieService.get("token")));
 
-    const headres = new HttpHeaders({
-      "Authorization" : token,
-      "Content-Type" : "application/json; charset=utf-8",
-    });
+      const headres = new HttpHeaders({
+        "Authorization" : token,
+        "Content-Type" : "application/json; charset=utf-8",
+      });
+  
+      return headres;
 
-    return headres;
+    } catch (error) {
+
+      this.handleSessionstorage.reset();
+
+      return;
+      
+    }
 
   }
 
