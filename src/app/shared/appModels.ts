@@ -160,17 +160,16 @@ export interface TableField {
 }
 
 export interface OperationButton {
-    ActionTypeCode: number;
+    ActionType: number;
     Caption: string;
-    FK_ObjectID: number;
-    IconValue: string;
-    ObjectGroupCode: number;
+    Icon: string;
+    Object: OperationButton[];
     ObjectID: number;
-    ObjectTypeCode: number;
+    ObjectType: number;
     Remark: string;
-    TaskTypeCode: number;
-    ViewOrder: number;
-    isEnable: number;
+    TaskType: number;
+    hasLinkPage: boolean;
+    isEnable: boolean;
 }
 
 export interface PWAPanelResponse {
